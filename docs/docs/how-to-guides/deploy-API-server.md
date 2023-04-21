@@ -119,5 +119,5 @@ code = blindbox.ai.Audio.transcribe("Provide me with a Python function that prin
 _________________
 
 In this how-to guide, we have seen:
-- How to deploy your own BlindBox server instance for querying models within nitro enclaves.
-- Discovered how to use the BlindBox API library with your own server instance.
++ How to deploy your own BlindBox server instance for querying models within nitro enclaves.
++ Discovered how to use the BlindBox API library with your own server instance.
