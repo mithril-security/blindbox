@@ -29,7 +29,7 @@ ________________________________________________________
 
 - Try our [“Quick tour”](./docs/getting-started/quick-tour.ipynb) API demo
 - [Tackle](./docs/getting-started/confidential_computing.md) the technologies we use to ensure privacy
-- Check out how the BlindBox demo API works [under the hood!](./docs/getting-started/under-the-hood.ipynb)
+- Check out how the BlindBox demo API works [under the hood!](./docs/getting-started/under-the-hood.md)
 
 ## Getting help
 ________________________________________________________
