@@ -101,13 +101,13 @@ nav:
 - 🚀 Getting Started: 
   - Quick tour: 'docs/getting-started/quick-tour.ipynb'
   - How we protect your data: 'docs/getting-started/confidential_computing.md'
-  - Under the hood : 'docs/getting-started/under-the-hood.ipynb'
+  - Under the hood : 'docs/getting-started/under-the-hood.md'
 
 - 💡 Concepts:
   - Why BlindBox?: 'docs/concepts/why-blindbox.md'
   - Secure Enclaves: 'docs/concepts/Trusted_Execution_Environements.md'
 
-# - 🛠️ Client API reference: 'blindbox/client.html'
+- 🛠️ Client API reference: 'client/blindbox/client.html'
 
 - ⚙️ Advanced:
-  -  Deploying your own Nitro server: 'docs/how-to-guides/deploy-API-server.ipynb'
+  -  Deploying your own Nitro server: 'docs/how-to-guides/deploy-API-server.md'
