@@ -40,11 +40,4 @@ ________________________________________________________
 
 ## Who made BlindBox?
 
-BlindBox was developed by **Mithril Security**. **Mithril Security** is a startup focused on confidential machine learning based on **Confidential Computing** technology. We provide **open-source privacy solutions** for **querying** and **deploying AI solutions** while **guaranteeing data privacy**.
-
-So far, we have developed the following solutions:
-
-- **BlindAI**: Allowing AI engineers to query and deploy AI models in secure confidential environments.
-- **BastionLab**: Enabling data science collaborations without exposing datasets.
-- **BlindBox demo API**: Allowing developers to query Large Language Models (LLMs) in secure confidential environment.
-- **BlindBox** (***coming soon***): A full release, allowing developers to deploy their SaaS Solutions in secure confidential environments.
+BlindBox was developed by **Mithril Security**. **Mithril Security** is a startup focused on AI privacy solutions based on **Confidential Computing** technology. We provide several **open-source tools** for **querying** and **deploying AI solutions** while **guaranteeing data privacy**.
