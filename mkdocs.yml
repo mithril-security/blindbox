@@ -102,7 +102,7 @@ nav:
   - Quick tour: 'docs/getting-started/quick-tour.ipynb'
   - How we protect your data: 'docs/getting-started/confidential_computing.md'
   - Under the hood : 'docs/getting-started/under-the-hood.md'
-  - Past projects: BlindAI: 'docs/getting-started/blindai.md'
+  - Past projects: 'docs/getting-started/blindai.md'
 
 - 💡 Concepts:
   - Why BlindBox?: 'docs/concepts/why-blindbox.md'
