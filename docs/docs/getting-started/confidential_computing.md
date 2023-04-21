@@ -21,7 +21,7 @@ One strategy to reduce the enclave's attack surface pursued by many CC solutions
 
 Normally, when you run an application on a computer, you need to trust multiple elements: the application itself, the operating system, the hypervisor and the hardware. This doesn't mean we "trust" them in the everyday sense of the word- this means that our application could be affected by a bug or vulnerability in these elements! These trusted elements makes up what we call the **Trusted Computing Base** or **TCB** of our application.
 
-A key difference between our two currently supported TEE environments, SGX enclaves and Nitro enclaves, is that Intel SGX has a very minimal TCB while Nitro enclaves have not pursued this strategy to reduce their attack surface area. Check out our more detailed [Intel SGX vs Nitro Enclaves page](../concepts/Trusted_Execution_Environements.md) for more details.
+A key difference between our two currently supported TEE environments, SGX enclaves and Nitro enclaves, is that Intel SGX has a very minimal TCB while Nitro enclaves have not pursued this strategy to reduce their attack surface area. Check out our more detailed [Intel SGX vs Nitro Enclaves page](../concepts/Trusted_Execution_Environments.md) for more details.
 
 ## Attestation
 ___________________
@@ -51,7 +51,7 @@ With great security features come great responsibilities! TEEs also have limitat
 
 ### Nitro Enclaves
 
-+ **AWS, as the cloud provider, their hardware and the enclave’s OS** must be **trusted**. That is because Nitro enclaves are designed to separate and isolate the host from the enclave and vice versa, but they do not protect against the cloud operator (AWS) or infrastructure. (*See our [Nitro guide](https://blindbox.mithrilsecurity.io/en/latest/docs/concepts/Trusted_Execution_Environements/#nitro-enclaves) for more information.*)
++ **AWS, as the cloud provider, their hardware and the enclave’s OS** must be **trusted**. That is because Nitro enclaves are designed to separate and isolate the host from the enclave and vice versa, but they do not protect against the cloud operator (AWS) or infrastructure. (*See our [Nitro guide](https://blindbox.mithrilsecurity.io/en/latest/docs/concepts/Trusted_Execution_Environments/#nitro-enclaves) for more information.*)
 
 + While **Nitro enclaves** limit operations within enclaves by default (such as no durable storage, no network/interactive access), any of these features can be added back into an enclave application by the application provider, so we cannot assume a Nitro enclave will not have these features. In the case of BlindBox, we do not have durable storage or interactive access but we do add a Traffic Access Point (TAP) device which is used to facilitate network access for applications. And this, again, means we must trust the verified BlindBox application code!
 
