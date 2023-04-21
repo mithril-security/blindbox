@@ -110,6 +110,6 @@ nav:
 - ⚙️ Advanced:
   -  Deploying your own Nitro server: 'docs/how-to-guides/deploy-API-server.md'
 
-- 🛠️ Client API reference: 'client/blindbox/blindbox/client.html'
+- 🛠️ Client demo API reference: 'client/blindbox/blindbox/ai/client.html'
 
 - ⭐ BlindAI: 'docs/blindai.md'
