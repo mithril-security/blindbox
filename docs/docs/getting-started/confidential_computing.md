@@ -43,13 +43,13 @@ __________________________
 
 With great security features come great responsibilities! TEEs also have limitations which are very important to know:
 
-+ The **official BlindBox application code must be trusted**! The attestation process verifies that the enclave is running the official server application, but it does not run any checks on what the verified application code does. This is why BlindBox is open-source, so you can audit our code yourself. You can also refer to [the report from Quarkslab]() (*coming soon*), the independent company who audited our BlindBox Core solution.
++ The **official BlindBox application code must be trusted**! The attestation process verifies that the enclave is running the official server application, but it does not run any checks on what the verified application code does. This is why BlindBox is open-source, so you can audit our code yourself. You can also refer to [the report from Quarkslab]()(*coming soon*), the independent company who audited our BlindBox Core solution.
 
 > Note that this audit was performed on the latest version of BlindBox at the time and does not cover **the client-side SDK**, **BlindBox API** or **Nitro enclaves**.
 
 + **Zero-day attacks** are **always a risk**, even with enclaves. They happen when hackers exploit previously unknown flaws *before* developers have an opportunity to fix the issue. We mitigate that risk by keeping BlindBox up-to-date with the security updates of our dependencies.
 
-### Nitro Enclaves specific
+### Nitro Enclaves
 
 + **AWS, as the cloud provider, their hardware and the enclave’s OS** must be **trusted**. That is because Nitro enclaves are designed to separate and isolate the host from the enclave and vice versa, but they do not protect against the cloud operator (AWS) or infrastructure. (*See our [Nitro guide](https://blindbox.mithrilsecurity.io/en/latest/docs/concepts/Trusted_Execution_Environements/#nitro-enclaves) for more information.*)
 
