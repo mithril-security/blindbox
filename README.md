@@ -11,7 +11,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/mithril-security/blindbox">
-    <img src="https://github.com/mithril-security/blindbox/raw/main/docs/assets/logo.png" alt="Logo" width="80" height="80">
+    <img src="https://github.com/mithril-security/blindai/raw/main/docs/assets/logo.png" alt="Logo" width="80" height="80">
   </a>
 
 <h1 align="center">Blindbox</h1>
@@ -67,19 +67,15 @@
 
 We use **secure enclaves**, **hardware based** and highly **isolated** environments, to protect data during computation. We explain how they keep data and models safe in detail [here](./docs/docs/getting-started/confidential_computing.md).
 
-BlindBox is **COMING SOON.**
-
 Key features:
 
-+ [**COMING SOON**] A **CLI tool** for quick deployment of your **Docker images** within secure enclaves
++ [*coming soon*] A **CLI tool** for quick deployment of your **Docker images** within secure enclaves
 
-+ [**COMING SOON**] Custom security features for additional layers of protection tailored to your client's needs
++ [*coming soon*] Custom security features for additional layers of protection tailored to your client's needs
 
 + A **demo LLM API** using BlindBox which you can use to query Whisper and ChatGPT models within a secure enclave ✅
 
 > You can check out [the code on our GitHub](https://github.com/mithril-security/blindbox/).
-
-We’ll update the documentation as new features come in!
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
