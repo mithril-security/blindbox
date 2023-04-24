@@ -15,15 +15,15 @@ A **TEE**, otherwise known as a secure enclave, is a **highly isolated compute e
 ## Attestation
 ___________________
 
-When a user wants to establish communication with an enclave, checks will first be performed to **verify the authenticity** of these trusted elements.
+When a user wants to establish communication with an enclave, checks will first be performed to **verify the authenticity** of **the enclave identity and the application** running inside. 
 
-These checks will **verify the enclave identity and the application** running inside the enclave. 
+!!! warning "Important"
 
-!!! important
+	<font size="3">
+	The goal of this process is to check that the code running is indeed the code of the application we are expecting and that it has not been tampered with. The attestation doesn't **audit the application code itself**. You could compare it to using a checksum utility when you download a software.
+	</font>
 
-	The goal of this process is to check that the code running is indeed the code of the application we are expecting and has not been tampered with. It isn't to audit the application code itself. You can think of this a bit like a checksum when you download a software!
-
-With Nitro enclaves, the **trusted OS is also verified**.
+With Nitro enclaves, specifically, the attestation will also verify the **trusted OS**.
 
 If any of these **checks fail**, an error is produced and the **user will not be able to communicate with an enclave**. In terms of BlindBox, this means that a user would not be able to connect to a BlindBox server that has been tampered with or is not running the official latest version of that server. If these checks are **successful**, the user is able to **communicate** with the enclave **securely using TLS**. The enclave's private key never leaves the enclave, so it is never accessible to anyone, including the cloud or service provider.
 
