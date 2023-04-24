@@ -3,20 +3,24 @@ ________________________________________
 
 BlindBox protects user data using by deploying SaaS solutions within **Trusted Execution Environments (TEEs)**. We currently do this using **Nitro enclave** TEEs. In this guide, we will take a look at how this technology works and how it is implemented in BlindBox.
 
->If you want some more contextual information about TEEs, Trusted Computing Bases and attestation, check out our guide to confidential computing [here](../getting-started/confidential_computing.md).
+> If you want some more contextual information about TEEs, Trusted Computing Bases and attestation, check out our introductory guide to confidential computing [here](../getting-started/confidential_computing.md).
 
 ## Nitro Enclaves
 ________________________
 
-Nitro Enclaves were developed by AWS to create secure compute environments for users on AWS EC2 VM instances.
+Nitro Enclaves were developed by AWS to **create secure compute environments** for users on **AWS EC2 VM instances**.
 
 ### Trusted Execution Environment (TEE)
 
-The AWS TEE isolation is based on **virtualization**. Users can partition off a certain amount of the host EC2’s memory and CPU and assign it to their enclave which then runs along-side the host instance. **The isolation or separation between the two environments is the same as that of two different users’ EC2 instances**. The host cannot read or access the data in the enclave and vice versa. Any communication between the host and enclave is done through a **VSOCK**.
+The AWS TEE isolation is based on **virtualization**. Users can partition off a certain amount of the host EC2’s memory and CPU and assign it to their enclave which then runs along-side the host instance.
 
-!!! note
+**The isolation or separation between the two environments is the same as that of two different users’ EC2 instances**. The host cannot read or access the data in the enclave and vice versa. Any communication between the host and enclave is done through a **VSOCK**.
 
-	One benefit of pursuing this virtualization approach compared to a memory encryption approach is that **the host instance has absolutely no visibility over the enclave’s memory whatsoever**. This memory simply doesn’t exist from the host's perspective. Therefore the host cannot attempt to gain any information about the enclave through side-channel attacks, for example, through monitoring what memory is in use or any access patterns, etc.
+!!! note "Advantages of the virtualization approach"
+
+	<font size="3">
+	One benefit of pursuing this virtualization approach compared to a memory encryption approach is that **the host instance has absolutely no visibility over the enclave’s memory whatsoever**. This memory simply doesn’t exist from the host's perspective. This means the host cannot attempt to gain any information about the enclave through side-channel attacks, monitoring what memory is in use or any access patterns, etc.
+	</font>
 
 <img src="https://raw.githubusercontent.com/mithril-security/blindbox/docs/docs/assets/nitro_arch.png" width=50%>
 
@@ -24,11 +28,19 @@ By default, Nitro enclaves support **limited operations to reduce their attack s
 
 ### Trusted Computing Base (TCB)
 
-It is important to note that while some Confidential Computing solutions have pursued a very minimalistic TCB, this is not the case for Nitro enclaves, because it isn't the objective behind their offer. 
+??? note "What is the TCB?"
+
+	<font size="3">
+	Normally, when you run an application on a computer, you **need to trust multiple elements**: the application itself, the operating system, the hypervisor and the hardware. This doesn't mean we "*trust*" them in the everyday sense of the word - this means that our application could be affected by a bug or vulnerability in these elements. These trusted elements make up what we call the **Trusted Computing Base** or TCB of our application.
+	</font>
+
+It is important to note that while some Confidential Computing solutions have pursued a very minimalistic TCB this is not the case for Nitro enclaves, because it isn't the objective behind their offer. 
 
 !!! quote "<a href="https://aws.amazon.com/fr/blogs/security/confidential-computing-an-aws-perspective/" target="__blank"> According to AWS</a>:"
 
+	<font size="3">
 	*A Nitro enclave has the same level of protection from the cloud operator as a normal Nitro-based EC2 instance, **but adds the capability for customers to divide their own systems** into components with different levels of trust.*
+	</font>
 
 This is why Nitro enclaves include the same elements in their TCB as most standard applications today. However, they do support **cryptographic attestation**, which will verify the application code and the enclave's OS. 
 
