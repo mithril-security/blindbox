@@ -28,7 +28,7 @@ By default, Nitro enclaves support **limited operations to reduce their attack s
 
 ### Trusted Computing Base (TCB)
 
-??? abstract "What is the TCB?"
+??? question "What is the TCB?"
 
 	<font size="3">
 	Normally, when you run an application on a computer, you **need to trust multiple elements**: the application itself, the operating system, the hypervisor and the hardware. This doesn't mean we "*trust*" them in the everyday sense of the word - this means that our application could be affected by a bug or vulnerability in these elements. These trusted elements make up what we call the **Trusted Computing Base** or TCB of our application.
