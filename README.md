@@ -67,11 +67,11 @@
 
 We use **secure enclaves**, **hardware based** and highly **isolated** environments, to protect data during computation. We explain how they keep data and models safe in detail [here](./docs/docs/getting-started/confidential_computing.md).
 
-Key features:
+### Key features
 
-+ [*coming soon*] A **CLI tool** for quick deployment of your **Docker images** within secure enclaves
++ [***coming soon***] A **CLI tool** for quick deployment of your **Docker images** within secure enclaves
 
-+ [*coming soon*] Custom security features for additional layers of protection tailored to your client's needs
++ [***coming soon***] **Custom security features** for additional layers of protection tailored to your client's needs
 
 + A **demo LLM API** using BlindBox which you can use to query Whisper and ChatGPT models within a secure enclave ✅
 
@@ -82,7 +82,7 @@ Key features:
 <!-- GETTING STARTED -->
 ## 🚀 Getting Started
 
-We recommend for you to get started with our [Quick tour](https://blindbox.mithrilsecurity.io/en/latest/docs/getting-started/quick-tour/) to discover our BlindBox demo API: an open-source LLM API running with a Nitro enclave!
+We recommend for you to get started with our [**Quick tour**](https://blindbox.mithrilsecurity.io/en/latest/docs/getting-started/quick-tour/) to discover our **BlindBox demo API**, an **open-source LLM API** running with a **Nitro enclave**!
 
 <!-- GETTING HELP -->
 ## 🙋 Getting help
