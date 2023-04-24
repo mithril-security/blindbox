@@ -29,31 +29,34 @@ Let's take a look at how our Nitro server is configured:
 ## Attestation
 ________________________
 
-When we query the Whisper or OpenChatKit models using the `Audio.transcribe()` or `Completion.create()` methods respectively, these methods firstly connect to our Mithril API server using the `blindai.ai.connection.connect()` method.
+The attestation process is where we verifies the enclave application's code, settings and OS, before allowing any communication between the client and the enclave. For more details about attestation, check out the attestation section in our [how we protect your data guide](./confidential_computing.md).
 
-This method establishes a connection with our server instance and returns a `BlindBox Connection` object to us which allows us to keep track of this connection for following queries.
+With BlindBox, the attestation process takes place as soon as a client tries to connect to a service running in a enclave with BlindBox.
+
+In the [quick-tour](https://blindbox.mithrilsecurity.io/en/latest/docs/getting-started/quick-tour/), we saw how we can use our demo LLM API to query the Whisper and OpenChatKit models using the `Audio.transcribe()` or `Completion.create()` methods respectively.
+
+Under the hood, the first thing these methods do is connect to our Mithril API server, as we can see here:
 
 ```python
 #  connect to your server instance
 BLINDAI_NITRO_SERVER = "44.228.153.183"
 
+# connect to our Mithril BlindBox API server
 client = blindbox.ai.connection.connect(
     addr=BLINDAI_NITRO_SERVER,
 )
 ```
 
-It is during this `connect()` method that attestation is performed, which verifies the enclave application code, OS and settings, before allowing any communication between the client and the enclave. For more details about attestation, check out our Nitro attestation section in our [how we protect your data guide](./confidential_computing.md).
+This method returns a `BlindBox Connection` object to us which allows us to keep track of this connection for following queries.
 
 If we were to attempt to connect with an enclave running a modified version of the BlindBox API or a misconfigured enclave, we would see the following error:
 
 ![attestation-error.png](../../assets/attestation-error.png)
 
-## Querying the Whisper model
+## Querying our LLM models
 ____________________________
 
-When we **query** the Whisper model on our Mithril Nitro enclave server, we are **sending a request** to our **verified Nitro enclave** using a **secure TLS communication channel**.
-
-The **computation** performed to get the result is **performed within the Nitro enclave** and the audio file and results are **never accessible to anyone outside** of the enclave.
+Assuming the attestation process is successful and a connection is established, the `Audio.transcribe()` or `Completion.create()` methods then proceed to query the relevant LLM model by **sending a request** to our **verified Nitro enclave** using a **secure TLS communication channel**.
 
 ```python
 import requests
@@ -65,6 +68,10 @@ res = requests.post(
     },
 ).text # `.text` attribute used to specify we want results in string format
 ```
+
+The **computation** performed to get the result is **performed within the Nitro enclave** and the data sent to the enclave is **never accessible to anyone outside** of the enclave.
+
+The **results** of the query are recovered by the user and are not accessible to anyone else during this process.
 
 ## Conclusions
 _________________
