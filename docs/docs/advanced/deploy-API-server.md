@@ -1,4 +1,5 @@
 # Deploying your own BlindAI API Nitro server
+___________________________________________________
 
 In this guide, we'll show you how you can deploy your own instance of the BlindBox Nitro demo server featured in the Quick Tour and query the Whisper and OpenChatKit models you are serving.
 

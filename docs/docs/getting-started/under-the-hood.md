@@ -13,7 +13,7 @@ When you use our default BlindBox Whisper API, you connect to the **BlindBox Nit
 
 Nitro Enclaves are an **AWS technology** and can be deployed on **Amazon EC2 instances only** (ours is on an [Amazon EC2 R6i Instance](https://aws.amazon.com/ec2/instance-types/r6i/)).
 
-The advantage of this is that it allows **you to test** our APIs **for free** and **without spending any time on deployment**. But if you want to deploy your own BlindBox API server for Nitro enclaves, we made a guide explaining how to do it [here](../how-to-guides/deploy-API-server.md).
+The advantage of this is that it allows **you to test** our APIs **for free** and **without spending any time on deployment**. But if you want to deploy your own BlindBox API server for Nitro enclaves, we made a guide explaining how to do it [here](../advanced/deploy-API-server.md).
 
 ### Configuration
 
