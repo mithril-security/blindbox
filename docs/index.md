@@ -30,7 +30,7 @@ ________________________________________________________
 - Try our [“Quick tour”](./docs/getting-started/quick-tour.ipynb) API demo
 - [Tackle](./docs/getting-started/confidential_computing.md) the technologies we use to ensure privacy
 - Check out how the BlindBox demo API works [under the hood!](./docs/getting-started/under-the-hood.md), a preview of the future of BlindBox
-- [Dive into](./docs/getting-started/why-blindbox.md) why we are developping BlindBox and check out possible use cases
+- [Dive into](./docs/getting-started/why-blindbox.md) why we are developping BlindBox and its possible use cases
 
 ## 🙋 Getting help
 ________________________________________________________
