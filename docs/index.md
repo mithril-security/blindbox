@@ -57,7 +57,7 @@ ____________________________________________
 
 - [Advanced](./docs/advanced/build-from-sources/client/) guides are destined to developers wanting to dive deep into BlindBox and eventually collaborate with us to the open-source code. 
 
-- [Past Projects](./docs/past-projects/blindai) informs you of our past audited project [BlindAI](https://blindai.mithrilsecurity.io/en/latest/), of which BlindBox is the evolution. 
+- [Past Projects](./docs/past-projects/blindai) informs you of our past audited project BlindAI, of which BlindBox is the evolution. 
 
 ## 🔒 Who made BlindBox?
 

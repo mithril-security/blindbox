@@ -21,6 +21,7 @@
     --md-primary-fg-color: #142540; /*header color*/
 	--md-typeset-a-color:#5385d5; /*clicked link*/
 	--md-accent-fg-color: #5385d5; /*hover color*/
+	--md-code-fg-color: #142540;
 }
 
 /****** Tweaking the navigation sections style only on Desktop ******/
