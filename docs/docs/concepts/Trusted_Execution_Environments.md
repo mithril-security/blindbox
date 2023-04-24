@@ -16,7 +16,7 @@ The AWS TEE isolation is based on **virtualization**. Users can partition off a 
 
 **The isolation or separation between the two environments is the same as that of two different users’ EC2 instances**. The host cannot read or access the data in the enclave and vice versa. Any communication between the host and enclave is done through a **VSOCK**.
 
-!!! note "Advantages of the virtualization approach"
+!!! important "Advantages of the virtualization approach"
 
 	<font size="3">
 	One benefit of pursuing this virtualization approach compared to a memory encryption approach is that **the host instance has absolutely no visibility over the enclave’s memory whatsoever**. This memory simply doesn’t exist from the host's perspective. This means the host cannot attempt to gain any information about the enclave through side-channel attacks, monitoring what memory is in use or any access patterns, etc.
@@ -28,7 +28,7 @@ By default, Nitro enclaves support **limited operations to reduce their attack s
 
 ### Trusted Computing Base (TCB)
 
-??? note "What is the TCB?"
+??? abstract "What is the TCB?"
 
 	<font size="3">
 	Normally, when you run an application on a computer, you **need to trust multiple elements**: the application itself, the operating system, the hypervisor and the hardware. This doesn't mean we "*trust*" them in the everyday sense of the word - this means that our application could be affected by a bug or vulnerability in these elements. These trusted elements make up what we call the **Trusted Computing Base** or TCB of our application.
@@ -46,16 +46,16 @@ This is why Nitro enclaves include the same elements in their TCB as most standa
 
 <img src="https://raw.githubusercontent.com/mithril-security/blindbox/docs/docs/assets/Nitro_TCB.jpg"  width=50%>
 
-While pursuing a smaller TCB can be one way to reduce the attack surface (since our application would not be impacted by any bugs or vulnerabilities occurring in the untrusted elements, such as a bug in the AWS hypervisor), it is important to note that reducing your TCB size is not the only way to reduce the attack surface and often involves tradeoffs between different measures!
+While pursuing a smaller TCB can be one way to reduce the attack surface (since our application would not be impacted by any bugs or vulnerabilities occurring in the untrusted elements, such as a bug in the AWS hypervisor), it is important to note that reducing your TCB size is not the only way to reduce the attack surface and often involves tradeoffs between different measures.
 
 ### Attestation
 
 The **attestation process** allows users to **verify that the enclave, the code running in it and the OS of the enclave have not been tampered with**. This process is achieved through the **Nitro hypervisor**, which produces a signed attestation document for the enclave to prove its identity to the client.
 
-The attestation certification contains the following information about the enclave.
+The attestation certification contains the following information about the enclave:
 
 ![Nitro attest](../../assets/nitro_attest.png)
 
-A client wishing to connect with the enclave will verify that this information matches with the enclave application they are expecting to connect to. For example, by default, the BlindBox client expects this information to match with the latest official version of the BlindBox demo API server.
+A client wishing to connect with the enclave will verify that this information matches with the enclave application they are expecting to connect to. For example, the BlindBox client expects this information to match with the latest official version of the BlindBox demo API server by default.
 
-You can think of this as being like using a checksum to verify the authenticity of a software downloaded online.
+You can compare this process to using a checksum to verify the authenticity of a software downloaded online.
