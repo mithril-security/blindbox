@@ -7,10 +7,9 @@ This is why we have created BlindBox, so developers can **deploy their SaaS solu
 
 > To find out more about the Confidential technologies behind BlindBox, check out our [guide to Confidential Computing](./confidential_computing.md).
 
-## Use Cases
-_________________________________________
+___________________________________________
 
-### Large Language Models (LLMs)
+## Example: Large Language Models (LLMs)
 
 In the current gold rush towards **Large Language Models (LLMs)** applications, companies and institutions have been dying to use the best models, like ChatGPT or GitHub Copilot, **without restrictions**. But this has not been possible for actors with sensitive data like the codebase of a software under development, a classified government report, a client database full of personal data... Because **no LLMs providers offer robust privacy guarantees**. 
 

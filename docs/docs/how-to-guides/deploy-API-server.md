@@ -10,7 +10,7 @@ ________________________
 
 To deploy your own BlindBox Nitro server instance, you will need an **AWS account** and **credits**.
 
-!!! important
+!!! important "Important 💸"
 
     When deploying your own Amazon EC2 R6i instance, you will be charged according to your usage as detailed by AWS. You can get a detailed pricing quote [here](https://aws.amazon.com/ec2/pricing/).
 

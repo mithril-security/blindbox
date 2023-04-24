@@ -107,8 +107,8 @@ nav:
 - 💡 Concepts:
   - Secure Enclaves: 'docs/concepts/Trusted_Execution_Environments.md'
 
-- ⚙️ Advanced:
-  -  Deploying your own Nitro server: 'docs/advanced/deploy-API-server.md'
+- ⚙️ How to Guides:
+  -  Deploying your own Nitro server: 'docs/how-to-guides/deploy-API-server.md'
 
 # - 🛠️ Client demo API reference: 'client/blindbox/blindbox/ai/client.html'
 
