@@ -22,7 +22,6 @@
 
   <p align="center">
     <b>Blindbox</b> is an a <b>data privacy solution for Large Language Model SaaS deployment</b>, ensuring user data remains confidential at all times!
-
 	<br /><br />
     <a href="https://blindbox.mithrilsecurity.io/en/latest"><strong>Explore the docs »</strong></a>
     <br />
