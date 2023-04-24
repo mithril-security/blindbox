@@ -31,6 +31,7 @@ With Nitro enclaves, specifically, the attestation will also verify the **truste
 
 > To learn more details about Nitro enclaves and how we implemented them in BlindBox APIs, you can read our concept guide [here](../concepts/Trusted_Execution_Environments.md). 
 
+
 ## Limitations
 __________________________
 
@@ -39,6 +40,8 @@ With great security features come great responsibilities! TEEs also have limitat
 ### General
 
 + The **enclave application code *must* be trusted**! The attestation process verifies that the enclave is running the official enclave application, but it does not run any checks on what the verified application code does.
+
+This is why we are currently working on adding a customizable sandbox layer where data owners will be able to apply security policies to their BlindBox including who can query the service in their BlindBox and networking access allowed to the application running within the enclave. This puts the data owner in control and removes the need to blindly trust the SaaS provider and their application code.
 
 ### Nitro Enclaves
 

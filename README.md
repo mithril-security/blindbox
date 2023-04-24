@@ -71,7 +71,7 @@ We use **secure enclaves**, **hardware based** and highly **isolated** environme
 
 + [***coming soon***] A **CLI tool** for quick deployment of your **Docker images** within secure enclaves
 
-+ [***coming soon***] **Custom security features** for additional layers of protection tailored to your client's needs
++ [***coming soon***] A **customizable sandbox layer** allowing data owners to apply security policies to their BlindBox including who can query the service running in their BlindBox and networking access allowed within the BlindBox.
 
 + A **demo LLM API** using BlindBox which you can use to query Whisper and ChatGPT models within a secure enclave ✅
 
