@@ -1,7 +1,7 @@
 # Deploying your own BlindAI API Nitro server
 ___________________________________________________
 
-In this guide, we'll show you how you can deploy your own instance of the BlindBox Nitro demo server featured in the Quick Tour and query the Whisper and OpenChatKit models you are serving.
+In this guide, we'll show you how you can deploy your own instance of the BlindBox Nitro demo server featured in the [Quick Tour](../getting-started/quick-tour.ipynb) and query OpenChatKit and Whisper models you are serving.
 
 ## Pre-requisites
 ________________________
@@ -10,7 +10,7 @@ ________________________
 
 To deploy your own BlindBox Nitro server instance, you will need an **AWS account** and **credits**.
 
-!!! important "Important 💸"
+!!! warning "Important 💸"
 
     When deploying your own Amazon EC2 R6i instance, you will be charged according to your usage as detailed by AWS. You can get a detailed pricing quote [here](https://aws.amazon.com/ec2/pricing/).
 
@@ -67,13 +67,15 @@ terraform apply
 
 Terraform will produce some output in the terminal confirming the resources that will be allocated to us. You will notice in the details of these resources that `enclave_options`: `enabled` is set to `true`. You must select `yes` to confirm the allocation of these resources.
 
-Terraform then runs our start script to deploy our BlindBox API application on the server instance.Now when we check out our instance dashboard on our AWS account, we can see our BlindBox Nitro server instance is now running:
+Terraform then runs our start script to deploy our BlindBox API application on the server instance. Now when we check out our instance dashboard on our AWS account, we can see our BlindBox Nitro server instance is now running:
 
 ![Nitro-server-running.png](../../assets/Nitro-server-running.png)
 
-> You can now get shell access to the application's host machine on port 22. You CANNOT get shell access to the enclave for security reasons.
+!!! tip "Shell access"
 
-You can send requests directly to the enclave on port 443.
+	You can now get shell access to the application's host machine on `port 22`. You CANNOT get shell access to the enclave for security reasons.
+
+You can send requests directly to the enclave on `port 443`.
 
 ```python
 import requests
@@ -91,9 +93,7 @@ res = requests.post(
 
 Let's take a look at how you can query models using your own BlindBox API server instance, rather than using the default one deployed by Mithril Security.
 
-Firstly, you will need to connect to your server instance using the `blindbox.ai.connection` connect() method and providing it with your AWS instance's IP address.
-
-This returns to us a `BlindBoxConnection` object which we will need when querying our models!
+You will need to connect to your server instance using the `blindbox.ai.connection` `connect()` method and providing it with your AWS instance's IP address. It will returns to us a `BlindBoxConnection` object which we will need when querying our models.
 
 ```python
 #  connect to your server instance
@@ -121,5 +121,5 @@ _________________
 
 In this how-to guide, we have seen:
 
-+ How to deploy your own BlindBox server instance for querying models within nitro enclaves.
-+ Discovered how to use the BlindBox API library with your own server instance.
++ How **to deploy** your own **BlindBox server instance** for querying models within Nitro enclaves.
++ Discovered how to **use the BlindBox API library** with your own server instance.

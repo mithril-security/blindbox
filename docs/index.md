@@ -10,15 +10,15 @@ ________________________________________________________
 
 **BlindBox** is a **privacy solution** that will allow developers **to deploy** Software-as-a-Service (**SaaS**) **applications** with **guarantees** that their users' data will be **kept confidential at all times**. We use **secure enclaves**, **hardware based** and highly **isolated** environments, to protect data during computation. 
 
-*BlindBox is* ***COMING SOON.***
+*BlindBox is under development and* ***COMING SOON.***
 
 🗝️ **Key features**:
 
 + A **CLI tool** for quick deployment of your **Docker images** within secure enclaves
 
-+  A sandbox layer allowing data owners to apply custom security policies to their BlindBox including who can query the service running in their BlindBox and networking access allowed within the BlindBox.
++  A **sandbox layer** allowing SaaS owners to apply **custom security policies** to their BlindBox. This will include, for example, deciding who can query the service running in their BlindBox and the range of networking access allowed within the BlindBox.
 
-While we are working on these features, we have prepared a **demo LLM API** using BlindBox containing query Whisper and ChatGPT within a secure enclave. You can use this demo to explore how BlindBox can be used to protect your services.
+While we are working on these features, we have prepared a **demo LLM API** using BlindBox to query Whisper and ChatGPT within a secure enclave. You can use this demo to explore how BlindBox can be used to protect your services.
 
 > You can check out [the project code on our GitHub](https://github.com/mithril-security/blindbox/). 
 

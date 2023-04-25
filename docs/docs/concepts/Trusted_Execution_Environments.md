@@ -28,7 +28,7 @@ By default, Nitro enclaves support **limited operations to reduce their attack s
 
 ### Trusted Computing Base (TCB)
 
-??? question "What is the TCB?"
+!!! question "What is the TCB?"
 
 	<font size="3">
 	Normally, when you run an application on a computer, you **need to trust multiple elements**: the application itself, the operating system, the hypervisor and the hardware. This doesn't mean we "*trust*" them in the everyday sense of the word - this means that our application could be affected by a bug or vulnerability in these elements. These trusted elements make up what we call the **Trusted Computing Base** or TCB of our application.
@@ -59,3 +59,9 @@ The attestation certification contains the following information about the encla
 A client wishing to connect with the enclave will verify that this information matches with the enclave application they are expecting to connect to. For example, the BlindBox client expects this information to match with the latest official version of the BlindBox demo API server by default.
 
 You can compare this process to using a checksum to verify the authenticity of a software downloaded online.
+
+### Limitations
+
++ **AWS as the cloud provider, their hardware and the enclave’s OS** must be **trusted**. That is because Nitro enclaves are designed to separate and isolate the host from the enclave and vice versa, but they do not protect against the cloud operator (AWS) or infrastructure.
+
++ While Nitro enclaves limit operations within enclaves by default (such as no durable storage, no network/interactive access), **any of these features can be added back** into an enclave application **by the application provider**, so we cannot assume a Nitro enclave will never have any of these features.

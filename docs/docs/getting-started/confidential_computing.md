@@ -1,4 +1,4 @@
-# How does BlindBox protect your data?
+# Protecting data with Confidential Computing
 _________________________________
 
 BlindBox protects user data by leveraging the power of confidential computing, a fast-growing new technology in cybersecurity. Let’s take a look at what Confidential Computing is and how it protects your data.
@@ -11,6 +11,13 @@ ____________________________________
 A **TEE**, otherwise known as a secure enclave, is a **highly isolated compute environment** in which data and applications can reside and run. Data sent to the enclave is only decrypted inside the enclave. Even if hackers or malicious insiders gain access to the host machine an enclave is running on, they will not be able to access data inside the enclave.
 
 ![Trusted Execution Environment](../../assets/TEE.png)
+
+## TEEs providers
+______________________
+
+For this first version of BlindBox, we used the TEEs developed **by AWS**: **Nitro enclaves**. But there are other TEEs providers: **AMD SEV-SNP** (which is the technology we will use to develop BlindBox further), **Intel-SGX** (which we're very familiar with since this is the technology we used for our historical product, BlindAI) and **Nvidia confidential GPUs** (a new take on TEEs promised for 2023).
+
+> To learn more details about Nitro enclaves and how we implemented them in BlindBox APIs, you can read our concept guide [here](../concepts/Trusted_Execution_Environments.md). 
 
 ## Attestation
 ___________________
@@ -29,25 +36,18 @@ With Nitro enclaves, specifically, the attestation will also verify the **truste
 
 ✔️ If these checks are **successful**, the user is able to **communicate** with the enclave **securely using TLS**. The enclave's private key never leaves the enclave, so it is never accessible to anyone, including the cloud or service provider.
 
-> To learn more details about Nitro enclaves and how we implemented them in BlindBox APIs, you can read our concept guide [here](../concepts/Trusted_Execution_Environments.md). 
-
 
 ## Limitations
 __________________________
 
 With great security features come great responsibilities! TEEs also have limitations which are very important to know. 
 
-### General
-
 + The **enclave application code *must* be trusted**! The attestation process verifies that the enclave is running the official enclave application, but it does not run any checks on what the verified application code does.
 
-This is why we are currently working on adding a customizable sandbox layer where data owners will be able to apply security policies to their BlindBox including who can query the service in their BlindBox and networking access allowed to the application running within the enclave. This puts the data owner in control and removes the need to blindly trust the SaaS provider and their application code.
+	This is why we are currently working on adding a customizable sandbox layer where data owners will be able to apply security policies to their BlindBox. This will include who can query the service in their BlindBox and networking access allowed to the application running within the enclave. This puts the data owner in control and removes the need to blindly trust the SaaS provider and their application code.
 
-### Nitro Enclaves
++ There are also two important Nitro enclaves specific limitations that we cover in [the following concept guide](https://blindbox.mithrilsecurity.io/en/latest/docs/concepts/Trusted_Execution_Environments/#nitro-enclaves)!
 
-+ **AWS, as the cloud provider, their hardware and the enclave’s OS** must be **trusted**. That is because Nitro enclaves are designed to separate and isolate the host from the enclave and vice versa, but they do not protect against the cloud operator (AWS) or infrastructure. (*See our [Nitro guide](https://blindbox.mithrilsecurity.io/en/latest/docs/concepts/Trusted_Execution_Environments/#nitro-enclaves) for more information.*)
-
-+ While Nitro enclaves limit operations within enclaves by default (such as no durable storage, no network/interactive access), **any of these features can be added back** into an enclave application **by the application provider**, so we cannot assume a Nitro enclave will never have any of these features.
 
 ## Conclusions
 ___________________________________________

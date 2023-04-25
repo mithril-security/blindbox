@@ -13,7 +13,9 @@ When you use our default BlindBox Whisper API, you connect to the **BlindBox Nit
 
 Nitro Enclaves are an **AWS technology** and can be deployed on **Amazon EC2 instances only** (ours is on an [Amazon EC2 R6i Instance](https://aws.amazon.com/ec2/instance-types/r6i/)).
 
-The advantage of this is that it allows **you to test** our APIs **for free** and **without spending any time on deployment**. But if you want to deploy your own BlindBox API server for Nitro enclaves, we made a guide explaining how to do it [here](../how-to-guides/deploy-API-server.md).
+The advantage of this is that it allows **you to test** our APIs **for free** and **without spending any time on deployment**. 
+
+> But if you want to deploy your own BlindBox API server for Nitro enclaves, we made a guide explaining how to do it [here](../how-to-guides/deploy-API-server.md).
 
 ### Configuration
 
@@ -21,19 +23,21 @@ Let's take a look at how our Nitro server is configured:
 
 ![Nitro-server-arch.png](../../assets/Nitro-server-arch.png)
 
-+ Queries are sent to our AWS instance on port 443 as HTTP requests.
-+ They are then redirected to our enclave via the VSOCK channel.
-+ The enclave handles the requests.
-+ The results are returned via the VSOCK channel.
++ Queries are sent to our AWS instance on **port 443** as **HTTP requests**.
++ They are then redirected to our enclave via the **VSOCK** channel.
++ The **enclave** handles the requests.
++ The results are returned via the **VSOCK** channel.
 
 ## Attestation
 ________________________
 
-The attestation process is where we verifies the enclave application's code, settings and OS, before allowing any communication between the client and the enclave. For more details about attestation, check out the attestation section in our [how we protect your data guide](./confidential_computing.md).
+The attestation process is where we verifies the enclave application's code, settings and OS, before allowing any communication between the client and the enclave. 
+
+> For more details about attestation, check out the attestation section in our [how we protect your data guide](./confidential_computing.md).
 
 With BlindBox, the attestation process takes place as soon as a client tries to connect to a service running in a enclave with BlindBox.
 
-In the [quick-tour](https://blindbox.mithrilsecurity.io/en/latest/docs/getting-started/quick-tour/), we saw how we can use our demo LLM API to query the Whisper and OpenChatKit models using the `Audio.transcribe()` or `Completion.create()` methods respectively.
+In the [Quick tour](https://blindbox.mithrilsecurity.io/en/latest/docs/getting-started/quick-tour/), we saw how we can use our demo LLM API to query the OpenChatKit and the Whisper models using the `Completion.create()` or `Audio.transcribe()` methods respectively.
 
 Under the hood, the first thing these methods do is connect to our Mithril API server, as we can see here:
 
@@ -56,7 +60,7 @@ If we were to attempt to connect with an enclave running a modified version of t
 ## Querying our LLM models
 ____________________________
 
-Assuming the attestation process is successful and a connection is established, the `Audio.transcribe()` or `Completion.create()` methods then proceed to query the relevant LLM model by **sending a request** to our **verified Nitro enclave** using a **secure TLS communication channel**.
+Assuming the attestation process is successful and a connection is established, the `Audio.transcribe()` or `Completion.create()` methods proceed to query the relevant LLM model by **sending a request** to our **verified Nitro enclave** using a **secure TLS communication channel**.
 
 ```python
 import requests
