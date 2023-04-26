@@ -1,7 +1,7 @@
 import requests as rq
 import warnings
 
-class NitroDebugModeWarning(Warning):
+class BlindBoxDebugModeWarning(Warning):
     pass
 
 class SecuredSession(rq.Session):
@@ -34,7 +34,7 @@ class SecuredSession(rq.Session):
                     "This mode is provided solely for testing purposes. "
                     "It MUST NOT be used in production."
                 ),
-                NitroDebugModeWarning,
+                BlindBoxDebugModeWarning,
             )
 
         super(SecuredSession, self).__init__()
