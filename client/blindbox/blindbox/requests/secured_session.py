@@ -23,8 +23,10 @@ class SecuredSession(rq.Session):
         Returns:
         """
 
-        if addr == None or addr == '':
-            raise rq.exceptions.MissingSchema("Missing URL for the Secured Session instance")
+        if addr == None or addr == "":
+            raise rq.exceptions.MissingSchema(
+                "Missing URL for the Secured Session instance"
+            )
 
         self.addr = addr
 
@@ -43,7 +45,7 @@ class SecuredSession(rq.Session):
         # # Note : we might want to do the same for the attested connection ?
 
         # # TODO: Remove verify=False for production
-        #s.hooks = {"response": lambda r, *args, **kwargs: r.raise_for_status()}
+        # s.hooks = {"response": lambda r, *args, **kwargs: r.raise_for_status()}
         # self.attestation_doc = s.get(
         #     f"{self.addr }/enclave/attestation", verify=False
         # ).content
@@ -147,7 +149,9 @@ class SecuredSession(rq.Session):
         :rtype: requests.Response
         """
 
-        return self.request("POST", self.addr + endpoint, data=data, json=json, **kwargs)
+        return self.request(
+            "POST", self.addr + endpoint, data=data, json=json, **kwargs
+        )
 
     def put(self, endpoint: str = "", data=None, **kwargs):
         r"""Sends a PUT request. Returns :class:`Response` object.
