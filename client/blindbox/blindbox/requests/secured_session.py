@@ -2,10 +2,8 @@ import requests as rq
 
 import warnings
 
-
 class NitroDebugModeWarning(Warning):
     pass
-
 
 class SecuredSession(rq.Session):
     """A class to represent a connection to a BlindBox server."""
@@ -40,70 +38,7 @@ class SecuredSession(rq.Session):
                 NitroDebugModeWarning,
             )
 
-        # s = rq.Session()
-        # # Always raise an exception when HTTP returns an error code for the unattested connection
-        # # Note : we might want to do the same for the attested connection ?
-
-        # # TODO: Remove verify=False for production
-        # s.hooks = {"response": lambda r, *args, **kwargs: r.raise_for_status()}
-        # self.attestation_doc = s.get(
-        #     f"{self.addr }/enclave/attestation", verify=False
-        # ).content
-        # self.cert = s.get(f"{self.addr }/enclave/cert", verify=False).content
-
-        # # TODO: Set expected_pcr0 for production
-        # if debug_mode:
-        #     expected_pcr0 = 48 * b"\x00"
-        # try:
-        #     validate_attestation(
-        #         attestation_doc, expected_pcr0=expected_pcr0, enclave_cert=cert
-        #     )
-        # except NitroAttestationError:
-        #     raise
-        # except Exception:
-        #     raise NitroAttestationError("Attestation verification failed")
-
-        # # rq (http library) takes a path to a file containing the CA
-        # # there is no easy way to give the CA as a string/bytes directly
-        # # therefore a temporary file with the certificate content
-        # # has to be created.
-
-        # cert_file = tempfile.NamedTemporaryFile(mode="wb")
-        # cert_file.write(cert_der_to_pem(cert))
-        # cert_file.flush()
-
-        # # the file should not be close until the end of BlindAiConnection
-        # # so we store it in the object (else it might get garbage collected)
-        # self._cert_file = cert_file
-
         super(SecuredSession, self).__init__()
-        # attested_conn = self
-        # attested_conn.verify = cert_file.name
-
-        # # This adapter makes it possible to connect
-        # # to the server via a different hostname
-        # # that the one included in the certificate i.e. blindai-srv
-        # # For instance we can use it to connect to the server via the
-        # # domain / IP provided to connect(). See below
-        # from rq.adapters import HTTPAdapter
-
-        # class CustomHostNameCheckingAdapter(HTTPAdapter):
-        #     def cert_verify(self, conn, url, verify, cert):
-        #         conn.assert_hostname = "example.com"
-        #         return super(CustomHostNameCheckingAdapter, self).cert_verify(
-        #             conn, url, verify, cert
-        #         )
-
-        # attested_conn.mount(self._addr, CustomHostNameCheckingAdapter())
-        # attested_conn.hooks = {
-        #     "response": lambda r, *args, **kwargs: r.raise_for_status()
-        # }
-        # try:
-        #     attested_conn.get(f"{self._addr}/enclave").content
-        # except Exception as e:
-        #     raise NitroAttestationError(
-        #         "Cannot establish secure connection to the enclave"
-        #     )
 
     def get(self, endpoint: str = "", **kwargs):
         r"""Sends a GET request. Returns :class:`Response` object.
