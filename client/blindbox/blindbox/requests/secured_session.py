@@ -13,7 +13,7 @@ class SecuredSession(rq.Session):
         addr: str,
         debug_mode: bool,
     ):
-        """Connect to a BlindBox service hosted on a Nitro enclave.
+        """Connect to a BlindBox service.
         Please refer to the connect function for documentation.
         Args:
             addr (str):
@@ -124,7 +124,7 @@ class SecuredSession(rq.Session):
 
 
 def connect(addr: str, debug_mode: bool = False) -> SecuredSession:
-    """Connect to a BlindBox service hosted on a Nitro enclave.
+    """Connect to a BlindBox service.
     Args:
         addr (str): The address of the BlindBox service (such as "enclave.com:8443" or "localhost:8443").
         debug_mode (bool): Whether to run in debug mode. This mode is provided
