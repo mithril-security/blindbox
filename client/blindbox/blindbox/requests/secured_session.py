@@ -1,5 +1,4 @@
 import requests as rq
-
 import warnings
 
 class NitroDebugModeWarning(Warning):
