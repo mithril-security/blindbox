@@ -12,7 +12,7 @@ class SecuredSession(rq.Session):
 
     def __init__(
         self,
-        addr: str = None,
+        addr: str,
         debug_mode: bool,
     ):
         """Connect to a BlindBox service hosted on a Nitro enclave.
@@ -23,7 +23,7 @@ class SecuredSession(rq.Session):
         Returns:
         """
 
-        if addr == None:
+        if addr == None or addr == '':
             raise rq.exceptions.MissingSchema("Missing URL for the Secured Session instance")
 
         self.addr = addr
@@ -193,4 +193,4 @@ def connect(addr: str, debug_mode: bool = False) -> SecuredSession:
     Returns:
         SecuredSession: A connection to the BlindBox service.
     """
-    return SecuredSession(debug_mode)
+    return SecuredSession(addr, debug_mode)
