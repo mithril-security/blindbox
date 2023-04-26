@@ -7,7 +7,7 @@ async def get_enclave(request):
     return web.Response(text="[GET] /enclave : Server response")
 
 @routes.post('/enclave/predict')
-async def get_enclave(request):
+async def post_predict(request):
     data = await request.post()
     print("Receiving:", data['audio'])
     return web.Response(text="[GET] /enclave/predict : Server response")
