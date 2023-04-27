@@ -8,31 +8,26 @@ Quickly deploy your SaaS solutions while preserving data privacy!
 ## ⬛ What is BlindBox?
 ________________________________________________________
 
+**BlindBox** protects end users' data when using SaaS applications, even from software vendors themselves. We shield the user data sent to applications within **hardware based, highly-isolated** environments with additional customizable layers of protection. SaaS providers can use **BlindBox** to easily deploy their solution within our secure environment and offer their customers **stringent privacy guarantees**.
 
-**BlindBox** is a **secure enclave tooling** that enables  developers **to deploy** Software-as-a-Service (**SaaS**) **applications** with **guarantees** that their users' data will be **kept confidential at all times**. We use **secure enclaves**, **hardware based** and highly **isolated** environments, to protect data end-to-end.
+[Todo: Image]
 
-
-*BlindBox is under development and* ***COMING SOON.***
-
+In a typical SaaS set-up, malicious insiders or attackers who breach a software vendor could access the content of data being analyzed within SaaS applications. BlindBox protects user data against these risks, with data protected at all times, even during analysis.
 
 🗝️ **Key features**:
 
++ A **CLI tool** for quick deployment of your **app images** within BlindBox. We currently support Docker but future formats will be supported, such as Kubernetes.
 
-+ A **CLI tool** for quick deployment of your **appsimages** within secure enclaves. We currently support Docker but future formats will be supported, such as Kubernetes.
++ Applications are deployed within a Trusted Execution Environment (a TEE), a **hardware-based isolated** environment which supports additional security verifications.
 
++  An additional **isolation layer** to recreate virtual air-gapped network isolation that can be verified by data owners before sending data to the SaaS, allowing SaaS owners to provide **custom security policies** to their app. This will include, for example, selecting who can query the service running in the BlindBox and the range of networking access allowed within the BlindBox.
 
-+  An **isolation layer** to recreate virtual air-gapped network isolation that can be verified by data owners before sending data to the SaaS inside enclave allowing SaaS owners to provide **custom security policies** to their app. This will include, for example, deciding who can query the service running in their BlindBox and the range of networking access allowed within the BlindBox.
+BlindBox is a generic tool which can be used to deploy any SaaS solution. Our mission is to reinforce any SaaS app to provide the same level of security, isolation and control as on-premise deployment.
 
-
-BlindBox is a generic tool that can make any workload enclave compatible. Our mission is to reinforce any SaaS app to provide the same level of security, isolation and control as on-prem deployment.
-
-
-Our first focus is to make AI workloads, especially LLM-based apps. Our first examples feature the confidential deployment of state-of-the art models such as Whisper for speech-to-text, or OpenChatKit for conversational AI.
+With that being said, our primary focus is AI workloads, and more specifically LLM-based apps. We have created an example of how you can deploy an LLM model using BlindBox to protect user data in our quick tour!
 
 > You can check out [the project code on our GitHub](https://github.com/mithril-security/blindbox/).
 
-
-We’ll update the documentation as new features come in!
 
 ## 🚀 Getting started
 ________________________________________________________

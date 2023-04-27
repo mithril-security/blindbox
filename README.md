@@ -55,22 +55,25 @@
 <!-- ABOUT THE PROJECT -->
 ## 🔒 About The Project
 
-**BlindBox** is a **secure enclave tooling** that enables  developers **to deploy** Software-as-a-Service (**SaaS**) **applications** with **guarantees** that their users' data will be **kept confidential at all times**. We use **secure enclaves**, **hardware based** and highly **isolated** environments, to protect data end-to-end.
+**BlindBox** protects end users' data when using SaaS applications, even from software vendors themselves. We shield the user data sent to applications within **hardware based, highly-isolated** environments with additional customizable layers of protection. SaaS providers can use **BlindBox** to easily deploy their solution within our secure environment and offer their customers **stringent privacy guarantees**.
 
+[Todo: Image]
 
-*BlindBox is under development and* ***COMING SOON.***
+In a typical SaaS set-up, malicious insiders or attackers who breach a software vendor could access the content of data being analyzed within SaaS applications. BlindBox protects user data against these risks, with data protected at all times, even during analysis.
 
-Key features:
+🗝️ **Key features**:
 
-+ [**COMING SOON**] A **CLI tool** for quick deployment of your **Docker images** within secure enclaves
++ A **CLI tool** for quick deployment of your **app images** within BlindBox. We currently support Docker but future formats will be supported, such as Kubernetes.
 
-+ [**COMING SOON**] Custom security features for additional layers of protection tailored to your client's needs
++ Applications are deployed within a Trusted Execution Environment (a TEE), a **hardware-based isolated** environment which supports additional security verifications.
 
-+ A **demo LLM API** using BlindBox which you can use to query Whisper and ChatGPT models within a secure enclave ✅
++  An additional **isolation layer** to recreate virtual air-gapped network isolation that can be verified by data owners before sending data to the SaaS, allowing SaaS owners to provide **custom security policies** to their app. This will include, for example, selecting who can query the service running in the BlindBox and the range of networking access allowed within the BlindBox.
 
-> You can check out [the code on our GitHub](https://github.com/mithril-security/blindbox/).
+BlindBox is a generic tool which can be used to deploy any SaaS solution. Our mission is to reinforce any SaaS app to provide the same level of security, isolation and control as on-premise deployment.
 
-We’ll update the documentation as new features come in!
+With that being said, our primary focus is AI workloads, and more specifically LLM-based apps. We have created an example of how you can deploy an LLM model using BlindBox to protect user data in our quick tour!
+
+> You can check out [the project code on our GitHub](https://github.com/mithril-security/blindbox/).
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
