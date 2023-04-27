@@ -26,7 +26,7 @@
     <a href="https://blindbox.mithrilsecurity.io/en/latest"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://blindbox.mithrilsecurity.io/en/latest/docs/getting-started/quick-tour/">Try Demo</a>
+    <a href="https://blindbox.mithrilsecurity.io/en/latest/docs/getting-started/quick-tour/">Try the demo</a>
     ·
     <a href="https://github.com/mithril-security/blindbox/issues">Report Bug</a>
     ·
@@ -40,8 +40,12 @@
 <details>
   <summary>Table of Contents</summary>
   <ol>
-    <li><a href="#-about-the-project">About The Project</a></li>
-    <li><a href="#-getting-started">Getting Started</a></li>
+    <li>
+      <a href="#-about-the-project">About The Project</a>
+    </li>
+    <li>
+      <a href="#-getting-started">Getting Started</a>
+    </li>
     <li><a href="#-getting-help">Getting Help</a></li>
     <li><a href="#-license">License</a></li>
     <li><a href="#-contact">Contact</a></li>
@@ -51,26 +55,29 @@
 <!-- ABOUT THE PROJECT -->
 ## 🔒 About The Project
 
-**BlindBox** is a **privacy solution** that will allow developers **to deploy** Software-as-a-Service (**SaaS**) **applications** with **guarantees** that their users' data will be **kept confidential at all times**. 
+**BlindBox** is a **secure enclave tooling** that enables  developers **to deploy** Software-as-a-Service (**SaaS**) **applications** with **guarantees** that their users' data will be **kept confidential at all times**. We use **secure enclaves**, **hardware based** and highly **isolated** environments, to protect data end-to-end.
 
-We use **secure enclaves**, **hardware based** and highly **isolated** environments, to protect data during computation. We explain how they keep data and models safe in detail [here](./docs/docs/getting-started/confidential_computing.md).
 
-### Key features
+*BlindBox is under development and* ***COMING SOON.***
 
-+ [***coming soon***] A **CLI tool** for quick deployment of your **Docker images** within secure enclaves
+Key features:
 
-+ [***coming soon***] A **customizable sandbox layer** allowing data owners to apply security policies to their BlindBox including who can query the service running in their BlindBox and networking access allowed within the BlindBox.
++ [**COMING SOON**] A **CLI tool** for quick deployment of your **Docker images** within secure enclaves
+
++ [**COMING SOON**] Custom security features for additional layers of protection tailored to your client's needs
 
 + A **demo LLM API** using BlindBox which you can use to query Whisper and ChatGPT models within a secure enclave ✅
 
 > You can check out [the code on our GitHub](https://github.com/mithril-security/blindbox/).
+
+We’ll update the documentation as new features come in!
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- GETTING STARTED -->
 ## 🚀 Getting Started
 
-We recommend for you to get started with our [**Quick tour**](https://blindbox.mithrilsecurity.io/en/latest/docs/getting-started/quick-tour/) to discover our **BlindBox demo API**, an **open-source LLM API** running with a **Nitro enclave**!
+We recommend for you to get started with our [Quick tour](https://blindbox.mithrilsecurity.io/en/latest/docs/getting-started/quick-tour/)!
 
 <!-- GETTING HELP -->
 ## 🙋 Getting help

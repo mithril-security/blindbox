@@ -1,9 +1,9 @@
-# Secure Enclaves
+# Nitro Enclaves
 ________________________________________
 
-BlindBox protects user data using by deploying SaaS solutions within **Trusted Execution Environments (TEEs)**. We currently do this using **Nitro enclave** TEEs. In this guide, we will take a look at how this technology works and how it is implemented in BlindBox.
+BlindBox protects user data using by deploying SaaS solutions within **Trusted Execution Environments (TEEs)**. One of the TEEs we currently support is Nitro Enclaves. In this guide, we will take a look at how this technology works and how it is implemented in BlindBox.
 
-> If you want some more contextual information about TEEs, Trusted Computing Bases and attestation, check out our introductory guide to confidential computing [here](../getting-started/confidential_computing.md).
+> If you want some more contextual information about TEEs, check out our introductory guide to confidential computing [here](../getting-started/confidential_computing.md).
 
 ## Nitro Enclaves
 ________________________

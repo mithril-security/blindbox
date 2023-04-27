@@ -8,19 +8,29 @@ Quickly deploy your SaaS solutions while preserving data privacy!
 ## ⬛ What is BlindBox?
 ________________________________________________________
 
-**BlindBox** is a **privacy solution** that will allow developers **to deploy** Software-as-a-Service (**SaaS**) **applications** with **guarantees** that their users' data will be **kept confidential at all times**. We use **secure enclaves**, **hardware based** and highly **isolated** environments, to protect data during computation. 
+
+**BlindBox** is a **secure enclave tooling** that enables  developers **to deploy** Software-as-a-Service (**SaaS**) **applications** with **guarantees** that their users' data will be **kept confidential at all times**. We use **secure enclaves**, **hardware based** and highly **isolated** environments, to protect data end-to-end.
+
 
 *BlindBox is under development and* ***COMING SOON.***
 
+
 🗝️ **Key features**:
 
-+ A **CLI tool** for quick deployment of your **Docker images** within secure enclaves
 
-+  A **sandbox layer** allowing SaaS owners to apply **custom security policies** to their BlindBox. This will include, for example, deciding who can query the service running in their BlindBox and the range of networking access allowed within the BlindBox.
++ A **CLI tool** for quick deployment of your **appsimages** within secure enclaves. We currently support Docker but future formats will be supported, such as Kubernetes.
 
-While we are working on these features, we have prepared a **demo LLM API** using BlindBox to query Whisper and ChatGPT within a secure enclave. You can use this demo to explore how BlindBox can be used to protect your services.
 
-> You can check out [the project code on our GitHub](https://github.com/mithril-security/blindbox/). 
++  An **isolation layer** to recreate virtual air-gapped network isolation that can be verified by data owners before sending data to the SaaS inside enclave allowing SaaS owners to provide **custom security policies** to their app. This will include, for example, deciding who can query the service running in their BlindBox and the range of networking access allowed within the BlindBox.
+
+
+BlindBox is a generic tool that can make any workload enclave compatible. Our mission is to reinforce any SaaS app to provide the same level of security, isolation and control as on-prem deployment.
+
+
+Our first focus is to make AI workloads, especially LLM-based apps. Our first examples feature the confidential deployment of state-of-the art models such as Whisper for speech-to-text, or OpenChatKit for conversational AI.
+
+> You can check out [the project code on our GitHub](https://github.com/mithril-security/blindbox/).
+
 
 We’ll update the documentation as new features come in!
 
@@ -28,9 +38,9 @@ We’ll update the documentation as new features come in!
 ________________________________________________________
 
 - Try our [“Quick tour”](./docs/getting-started/quick-tour.ipynb) API demo
-- [Tackle](./docs/getting-started/confidential_computing.md) the technologies we use to ensure privacy
-- Check out how the BlindBox demo API works [under the hood!](./docs/getting-started/under-the-hood.md), a preview of the future of BlindBox
-- [Dive into](./docs/getting-started/why-blindbox.md) why we are developping BlindBox and its possible use cases
+- [Discover](./docs/getting-started/confidential_computing.md) the technologies we use to ensure privacy
+- Check out how the BlindBox demo API works [under the hood!](./docs/getting-started/under-the-hood.md)
+- [Dive into](./docs/getting-started/why-blindbox.md) why we are developing BlindBox and its possible use cases
 
 ## 🙋 Getting help
 ________________________________________________________
@@ -38,6 +48,7 @@ ________________________________________________________
 - Go to our [Discord](https://discord.com/invite/TxEHagpWd4) *#support* channel
 - Report bugs by [opening an issue on our BlindBox Github](https://github.com/mithril-security/blindbox/issues)
 - [Book a meeting](https://calendly.com/contact-mithril-security/15mins?month=2022-11) with us
+
 
 ## 📚 How is the documentation structured?
 ____________________________________________
