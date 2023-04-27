@@ -1,11 +1,11 @@
 import unittest
 import docker
-from builder import Builder, parser
+from builder import AWSNitroBuilder, parser
 
 
 class TestBuilder(unittest.TestCase):
     def setUp(self):
-        self.builder = Builder(directory="test_dir")
+        self.builder = AWSNitroBuilder(directory="test_dir")
 
     def test_build_docker_image(self):
         client = docker.from_env()
@@ -40,7 +40,7 @@ class TestBuilder(unittest.TestCase):
             ]
         )
 
-        self.builder = Builder.from_cmd(args)
+        self.builder = AWSNitroBuilder.from_cmd(args)
         self.assertEqual(self.builder.directory, "test_dir")
         self.test_build_docker_image()
         self.test_terraform_apply()

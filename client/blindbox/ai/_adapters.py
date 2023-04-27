@@ -1,5 +1,6 @@
 from requests.adapters import HTTPAdapter, Retry
 from urllib3 import poolmanager
+import typing as t
 
 
 class _HostNameCheckingAdapter(HTTPAdapter):
@@ -8,7 +9,7 @@ class _HostNameCheckingAdapter(HTTPAdapter):
         hostname: str,
         pool_connections: int = 10,
         pool_maxsize: int = 10,
-        max_retries: Retry | int | None = 0,
+        max_retries: t.Union[Retry, int, None] = 0,
         pool_block: bool = False,
     ) -> None:
         super().__init__(pool_connections, pool_maxsize, max_retries, pool_block)
