@@ -62,7 +62,7 @@ This is why we are currently working on adding a customizable sandbox layer wher
 ![VPS arch](../../assets/vps-archg.png)
 
 
-+ There are also two important Nitro enclaves specific limitations that we cover in [the following concept guide](https://blindbox.mithrilsecurity.io/en/latest/docs/concepts/Trusted_Execution_Environments/nitro-enclaves)!
++ There are also enclaves-specific limitations that we cover in [our individual Nitro and AMD SEV-SNP guides](https://blindbox.mithrilsecurity.io/en/latest/docs/concepts/Trusted_Execution_Environments/nitro-enclaves)!
 
 
 ## Conclusions
