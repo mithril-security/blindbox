@@ -10,7 +10,7 @@ ________________________
 
 AMD SEV-SNP is an example of a confidential VM. Confidential VMs take the key concepts of confidential computing, runtime encryption, isolation and remote attestation, and apply them to whole VMs.
 
-AMD SEV-SNP VMs are available with Azure DCasv5 and ECasv5 VMs or Google Cloud N2D and C2D VMs. For BlindBox, we use an Azure Ecasv5 VM.
+AMD SEV VMs are available with Azure or Google Cloud.
 
 ### Trusted Execution Environment (TEE)
 
@@ -43,3 +43,11 @@ With the release of AMD SEV-SNP, attestation is now supported for all workloads.
 During the attestation process, an attestation report is created allowing the client to verify that they are communicating with a genuine AMD SEV-SNP VM and providing the client with a public key which which they can establish secure communication with the VM.
 
 For BlindBox, the attestation process is implemented using [Azure's attestation tools](https://azure.microsoft.com/en-us/products/azure-attestation).
+
+### Limitations
+
++ **AMD-SEV SNP** has historically been vulnerable to side channel attacks, where attackers try to get information about a TEE indirectly, by examining things like memory consumption or power usage.
+
+## Further reading
+
+Google Project Zero & Google CLoud Security conducted a detailed security review of AMD SEV-SNP, released in May 2022 which you can view [here](https://storage.googleapis.com/gweb-uniblog-publish-prod/documents/AMD_GPZ-Technical_Report_FINAL_05_2022.pdf).

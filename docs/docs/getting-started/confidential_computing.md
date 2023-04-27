@@ -40,6 +40,15 @@ When a user wants to establish communication with an enclave, checks will first 
 
 ✔️ If these checks are **successful**, the user is able to **communicate** with the enclave **securely using TLS**. The enclave's private key never leaves the enclave, so it is never accessible to anyone, including the cloud or service provider.
 
+## Trusted Computing Base
+
+_________________________
+
+One strategy to reduce the enclave's attack surface pursued by many CC solutions is reducing the Trusted Computing Base (TCB).
+
+### So what is the TCB?
+
+Normally, when you run an application on a computer, you need to trust multiple elements: the application itself, the operating system, the hypervisor and the hardware. This doesn't mean we "trust" them in the everyday sense of the word- this means that our application could be affected by a bug or vulnerability in these elements! These trusted elements makes up what we call the Trusted Computing Base or TCB of our application.
 
 ## Limitations
 __________________________

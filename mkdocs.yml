@@ -103,7 +103,7 @@ nav:
 
 - 🚀 Getting Started: 
   - Quick tour: 'docs/getting-started/quick-tour.ipynb'
-  - How we protect your data: 'docs/getting-started/confidential_computing.md'
+  - Protecting data with Confidential Computing: 'docs/getting-started/confidential_computing.md'
   - Why BlindBox?: 'docs/getting-started/why-blindbox.md'
 
 - 💡 Concepts:
