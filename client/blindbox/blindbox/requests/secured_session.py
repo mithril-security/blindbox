@@ -10,7 +10,7 @@ class SecuredSession(rq.Session):
     def __init__(
         self,
         addr: str,
-        debug_mode: bool,
+        debug_mode: bool = False,
     ):
         """Connect to a BlindBox service.
         Please refer to the connect function for documentation.
