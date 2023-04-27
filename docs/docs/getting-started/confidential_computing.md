@@ -55,10 +55,11 @@ __________________________
 
 With great security features come great responsibilities! TEEs also have limitations which are very important to know.
 
-
 + The **enclave application code *must* be trusted**! The attestation process verifies that the enclave is running the official enclave application, but it does not run any checks on what the verified application code does.
 
 This is why we are currently working on adding a customizable sandbox layer where data owners will be able to apply security policies to their BlindBox. This will include who can query the service in their BlindBox and networking access allowed to the application running within the enclave. This puts the data owner in control and removes the need to blindly trust the SaaS provider and their application code.
+
+![VPS arch](../../assets/vps-archg.png)
 
 
 + There are also two important Nitro enclaves specific limitations that we cover in [the following concept guide](https://blindbox.mithrilsecurity.io/en/latest/docs/concepts/Trusted_Execution_Environments/nitro-enclaves)!
