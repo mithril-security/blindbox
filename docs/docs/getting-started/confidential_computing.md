@@ -22,7 +22,7 @@ ______________________
 For this first version of BlindBox, we have used the following TEEs: **Nitro enclaves** developed **by AWS**  and the **AMD SEV-SNP confidential VM**. But there are other TEEs providers such as **Intel-SGX** (which we're very familiar with since this is the technology used in our historical product, BlindAI) and **Nvidia confidential GPUs** (a new take on TEEs promised for 2023).
 
 > To learn more about Nitro enclaves, check out our guide [here](../concepts/nitro-enclaves.md).
-> To learn more about AMD SEV-SNP, check out our guide [here](../concepts/AMD-SEV.md).
+> To learn more about AMD SEV-SNP, check out our guide [here](../concepts/amd-sev.md).
 
 ## Attestation
 ___________________

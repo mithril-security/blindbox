@@ -56,7 +56,7 @@ ____________________________________________
 - [Tutorials](./docs/tutorials/core/installation.md) take you by the hand to install and run BlindBox. We recommend you start with the **[Quick tour](./docs/getting-started/quick-tour.ipynb)** and then move on to the other tutorials!  
 -->
 
-- [Concepts](./docs/concepts/Trusted_Execution_Environments.md) guides discuss key topics and concepts at a high level. They provide useful background information and explanations, especially on cybersecurity.
+- [Concepts](./docs/concepts/nitro-enclaves.md) guides discuss key topics and concepts at a high level. They provide useful background information and explanations, especially on cybersecurity.
 
 - [How-to guides](./docs/how-to-guides/deploy-API-server.md) are recipes. They guide you through the steps involved in addressing key problems and use cases. They are more advanced than tutorials and assume some knowledge of how BlindBox works.
 
