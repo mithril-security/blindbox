@@ -32,7 +32,7 @@ A key difference with AMD SEV-SNP TEEs compared with Nitro enclaves is that AMD 
 
 The hypervisor and host system are NOT trusted.
 
-![AMD SEV-SNP TCB](../../assets/AMD-SEV-TCB.png)
+<img src="https://raw.githubusercontent.com/mithril-security/blindbox/docs/docs/assets/AMD-SEV-TCB.png" width=50%>
 
 > Note that [memory DIMMs](https://en.wikipedia.org/wiki/DIMM), otherwise known as RAM sticks, are also implicitly trusted.
 
