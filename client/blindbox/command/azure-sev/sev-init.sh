@@ -37,13 +37,6 @@ git clone https://github.com/ShannonSD/squid-proxy.git
 # cd squid-proxy/squid-proxy
 # docker build -t squid-proxy .
 
-# Download app
-git clone https://github.com/mithril-security/whisper-fastapi.git
-cd $HOME/whisper-fastapi
-git checkout disable-openchatkit
-# docker build --target sev-aci -t guest .
-cd $HOME
-
 # Install and start model store
 # python3.9 -m pip install -r model_store_requirements.txt
 # python3.9 model_store.py download "openai/whisper-tiny.en"

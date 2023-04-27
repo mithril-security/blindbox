@@ -11,14 +11,15 @@ echo \
     > ~/.ssh/authorized_keys
 service ssh restart
 
+sleep infinity
+
 # Create network adapter
 docker network create --driver bridge proxynet
 
 cd $HOME/squid-proxy/squid-proxy
 docker build -t squid-proxy .
 
-cd $HOME/whisper-fastapi
-docker build --target sev-aci -t guest .
+docker import $HOME/container.tar guest
 
 # Model store
 # python3.9 model_store.py serve --address 0.0.0.0 &

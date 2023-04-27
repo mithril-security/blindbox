@@ -6,45 +6,70 @@ import abc
 import typing as t
 import pkgutil
 import yaml
-from blindbox.util import assert_dependency_available
+import sys
+from pydantic import BaseModel
+from datetime import datetime
 
+class ArtifactHistoryEntry(BaseModel):
+    docker_tag: str
+    docker_hash: str
+    cce_policy: str
+    created_timestamp: datetime
+    source_image: str
 
-if t.TYPE_CHECKING:
-    import docker
+class BlindBoxYml(BaseModel):
+    platform: t.Literal['azure-sev', 'aws-nitro']
+    build_artifacts: t.List[ArtifactHistoryEntry] = []
 
 class BlindBoxBuilder(abc.ABC):
-    docker_client: "docker.DockerClient" = None
-    def connect_docker_client(self, docker_addr: str) -> "docker.DockerClient":
-        assert_dependency_available(["docker"])
-        import docker
+    def run_subprocess(self, command: t.List[str], *, text: bool = False, return_stdout: bool = False, cwd: t.Optional[str] = None, quiet: bool = False, assert_returncode: bool = True):
+        human_readable = ' '.join(command)
+        if not quiet:
+            print(f"> Running `{human_readable}`...")
 
-        self.docker_client = docker.DockerClient(base_url=docker_addr)
-        return self.docker_client
+        capture_output=return_stdout
+        res = subprocess.run(
+            command,
+            cwd=cwd,
+            stdin=sys.stdin,
+            capture_output=capture_output,
+            text=text,
+        )
 
-    def build_docker_image(self, build_dir: str, tag: str) -> "docker.models.images.Image":
-        results = self.docker_client.images.build(path=build_dir, tag=tag)
-        image = results[0]
-        for step in results[1]:
-            if "stream" in step:
-                print(step["stream"].strip())
+        if assert_returncode and res.returncode != 0:
+            if capture_output:
+                print('stdout:')
+                print(res.stdout)
+                print('stderr:')
+                print(res.stderr)
+            raise ValueError(f"Command `{human_readable}` terminated with non-zero return code: {res.returncode}")
 
-        return image
+        if return_stdout:
+            return res.stdout
+
     
     def make_blindbox_build_dir(self, project_folder: t.Optional[str] = None, build_dir: t.Optional[str] = None):
-        if project_folder is None: project_folder = os.getcwd()
+        if project_folder is None: project_folder = "."
         if build_dir is None:
             build_dir = path.join(project_folder, '.blindbox')
         
-        if not os.path.exists(build_dir):
+        if not path.exists(build_dir):
             os.makedirs(build_dir)
 
         return build_dir
     
     @staticmethod
-    def get_project_settings(project_folder: t.Optional[str] = None):
-        if project_folder is None: project_folder = os.getcwd()
+    def get_project_settings(project_folder: t.Optional[str] = None) -> BlindBoxYml:
+        if project_folder is None: project_folder = "."
         with open(path.join(project_folder, "blindbox.yml"), 'rb') as file:
-            return yaml.safe_load(file)
+            dict = yaml.safe_load(file)
+        return BlindBoxYml(**dict)
+    
+    @staticmethod
+    def save_project_settings(settings: BlindBoxYml, project_folder: t.Optional[str] = None):
+        if project_folder is None: project_folder = "."
+        with open(path.join(project_folder, "blindbox.yml"), 'wb') as file:
+            yaml.safe_dump(settings.dict(), file, encoding='utf-8', )
 
     _tf_available = None
     def assert_tf_available(self):
@@ -56,36 +81,73 @@ class BlindBoxBuilder(abc.ABC):
                 text=True,
             )
 
-            self._tf_available = res.returncode != 0
+            self._tf_available = res.returncode == 0
             
         if not self._tf_available:
-            raise Exception("Terraform CLI was not found in PATH.")
-    
-    def tf_apply(self, dir: str):
-        self.assert_tf_available()
+            raise Exception("Terraform CLI was not found in PATH. Follow the instructions at https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli.")
+        
 
-        try:
-            # Check if the terraform directory exists
-            if not os.path.exists(dir):
-                raise Exception("Terraform directory does not exist")
-
-            # Run the terraform apply command
+    _docker_available = None
+    def assert_docker_available(self):
+        if self._docker_available is None:
+            # Check if the terraform binary is installed
             res = subprocess.run(
-                ["terraform", "apply", "-auto-approve"],
-                cwd=dir,
+                ["docker", "--version"],
                 capture_output=True,
                 text=True,
             )
 
-            print(res.stdout)
-            print(res.stderr)
+            self._docker_available = res.returncode == 0
+            
+        if not self._docker_available:
+            raise Exception("Docker CLI was not found in PATH. Follow the instructions at https://docs.docker.com/engine/install.")
 
-        except Exception as e:
-            print(e)
+    def export_docker_image(self, tag: str, target_file: str):
+        self.assert_docker_available()
+        self.run_subprocess(["docker", "save", tag, "-o", target_file])
 
-    def copy_template(self, folder: str, file: str, package_path: str, executable: bool = False):
+    def build_docker_image(self, build_dir: str, tag: str, *, buildargs: dict = {}):
+        self.assert_docker_available()
+        args = ["docker", "build", "-t", tag]
+        for k,v in buildargs.items():
+            args += ["--build-arg", f"{k}={v}"]
+        args.append(build_dir)
+
+        self.run_subprocess(args)
+
+    def docker_get_image_hash(self, image: str):
+        self.assert_docker_available()
+
+        hash = self.run_subprocess(
+            ["docker", "images", "--no-trunc", "--quiet", image],
+            quiet=True,
+            return_stdout=True,
+            text=True,
+        )
+        hash = hash.strip()
+        return hash
+
+    def tf_init_if_necessary(self, dir: str):
+        self.assert_tf_available()
+
+        if not path.exists(path.join(dir, ".terraform")):
+            self.run_subprocess(["terraform", "init"], cwd=dir)
+
+    
+    def tf_apply(self, dir: str, vars: dict = {}):
+        self.assert_tf_available()
+
+        args = ["terraform", "apply"]
+        for k,v in vars.items():
+            args += ["--var", f"{k}={v}"]
+
+        self.run_subprocess(args, cwd=dir)
+
+    def copy_template(self, folder: str, file: str, package_path: str, executable: bool = False, replace: bool = False):
         data = pkgutil.get_data(__name__, package_path)
         file = path.join(folder, file)
+        if not replace and path.exists(file):
+            return
         with open(file, 'wb') as f:
             f.write(data)
         if executable:
@@ -95,13 +157,9 @@ class BlindBoxBuilder(abc.ABC):
     def build(self, **_kw): raise NotImplementedError()
     def deploy(self, **_kw): raise NotImplementedError()
 
-    def close(self):
-        if self.docker_client is not None:
-            self.docker_client.close()
-
 class AzureSEVBuilder(BlindBoxBuilder):
     def __init__(self,
-            settings: t.Any = None,
+            settings: BlindBoxYml = None,
             *,
             cwd: t.Optional[str] = None,
             **_kw
@@ -110,7 +168,7 @@ class AzureSEVBuilder(BlindBoxBuilder):
         self.cwd = cwd
 
     def init_new_project(self, folder: t.Optional[str], **_kw):
-        if folder is None: folder = os.getcwd()
+        if folder is None: folder = "."
         if folder is None: folder = self.cwd
 
         if not os.path.exists(folder):
@@ -120,23 +178,64 @@ class AzureSEVBuilder(BlindBoxBuilder):
         self.copy_template(folder, "blindbox.yml", "azure-sev/template.yml")
         self.copy_template(folder, "blindbox.tf", "azure-sev/template.tf")
     
-    def build(self, *, tag: str, build_dir: t.Optional[str], source_image: str, docker_addr: t.Optional[str], **_kw):
+    def build(self, *, tag: str, build_dir: t.Optional[str], source_image: str, save: bool, **_kw):
         build_dir = self.make_blindbox_build_dir(self.cwd, build_dir)
 
         self.copy_template(build_dir, "Dockerfile", "azure-sev/Dockerfile")
         self.copy_template(build_dir, "sev-init.sh", "azure-sev/sev-init.sh", executable=True)
         self.copy_template(build_dir, "sev-start.sh", "azure-sev/sev-start.sh", executable=True)
 
-        self.connect_docker_client(docker_addr)
-        self.build_docker_image(build_dir, tag)
-        self.close()
+        self.export_docker_image(source_image, path.join(build_dir, source_image + '.tar'))
+        self.build_docker_image(build_dir, tag, buildargs={"EMBED_IMAGE_TAR": source_image + '.tar'})
 
-    def deploy(self, **_kw):
-        pass
+        image_hash = self.docker_get_image_hash(tag)
+        print(f"Successfully built image with hash: {image_hash}")
+
+        cce_policy = self.run_subprocess(
+            ["az", "confcom", "acipolicygen", "--print-policy", "--image", image_hash],
+            return_stdout=True, text=True
+        )
+
+        cce_policy = cce_policy.strip()
+
+        entry = ArtifactHistoryEntry(
+            cce_policy=cce_policy,
+            created_timestamp=datetime.now(),
+            docker_hash=image_hash,
+            docker_tag=tag,
+            source_image=source_image,
+        )
+
+        if save:
+            already_saved = any((a.docker_hash == image_hash for a in self.settings.build_artifacts))
+            if already_saved:
+                print("Image hash already found in blindbox.yml file.")
+            else:
+                self.settings.build_artifacts.append(entry)
+                BlindBoxBuilder.save_project_settings(self.settings, self.cwd)
+                print(f"Saved artifact to project's blindbox.yml file.")
+        else:
+            print(f"Generated cce policy: {cce_policy}")
+            print(f"Use the `--save` argument to save it to the project's blindbox.yml file.")
+
+
+    def deploy(self, image: t.Optional[str], cce_policy: t.Optional[str], **_kw):
+        folder = self.cwd
+        if folder is None: folder = "."
+        self.assert_tf_available()
+
+        if cce_policy is None:
+            entry = next((a for a in self.settings.build_artifacts if a.docker_hash == image or a.docker_tag == image), None)
+            if entry is None:
+                raise ValueError(f"Could not find the cce_policy value for image {image}. Please build it with `blindbox build` or provide it directly using the `--cce-policy` argument.")
+            cce_policy = entry.cce_policy
+
+        self.tf_init_if_necessary(folder)
+        self.tf_apply(folder, {"image": image, "cce_policy": cce_policy})
 
 class AWSNitroBuilder(BlindBoxBuilder):
     def __init__(self,
-            settings: t.Any = None,
+            settings: BlindBoxYml = None,
             *,
             cwd: t.Optional[str] = None,
             **_kw
@@ -145,7 +244,7 @@ class AWSNitroBuilder(BlindBoxBuilder):
         self.cwd = cwd
 
     def init_new_project(self, folder: t.Optional[str], **_kw):
-        if folder is None: folder = os.getcwd()
+        if folder is None: folder = "."
         if folder is None: folder = self.cwd
 
         if not os.path.exists(folder):
@@ -158,7 +257,6 @@ class AWSNitroBuilder(BlindBoxBuilder):
         self.get_project_settings(self.cwd)
 
         self.build_docker_image(self.build_directory, self.docker_image)
-        self.close()
 
 
 def main():
@@ -187,30 +285,38 @@ def main():
     build_command.add_argument(
         "--build-dir",
         type=str,
-        help="The directory to build the docker image from. By default, it will use the project .blindbox folder",
+        help="the directory to build the docker image from. By default, it will use the project .blindbox folder",
     )
     build_command.add_argument(
         "--source-image",
         type=str,
-        help="The source docker image",
+        help="the source docker image",
         required=True,
     )
     build_command.add_argument(
-        "--docker-addr",
-        type=str,
-        help="The address of the docker daemon",
-        # default="tcp://0.0.0.0:2375",
-        default="unix:///var/run/docker.sock",
+        "--save",
+        help="save the generated blindbox to the project's blindbox.yml file",
+        action='store_true'
     )
     build_command.add_argument(
         "--tag",
         "-t",
         type=str,
-        help="The tag to give the docker image",
-        required=True
+        help="the tag to give the newly built docker image",
+        required=True,
     )
 
-    subparsers.add_parser('deploy', help="alias to `terraform apply`")
+    deploy_command = subparsers.add_parser('deploy', help="alias to `terraform apply`")
+    deploy_command.add_argument(
+        "image",
+        type=str,
+        help="the image to deploy. Build it first using `blindbox build`."
+    )
+    deploy_command.add_argument(
+        "--cce-policy",
+        type=str,
+        help="the cce_policy of the image to deploy. Build it first using `blindbox build`."
+    )
 
     args = parser.parse_args()
 
@@ -218,12 +324,12 @@ def main():
         parser.print_help()
         return
 
-    settings = None
+    settings: t.Optional[BlindBoxYml] = None
     if args.command == 'init':
         platform = args.platform
     else:
         settings = BlindBoxBuilder.get_project_settings(args.cwd)
-        platform = settings["platform"]
+        platform = settings.platform
 
     if platform not in ["azure-sev", "aws-nitro"]:
         raise ValueError(f"Platform {platform} does not exist.")
