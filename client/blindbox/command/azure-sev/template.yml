@@ -1,2 +1,3 @@
 platform: azure-sev
-# todo network rules
+ip-rules:
+  - x.x.x.x

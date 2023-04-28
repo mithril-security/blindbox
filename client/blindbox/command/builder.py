@@ -7,6 +7,7 @@ import typing as t
 import pkgutil
 import yaml
 import sys
+import re
 from pydantic import BaseModel
 from datetime import datetime
 
@@ -178,12 +179,38 @@ class AzureSEVBuilder(BlindBoxBuilder):
         self.copy_template(folder, "blindbox.yml", "azure-sev/template.yml")
         self.copy_template(folder, "blindbox.tf", "azure-sev/template.tf")
     
+    def populate_whitelist(self,build_dir):
+        ips=["168.63.129.16"] #DNS address
+        pattern = re.compile("^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$")
+        with open("blindbox.yml","r") as file:
+            ip_list = yaml.safe_load(file)['ip-rules']
+            for ip in ip_list:
+                if pattern.match(ip):
+                    ips.append(ip)
+                else:
+                    print("IP syntax error. Exiting.")
+                    exit()   
+
+        with open(path.join(build_dir,"sev-start.sh"),"r+") as rewrite:
+            lines = rewrite.readlines()
+            rewrite.seek(0)
+            for line in lines:
+                if line.startswith("# iptables rules inserted from CLI"):
+                    for x in ips:
+                        line += "iptables -I DOCKER-USER -d " + x + " -i docker0 -j ACCEPT"+ "\n"
+                rewrite.write(line)
+        return ips
+
     def build(self, *, tag: str, build_dir: t.Optional[str], source_image: str, save: bool, **_kw):
         build_dir = self.make_blindbox_build_dir(self.cwd, build_dir)
 
         self.copy_template(build_dir, "Dockerfile", "azure-sev/Dockerfile")
         self.copy_template(build_dir, "sev-init.sh", "azure-sev/sev-init.sh", executable=True)
         self.copy_template(build_dir, "sev-start.sh", "azure-sev/sev-start.sh", executable=True)
+
+        ips = self.populate_whitelist(build_dir)
+        print(f"Whitelisted IPs are: ")
+        print('\n'.join(map(str, ips)))
 
         self.export_docker_image(source_image, path.join(build_dir, source_image + '.tar'))
         self.build_docker_image(build_dir, tag, buildargs={"EMBED_IMAGE_TAR": source_image + '.tar'})
