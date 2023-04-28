@@ -65,13 +65,7 @@ Our source code is `open source`. You can inspect the code yourself on our [GitH
 
 [todo: add attestation failing test code]
 
-## Conclusions
+## Next steps 
 ___________________________________________
 
-That brings us to the end of this introduction to confidential computing. Let’s sum up what we’ve covered:
-
-- Trusted Execution Environments are **highly isolated compute environments**.
-- During the attestation process, we **verify that the authenticity of the TEE**.
-- If attestation is successful, **communication** between the client and enclave is **established using TLS**.
-
-If you haven’t already, you can check out our [Quick Tour](quick-tour.ipynb) to see a hands-on example of how BlindBox can be used to protect user data while querying AI models.
+In the next section of our Getting Started guide, we will take a look at a practical use case showing how BlindBox can be a vital tool for enabling collaborations between SaaS vendors and clients with sensitive data.
