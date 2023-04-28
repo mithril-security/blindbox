@@ -6,11 +6,13 @@ class StopWordsCriteria(StoppingCriteria):
     def __init__(self, tokenizer, stop_words, stream_callback):
         self._tokenizer = tokenizer
         self._stop_words = stop_words
-        self._partial_result = ''
-        self._stream_buffer = ''
+        self._partial_result = ""
+        self._stream_buffer = ""
         self._stream_callback = stream_callback
 
-    def __call__(self, input_ids: torch.LongTensor, scores: torch.FloatTensor, **kwargs) -> bool:
+    def __call__(
+        self, input_ids: torch.LongTensor, scores: torch.FloatTensor, **kwargs
+    ) -> bool:
         first = not self._partial_result
         text = self._tokenizer.decode(input_ids[0, -1])
         self._partial_result += text
@@ -27,5 +29,5 @@ class StopWordsCriteria(StoppingCriteria):
                         self._stream_buffer += text
                         return False
             self._stream_callback(self._stream_buffer + text)
-            self._stream_buffer = ''
+            self._stream_buffer = ""
         return False
