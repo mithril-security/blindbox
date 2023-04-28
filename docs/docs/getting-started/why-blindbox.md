@@ -1,7 +1,7 @@
 # Why BlindBox?
 ________________
 
-Despite the explosion of **Software-as-a-Service (SaaS) applications** over the last few years, **some organizations** still **cannot use them** because the **data** they deal with is **too sensitive**. This is not only an issue for business convenience and workflow. It also slows down research and innovation because the risk of **data leakage** prevents some projects from ever happening. 
+Despite the explosion of **Software-as-a-Service (SaaS) applications** over the last few years, **some organizations** still **cannot use them** because the **data** they deal with is **too sensitive**. This is not only an issue for business convenience and workflow, it also slows down research and innovation because the risk of **data leakage** prevents some projects from ever happening. 
 
 This is why we have created BlindBox, so developers can **deploy their SaaS solutions** in a highly-protected isolated environment, which ensures no one can access their data by running services within a hardware-based Trusted Execution Environment (TEE).
 
