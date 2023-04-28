@@ -215,3 +215,4 @@ terraform.rc
 /tmp
 **/model_store
 **/local_model_store
+*.tar
