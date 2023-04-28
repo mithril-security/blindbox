@@ -256,6 +256,8 @@ class AzureSEVBuilder(BlindBoxBuilder):
         pattern = re.compile("^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$")
         with open("blindbox.yml","r") as file:
             ip_list = yaml.safe_load(file)['ip-rules']
+            if len(ip_list) == 0:
+                print("No whitelisted IPs provided. All connections will be rejected.")
             for ip in ip_list:
                 if pattern.match(ip):
                     ips.append(ip)

@@ -27,20 +27,4 @@ apt-get install -y \
 update-alternatives --set iptables /usr/sbin/iptables-legacy
 update-alternatives --set ip6tables /usr/sbin/ip6tables-legacy
 
-# Start docker service
-DOCKER_RAMDISK=true dockerd &
-sleep 15
-
-# Build and run squid proxy docker image (push our own squid dockerfile later)
-cd $HOME
-git clone https://github.com/ShannonSD/squid-proxy.git
-# cd squid-proxy/squid-proxy
-# docker build -t squid-proxy .
-
-# Install and start model store
-# python3.9 -m pip install -r model_store_requirements.txt
-# python3.9 model_store.py download "openai/whisper-tiny.en"
-
-apt-get install -y openssh-server # DEBUG please remove me
-
 rm -rf /var/lib/apt/lists/* && rm -rf /var/cache/apt/archives/*
