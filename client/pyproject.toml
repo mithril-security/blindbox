@@ -9,11 +9,13 @@ readme = "README.md"
 cbor2 = { version = "^5.4.6", optional = true }
 cryptography = { version = "^39.0.2", optional = true }
 pycose = { version = "^1.0.1", optional = true }
-pydantic = { version = "^1.10.7", optional = true }
 pyOpenSSL = { version = "^23.1.1", optional = true }
 python = "^3.9"
 requests = { version = "^2.28.2", optional = true }
+pydantic = { version = "^1.10.7" }
 pyyaml = { version = "^6.0" }
+inquirer = { version = "^3.1" }
+inquirer = { version = "^1.13" }
 
 # certifi==2022.12.7
 # charset-normalizer==3.1.0
