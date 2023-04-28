@@ -78,7 +78,7 @@ class BlindBoxBuilder(abc.ABC):
                 text=text,
             )
         except KeyboardInterrupt:
-            exit(0)
+            exit(1)
 
         if assert_returncode and res.returncode != 0:
             if capture_output:
@@ -311,15 +311,15 @@ class AzureSEVBuilder(BlindBoxBuilder):
     ):
         build_dir = self.make_blindbox_build_dir(self.cwd, build_dir)
 
-        self.copy_template(build_dir, "Dockerfile", "azure-sev/Dockerfile")
+        self.copy_template(build_dir, "Dockerfile", "azure-sev/Dockerfile", replace=True)
         self.copy_template(
-            build_dir, "sev-init.sh", "azure-sev/sev-init.sh", executable=True
+            build_dir, "sev-init.sh", "azure-sev/sev-init.sh", executable=True, replace=True
         )
         self.copy_template(
-            build_dir, "sev-start.sh", "azure-sev/sev-start.sh", executable=True
+            build_dir, "sev-start.sh", "azure-sev/sev-start.sh", executable=True, replace=True
         )
 
-        info("Inserting allowed IPS...")
+        info("Inserting allowed IPs...")
         ips = self.populate_iplist(build_dir)
         tab = table.Table(box=table.box.SIMPLE)
         tab.add_column("Allowed IPs")
