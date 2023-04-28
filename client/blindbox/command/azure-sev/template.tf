@@ -1,22 +1,14 @@
 locals {
   # These are config values, feel free to change them how you want.
-  container_ports = [
-    {
-      port     = 22
-      protocol = "TCP"
-    },
-    # {
-    #   port     = 80
-    #   protocol = "TCP"
-    # },
-    # {
-    #   port     = 443
-    #   protocol = "TCP"
-    # },
-  ]
   resource_group_name     = "blindbox-test${random_integer.group_suffix.result}"
   location                = "North Europe"
   container_registry_name = "blindbox${random_integer.group_suffix.result}"
+  container_ports = [
+    {
+      port     = 80
+      protocol = "TCP"
+    },
+  ]
 }
 
 resource "random_integer" "group_suffix" {
