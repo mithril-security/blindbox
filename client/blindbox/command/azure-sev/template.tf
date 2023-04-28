@@ -1,22 +1,20 @@
+# These are config values, feel free to change them how you want.
 locals {
-  # These are config values, feel free to change them how you want.
-  container_ports = [
-    {
-      port     = 22
-      protocol = "TCP"
-    },
-    # {
-    #   port     = 80
-    #   protocol = "TCP"
-    # },
-    # {
-    #   port     = 443
-    #   protocol = "TCP"
-    # },
-  ]
   resource_group_name     = "blindbox-test${random_integer.group_suffix.result}"
   location                = "North Europe"
   container_registry_name = "blindbox${random_integer.group_suffix.result}"
+
+  # Resources
+  cpu_count    = 1
+  memory_in_gb = 2
+
+  # Exposed ports to the outside world
+  container_ports = [
+    {
+      port     = 80
+      protocol = "TCP"
+    },
+  ]
 }
 
 resource "random_integer" "group_suffix" {
@@ -166,16 +164,11 @@ resource "azurerm_resource_group_template_deployment" "container" {
                 "name" : "blindbox",
                 "properties" : {
                   "image" : docker_tag.image.target_image,
-                  "ports" : [
-                    {
-                      "port" : 22,
-                      "protocol" : "TCP"
-                    }
-                  ],
+                  "ports" : local.container_ports,
                   "resources" : {
                     "requests" : {
-                      "cpu" : 1,
-                      "memoryInGB" : 2
+                      "cpu" : local.cpu_count,
+                      "memoryInGB" : local.memory_in_gb
                     }
                   },
                 }

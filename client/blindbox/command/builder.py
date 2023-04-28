@@ -8,12 +8,39 @@ import pkgutil
 import yaml
 import sys
 import re
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
+import pydantic
 import inquirer
+from rich import table, console
+
+info_console = console.Console(file=sys.stdout, highlight=False)
+error_console = console.Console(file=sys.stderr, highlight=False)
+
+
+def info(text, **kwargs):
+    info_console.print(
+        "[white]\[blindbox] [bold]>[/bold][/white] [green]" + text,
+        **kwargs,
+    )
+
+
+def error_exit(text, **kwargs):
+    error_console.print(
+        "[red bold]Error[/red bold][white]: " + text,
+        **kwargs,
+    )
+    exit(1)
+
+
+IPModel = pydantic.constr(regex="^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$")
 
 
 class BlindBoxYml(BaseModel):
     platform: t.Literal["azure-sev", "aws-nitro"]
+    ip_rules: t.List[IPModel] = Field(alias="ip-rules", default=[])
+    dns_ip_rules: t.List[IPModel] = Field(
+        alias="dns-ip-rules", default=["168.63.129.16"]
+    )
 
 
 class BlindBoxBuilder(abc.ABC):
@@ -23,6 +50,8 @@ class BlindBoxBuilder(abc.ABC):
         if not self.interactive_mode:
             return None
         answers = inquirer.prompt([inquirer.Confirm("answer", message=text)])
+        if not answers:  # CTRL+C
+            exit(1)
         return answers["answer"]
 
     def run_subprocess(
@@ -37,24 +66,27 @@ class BlindBoxBuilder(abc.ABC):
     ):
         human_readable = " ".join(command)
         if not quiet:
-            print(f"> Running `{human_readable}`...")
+            info(f"Running `{human_readable}`...")
 
         capture_output = return_stdout
-        res = subprocess.run(
-            command,
-            cwd=cwd,
-            stdin=sys.stdin,
-            capture_output=capture_output,
-            text=text,
-        )
+        try:
+            res = subprocess.run(
+                command,
+                cwd=cwd,
+                stdin=sys.stdin,
+                capture_output=capture_output,
+                text=text,
+            )
+        except KeyboardInterrupt:
+            exit(1)
 
         if assert_returncode and res.returncode != 0:
             if capture_output:
-                print("stdout:")
-                print(res.stdout)
-                print("stderr:")
-                print(res.stderr)
-            raise ValueError(
+                info("stdout:")
+                info_console.print(res.stdout)
+                info("stderr:")
+                info_console.print(res.stderr)
+            error_exit(
                 f"Command `{human_readable}` terminated with non-zero return code: {res.returncode}"
             )
 
@@ -109,8 +141,8 @@ class BlindBoxBuilder(abc.ABC):
             self._tf_available = res.returncode == 0
 
         if not self._tf_available:
-            raise Exception(
-                "Terraform CLI was not found in PATH. Follow the instructions at https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli."
+            error_exit(
+                "Terraform CLI was not found in PATH. Follow the instructions at [underline]https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli[/]."
             )
 
     _docker_available = None
@@ -127,8 +159,8 @@ class BlindBoxBuilder(abc.ABC):
             self._docker_available = res.returncode == 0
 
         if not self._docker_available:
-            raise Exception(
-                "Docker CLI was not found in PATH. Follow the instructions at https://docs.docker.com/engine/install."
+            error_exit(
+                "Docker CLI was not found in PATH. Follow the instructions at [underline]https://docs.docker.com/engine/install[/]."
             )
 
     def export_docker_image(self, tag: str, target_file: str):
@@ -203,8 +235,6 @@ class BlindBoxBuilder(abc.ABC):
                     existing_data += data
                 data = existing_data
 
-                print(data, existing_data, data in existing_data)
-
         with open(file, "wb") as f:
             f.write(data)
 
@@ -249,29 +279,24 @@ class AzureSEVBuilder(BlindBoxBuilder):
         self.copy_template(
             folder, "blindbox.tf", "azure-sev/template.tf", confirm_replace=True
         )
-        print("Done!")
 
-    def populate_whitelist(self,build_dir):
-        ips=["168.63.129.16"] #DNS address
-        pattern = re.compile("^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$")
-        with open("blindbox.yml","r") as file:
-            ip_list = yaml.safe_load(file)['ip-rules']
-            if len(ip_list) == 0:
-                print("No whitelisted IPs provided. All connections will be rejected.")
-            for ip in ip_list:
-                if pattern.match(ip):
-                    ips.append(ip)
-                else:
-                    print("IP syntax error. Exiting.")
-                    exit()   
+        info("[green bold]Blindbox project has been initialized!")
 
-        with open(path.join(build_dir,"sev-start.sh"),"r+") as rewrite:
+    def populate_iplist(self, build_dir):
+        ips = [*self.settings.dns_ip_rules, *self.settings.ip_rules]
+
+        with open(path.join(build_dir, "sev-start.sh"), "r+") as rewrite:
             lines = rewrite.readlines()
             rewrite.seek(0)
             for line in lines:
                 if line.startswith("# iptables rules inserted from CLI"):
                     for x in ips:
-                        line += "iptables -I DOCKER-USER -d " + x + " -i docker0 -j ACCEPT"+ "\n"
+                        line += (
+                            "iptables -I DOCKER-USER -d "
+                            + x
+                            + " -i docker0 -j ACCEPT"
+                            + "\n"
+                        )
                 rewrite.write(line)
         return ips
 
@@ -286,17 +311,23 @@ class AzureSEVBuilder(BlindBoxBuilder):
     ):
         build_dir = self.make_blindbox_build_dir(self.cwd, build_dir)
 
-        self.copy_template(build_dir, "Dockerfile", "azure-sev/Dockerfile")
+        self.copy_template(build_dir, "Dockerfile", "azure-sev/Dockerfile", replace=True)
         self.copy_template(
-            build_dir, "sev-init.sh", "azure-sev/sev-init.sh", executable=True
+            build_dir, "sev-init.sh", "azure-sev/sev-init.sh", executable=True, replace=True
         )
         self.copy_template(
-            build_dir, "sev-start.sh", "azure-sev/sev-start.sh", executable=True
+            build_dir, "sev-start.sh", "azure-sev/sev-start.sh", executable=True, replace=True
         )
 
-        ips = self.populate_whitelist(build_dir)
-        print(f"Whitelisted IPs are: ")
-        print('\n'.join(map(str, ips)))
+        info("Inserting allowed IPs...")
+        ips = self.populate_iplist(build_dir)
+        tab = table.Table(box=table.box.SIMPLE)
+        tab.add_column("Allowed IPs")
+        for ip in ips:
+            if ip in self.settings.dns_ip_rules:
+                ip += " (DNS)"
+            tab.add_row(ip)
+        info_console.print(tab)
 
         self.export_docker_image(
             source_image, path.join(build_dir, source_image + ".tar")
@@ -306,7 +337,9 @@ class AzureSEVBuilder(BlindBoxBuilder):
         )
 
         image_hash = self.docker_get_image_hash(tag)
-        print(f"Successfully built image with hash: {image_hash}")
+        info(
+            f"[green bold]Successfully built image with hash: [/green bold][cyan]{image_hash}"
+        )
 
     def deploy(self, image: t.Optional[str], **_kw):
         folder = self.cwd
@@ -316,6 +349,8 @@ class AzureSEVBuilder(BlindBoxBuilder):
 
         self.tf_init_if_necessary(folder)
         self.tf_apply(folder, {"image": image})
+
+        info("[green bold]Blindbox project has been successfully deployed.")
 
 
 class AWSNitroBuilder(BlindBoxBuilder):
@@ -343,7 +378,7 @@ class AWSNitroBuilder(BlindBoxBuilder):
 
 def main():
     parser = argparse.ArgumentParser(description="Parser for the builder cli")
-    parser.add_argument("--cwd", "-C", help="manually specify the projet root")
+    parser.add_argument("--cwd", "-C", help="manually specify the project root")
     parser.add_argument(
         "--platform",
         choices=["azure-sev", "aws-nitro"],
@@ -352,7 +387,7 @@ def main():
     parser.add_argument(
         "--non-interactive",
         action="store_true",
-        help="non interactive mode",
+        help="disable interactive prompting, for use in shell scripts",
     )
     subparsers = parser.add_subparsers(dest="command")
 
@@ -399,7 +434,7 @@ def main():
 
     if args.command is None:
         parser.print_help()
-        return
+        exit(1)
 
     settings: t.Optional[BlindBoxYml] = None
     if args.command == "init":
@@ -407,8 +442,7 @@ def main():
 
         if platform is None:
             if args.non_interactive:
-                print("Please supply a --platform to init the project.")
-                return
+                error_exit("Please supply a --platform to init the project.")
             else:
                 answers = inquirer.prompt(
                     [
@@ -422,8 +456,8 @@ def main():
                         )
                     ]
                 )
-                if not answers:
-                    return
+                if not answers:  # CTRL+C
+                    exit(1)
 
                 if "azure-sev" in answers["platform"]:
                     platform = "azure-sev"
@@ -432,9 +466,6 @@ def main():
     else:
         settings = BlindBoxBuilder.get_project_settings(args.cwd)
         platform = settings.platform
-
-    if platform not in ["azure-sev", "aws-nitro"]:
-        raise ValueError(f"Platform {platform} does not exist.")
 
     if platform == "aws-nitro":
         builder = AWSNitroBuilder(settings, **args.__dict__)
@@ -448,6 +479,8 @@ def main():
     elif args.command == "deploy":
         builder.deploy(**args.__dict__)
 
+    return 0
+
 
 if __name__ == "__main__":
-    main()
+    sys.exit(main())
