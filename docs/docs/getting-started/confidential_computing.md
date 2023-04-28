@@ -25,6 +25,11 @@ In a confidential workflow, data is sent to and analyzed within a **Trusted Exec
 
 ![Trusted Execution Environment](../../assets/TEE.png)
 
+We currently support the following TEEs: **Nitro enclaves** developed **by AWS**  and the **AMD SEV-SNP confidential VM**.
+
+> To learn more about Nitro enclaves, check out our guide [here](../concepts/nitro-enclaves.md).
+> To learn more about AMD SEV-SNP, check out our guide [here](../concepts/amd-sev.md).
+
 ### Attestation
 ___________________
 
@@ -42,15 +47,7 @@ When a user wants to establish communication with an enclave, checks will first 
 
 [to add in: image] 
 
-### TEEs in BlindBox
-______________________
-
-We currently support the following TEEs: **Nitro enclaves** developed **by AWS**  and the **AMD SEV-SNP confidential VM**.
-
-> To learn more about Nitro enclaves, check out our guide [here](../concepts/nitro-enclaves.md).
-> To learn more about AMD SEV-SNP, check out our guide [here](../concepts/amd-sev.md).
-
-## Limitations of TEEs
+## Limitations
 __________________________
 
 With great security features comes great responsibilities! TEEs also have limitations which are very important to know.
