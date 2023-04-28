@@ -40,7 +40,7 @@ When a user wants to establish communication with an enclave, checks will first 
 
 ✔️ If these checks are **successful**, the user is able to **communicate** with the enclave **securely using TLS**. The enclave's private key never leaves the enclave, so it is never accessible to anyone, including the cloud or service provider!
 
-[Todo: image]
+[to add in: image] 
 
 ### TEEs in BlindBox
 ______________________
