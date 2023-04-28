@@ -17,4 +17,4 @@ For many industry players, this is turning into a cybersecurity nightmare. Thous
 
 This is where BlindBox comes in. Deploying a model using our privacy tools can facilitate and increase the adoption of LLMs, because users wouldn't have to worry about their data being exposed to the service provider. 
 
-> To see a hands-on demo of BlindBox LLM APIs, check out our [Quick Tour](./quick-tour.ipynb)!
+> To see a hands-on demo of BlindBox in action, check out our [Quick Tour](./quick-tour.ipynb)!
