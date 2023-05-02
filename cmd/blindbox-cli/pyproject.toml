@@ -1,0 +1,15 @@
+[tool.poetry]
+name = "blindbox-cli"
+version = "0.1.0"
+description = ""
+authors = ["Lucas Bourtoule <lucas.bourtoule@mithrilsecurity.io>"]
+readme = "README.md"
+packages = [{include = "blindbox_cli"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
