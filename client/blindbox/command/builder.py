@@ -306,7 +306,7 @@ class AzureSEVBuilder(BlindBoxBuilder):
         tag: str,
         build_dir: t.Optional[str],
         source_image: str,
-        save: bool,
+#        save: bool,
         **_kw,
     ):
         build_dir = self.make_blindbox_build_dir(self.cwd, build_dir)
