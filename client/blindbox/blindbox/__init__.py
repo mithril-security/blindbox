@@ -1,8 +1,8 @@
 __all__ = []
 
 try:
-    from . import ai, requests
+    from . import requests
 
-    __all__ += ["ai", "requests"]
+    __all__ += ["requests"]
 except ImportError:
     pass
