@@ -6,7 +6,7 @@ locals {
 
   # Resources
   cpu_count    = 1
-  memory_in_gb = 2
+  memory_in_gb = 15
 
   # Exposed ports to the outside world
   container_ports = [
@@ -203,6 +203,12 @@ resource "azurerm_resource_group_template_deployment" "container" {
   depends_on = [
     null_resource.docker_push
   ]
+
+  lifecycle {
+     replace_triggered_by = [
+       azurerm_container_registry.acr,
+     ]
+   }
 
   deployment_mode = "Complete"
 }
