@@ -1,5 +1,0 @@
-platform: azure-sev
-# Put the allowed IP addresses here
-ip-rules: []
-# ip-rules:
-#   - x.x.x.x

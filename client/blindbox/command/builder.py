@@ -411,11 +411,6 @@ def main():
         required=True,
     )
     build_command.add_argument(
-        "--save",
-        help="save the generated blindbox to the project's blindbox.yml file",
-        action="store_true",
-    )
-    build_command.add_argument(
         "--tag",
         "-t",
         type=str,
