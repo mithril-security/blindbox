@@ -103,11 +103,9 @@ nav:
 
 - 🚀 Getting Started: 
   - Quick tour: 'docs/getting-started/quick-tour.ipynb'
-  - Protecting data with Confidential Computing: 'docs/getting-started/confidential_computing.md'
-  - Why BlindBox?: 'docs/getting-started/why-blindbox.md'
+  - How we protect your data: 'docs/getting-started/confidential_computing.md'
 
 - 💡 Concepts:
-  - Nitro Enclaves: 'docs/concepts/nitro-enclaves.md'
   - AMD SEV-SNP: 'docs/concepts/amd-sev.md'
 
 # - ⚙️ How to Guides:
