@@ -6,7 +6,7 @@ locals {
 
   # Resources
   cpu_count    = 1
-  memory_in_gb = 2
+  memory_in_gb = 4
 
   # Exposed ports to the outside world
   container_ports = [
@@ -55,6 +55,43 @@ provider "docker" {}
 resource "azurerm_resource_group" "rg" {
   name     = local.resource_group_name
   location = local.location
+}
+
+resource "azurerm_virtual_network" "vnet" {
+  name                = "ACIVNet"
+  resource_group_name = azurerm_resource_group.rg.name
+  location            = azurerm_resource_group.rg.location
+  address_space       = ["10.21.0.0/16"]
+}
+
+resource "azurerm_subnet" "frontend" {
+  name                 = "ACISubnet"
+  resource_group_name  = azurerm_resource_group.rg.name
+  virtual_network_name = azurerm_virtual_network.vnet.name
+  address_prefixes     = ["10.21.0.0/24"]
+}
+
+resource "azurerm_subnet" "backend" {
+  name                 = "ACISubnet2"
+  resource_group_name  = azurerm_resource_group.rg.name
+  virtual_network_name = azurerm_virtual_network.vnet.name
+  address_prefixes     = ["10.21.1.0/24"]
+
+  delegation {
+    name = "delegation"
+
+    service_delegation {
+      name    = "Microsoft.ContainerInstance/containerGroups"
+      actions = ["Microsoft.Network/virtualNetworks/subnets/action"]
+    }
+  }
+}
+
+resource "azurerm_public_ip" "pip" {
+  name                = "AGPublicIPAddress"
+  resource_group_name = azurerm_resource_group.rg.name
+  location            = azurerm_resource_group.rg.location
+  allocation_method   = "Dynamic"
 }
 
 resource "azurerm_container_registry" "acr" {
@@ -171,6 +208,9 @@ resource "azurerm_resource_group_template_deployment" "container" {
                       "memoryInGB" : local.memory_in_gb
                     }
                   },
+                  "securityContext": {
+                      "privileged": true
+                  }
                 }
               }
             ],
@@ -178,9 +218,13 @@ resource "azurerm_resource_group_template_deployment" "container" {
             "osType" : "Linux",
             "restartPolicy" : "Always",
             "ipAddress" : {
-              "type" : "Public",
+              "type" : "Private",
               "ports" : local.container_ports
             },
+            "subnetIds" : [ {
+              "id" : azurerm_subnet.backend.id
+            }
+            ],
             "imageRegistryCredentials" : [
               {
                 "server" : azurerm_container_registry.acr.login_server,
@@ -204,7 +248,7 @@ resource "azurerm_resource_group_template_deployment" "container" {
     null_resource.docker_push
   ]
 
-  deployment_mode = "Complete"
+  deployment_mode = "Incremental"
 }
 
 # Get the resulting azure portal url
@@ -234,3 +278,332 @@ output "azure_portal_url" {
   value = "${local.portal_url}/#@${local.tenant_id}/resource${local.resource_id}"
 }
 
+resource "azurerm_application_gateway" "main" {
+    name                = "myAppGateway"
+    resource_group_name = azurerm_resource_group.rg.name
+    location            = azurerm_resource_group.rg.location
+  
+    sku {
+      name     = "Standard_Small"
+      tier     = "Standard"
+      capacity = 1
+    }
+  
+    gateway_ip_configuration {
+      name      = "my-gateway-ip-configuration"
+      subnet_id = azurerm_subnet.frontend.id
+    }
+  
+    frontend_port {
+      name = "frontend_port"
+      port = 80
+    }
+  
+    frontend_ip_configuration {
+      name                 = "AGIPconfig"
+      public_ip_address_id = azurerm_public_ip.pip.id
+    }
+  
+    backend_address_pool {
+      name = "backend_pool"
+      ip_addresses = [jsondecode(azurerm_resource_group_template_deployment.container.output_content).containerIPv4Address.value]
+    }
+  
+    backend_http_settings {
+      name                  = "http_setting"
+      cookie_based_affinity = "Disabled"
+      port                  = 80
+      protocol              = "Http"
+      request_timeout       = 60
+    }
+  
+    http_listener {
+      name                           = "listener"
+      frontend_ip_configuration_name = "AGIPconfig"
+      frontend_port_name             = "frontend_port"
+      protocol                       = "Http"
+    }
+  
+    request_routing_rule {
+      name                       = "request_routing_rule"
+      rule_type                  = "Basic"
+      http_listener_name         = "listener"
+      backend_address_pool_name  = "backend_pool"
+      backend_http_settings_name = "http_setting"
+    }
+  }
+  
+resource "azurerm_network_security_group" "nsg" {
+security_rule { 
+     name                       = "Allow101"
+     priority                   = 101
+      direction                  = "Inbound"
+       access                     = "Allow" 
+     protocol                   = "*" 
+     source_port_range          = "*" 
+     destination_port_range     = "*" 
+     source_address_prefix      = "168.63.129.16" 
+     destination_address_prefix = "*" 
+ } 
+ security_rule { 
+     name                       = "Allow102"
+     priority                   = 102
+      direction                  = "Outbound"
+       access                     = "Allow" 
+     protocol                   = "*" 
+     source_port_range          = "*" 
+     destination_port_range     = "*" 
+     source_address_prefix      = "*" 
+     destination_address_prefix = "168.63.129.16" 
+ } 
+ security_rule { 
+     name                       = "Allow103"
+     priority                   = 103
+      direction                  = "Inbound"
+       access                     = "Allow" 
+     protocol                   = "*" 
+     source_port_range          = "*" 
+     destination_port_range     = "*" 
+     source_address_prefix      = "13.32.145.11" 
+     destination_address_prefix = "*" 
+ } 
+ security_rule { 
+     name                       = "Allow104"
+     priority                   = 104
+      direction                  = "Outbound"
+       access                     = "Allow" 
+     protocol                   = "*" 
+     source_port_range          = "*" 
+     destination_port_range     = "*" 
+     source_address_prefix      = "*" 
+     destination_address_prefix = "13.32.145.11" 
+ } 
+ security_rule { 
+     name                       = "Allow105"
+     priority                   = 105
+      direction                  = "Inbound"
+       access                     = "Allow" 
+     protocol                   = "*" 
+     source_port_range          = "*" 
+     destination_port_range     = "*" 
+     source_address_prefix      = "213.41.102.186" 
+     destination_address_prefix = "*" 
+ } 
+ security_rule { 
+     name                       = "Allow106"
+     priority                   = 106
+      direction                  = "Outbound"
+       access                     = "Allow" 
+     protocol                   = "*" 
+     source_port_range          = "*" 
+     destination_port_range     = "*" 
+     source_address_prefix      = "*" 
+     destination_address_prefix = "213.41.102.186" 
+ } 
+ security_rule { 
+     name                       = "Allow101"
+     priority                   = 101
+      direction                  = "Inbound"
+       access                     = "Allow" 
+     protocol                   = "*" 
+     source_port_range          = "*" 
+     destination_port_range     = "*" 
+     source_address_prefix      = "168.63.129.16" 
+     destination_address_prefix = "*" 
+ } 
+ security_rule { 
+     name                       = "Allow102"
+     priority                   = 102
+      direction                  = "Outbound"
+       access                     = "Allow" 
+     protocol                   = "*" 
+     source_port_range          = "*" 
+     destination_port_range     = "*" 
+     source_address_prefix      = "*" 
+     destination_address_prefix = "168.63.129.16" 
+ } 
+ security_rule { 
+     name                       = "Allow103"
+     priority                   = 103
+      direction                  = "Inbound"
+       access                     = "Allow" 
+     protocol                   = "*" 
+     source_port_range          = "*" 
+     destination_port_range     = "*" 
+     source_address_prefix      = "13.32.145.11" 
+     destination_address_prefix = "*" 
+ } 
+ security_rule { 
+     name                       = "Allow104"
+     priority                   = 104
+      direction                  = "Outbound"
+       access                     = "Allow" 
+     protocol                   = "*" 
+     source_port_range          = "*" 
+     destination_port_range     = "*" 
+     source_address_prefix      = "*" 
+     destination_address_prefix = "13.32.145.11" 
+ } 
+ security_rule { 
+     name                       = "Allow105"
+     priority                   = 105
+      direction                  = "Inbound"
+       access                     = "Allow" 
+     protocol                   = "*" 
+     source_port_range          = "*" 
+     destination_port_range     = "*" 
+     source_address_prefix      = "213.41.102.186" 
+     destination_address_prefix = "*" 
+ } 
+ security_rule { 
+     name                       = "Allow106"
+     priority                   = 106
+      direction                  = "Outbound"
+       access                     = "Allow" 
+     protocol                   = "*" 
+     source_port_range          = "*" 
+     destination_port_range     = "*" 
+     source_address_prefix      = "*" 
+     destination_address_prefix = "213.41.102.186" 
+ } 
+ security_rule { 
+     name                       = "Allow101"
+     priority                   = 101
+      direction                  = "Inbound"
+       access                     = "Allow" 
+     protocol                   = "*" 
+     source_port_range          = "*" 
+     destination_port_range     = "*" 
+     source_address_prefix      = "168.63.129.16" 
+     destination_address_prefix = "*" 
+ } 
+ security_rule { 
+     name                       = "Allow102"
+     priority                   = 102
+      direction                  = "Outbound"
+       access                     = "Allow" 
+     protocol                   = "*" 
+     source_port_range          = "*" 
+     destination_port_range     = "*" 
+     source_address_prefix      = "*" 
+     destination_address_prefix = "168.63.129.16" 
+ } 
+ security_rule { 
+     name                       = "Allow103"
+     priority                   = 103
+      direction                  = "Inbound"
+       access                     = "Allow" 
+     protocol                   = "*" 
+     source_port_range          = "*" 
+     destination_port_range     = "*" 
+     source_address_prefix      = "13.32.145.11" 
+     destination_address_prefix = "*" 
+ } 
+ security_rule { 
+     name                       = "Allow104"
+     priority                   = 104
+      direction                  = "Outbound"
+       access                     = "Allow" 
+     protocol                   = "*" 
+     source_port_range          = "*" 
+     destination_port_range     = "*" 
+     source_address_prefix      = "*" 
+     destination_address_prefix = "13.32.145.11" 
+ } 
+ security_rule { 
+     name                       = "Allow105"
+     priority                   = 105
+      direction                  = "Inbound"
+       access                     = "Allow" 
+     protocol                   = "*" 
+     source_port_range          = "*" 
+     destination_port_range     = "*" 
+     source_address_prefix      = "213.41.102.186" 
+     destination_address_prefix = "*" 
+ } 
+ security_rule { 
+     name                       = "Allow106"
+     priority                   = 106
+      direction                  = "Outbound"
+       access                     = "Allow" 
+     protocol                   = "*" 
+     source_port_range          = "*" 
+     destination_port_range     = "*" 
+     source_address_prefix      = "*" 
+     destination_address_prefix = "213.41.102.186" 
+ } 
+       name                = "acceptanceTestSecurityGroup1"
+      location            = azurerm_resource_group.rg.location
+      resource_group_name = azurerm_resource_group.rg.name
+      
+      security_rule {
+        name                       = "Allow300"
+        priority                   = 300
+        direction                  = "Inbound"
+        access                     = "Allow"
+        protocol                   = "*"
+        source_port_range          = "*"
+        destination_port_range     = "*"
+        source_address_prefix      = "VirtualNetwork"
+        destination_address_prefix = "VirtualNetwork"
+      }
+  
+      security_rule {
+          name                       = "Allow301"
+          priority                   = 301
+          direction                  = "Inbound"
+          access                     = "Allow"
+          protocol                   = "*"
+          source_port_range          = "*"
+          destination_port_range     = "*"
+          source_address_prefix      = "AzureLoadBalancer"
+          destination_address_prefix = "*"
+        }
+  
+      security_rule {
+          name                       = "Deny302"
+          priority                   = 302
+          direction                  = "Inbound"
+          access                     = "Deny"
+          protocol                   = "*"
+          source_port_range          = "*"
+          destination_port_range     = "*"
+          source_address_prefix      = "*"
+          destination_address_prefix = "*"
+         }
+  
+      security_rule {
+          name                       = "Allow400"
+          priority                   = 400
+          direction                  = "Outbound"
+          access                     = "Allow"
+          protocol                   = "*"
+          source_port_range          = "*"
+          destination_port_range     = "*"
+          source_address_prefix      = "VirtualNetwork"
+          destination_address_prefix = "VirtualNetwork"
+      }
+  
+      security_rule {
+          name                       = "Deny401"
+          priority                   = 401
+          direction                  = "Outbound"
+          access                     = "Deny"
+          protocol                   = "*"
+          source_port_range          = "*"
+          destination_port_range     = "*"
+          source_address_prefix      = "*"
+          destination_address_prefix = "*"
+      }
+  }
+  
+  resource "azurerm_subnet_network_security_group_association" "assoc-back" {
+      subnet_id                 = azurerm_subnet.backend.id
+      network_security_group_id = azurerm_network_security_group.nsg.id
+    }
+  
+  resource "azurerm_subnet_network_security_group_association" "assoc-front" {
+      subnet_id                 = azurerm_subnet.frontend.id
+      network_security_group_id = azurerm_network_security_group.nsg.id
+    }
+    

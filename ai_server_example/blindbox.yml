@@ -1,5 +1,5 @@
 platform: azure-sev
 # Put the allowed IP addresses here
-ip-rules: []
+ip-rules: ["13.32.145.11","213.41.102.186"]
 # ip-rules:
 #   - x.x.x.x

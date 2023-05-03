@@ -282,21 +282,35 @@ class AzureSEVBuilder(BlindBoxBuilder):
 
         info("[green bold]Blindbox project has been initialized!")
 
-    def populate_iplist(self, build_dir):
+    def populate_iplist(self,folder):
         ips = [*self.settings.dns_ip_rules, *self.settings.ip_rules]
 
-        with open(path.join(build_dir, "sev-start.sh"), "r+") as rewrite:
+        if folder is None:
+            folder = "."
+        with open(path.join(folder,"blindbox.tf"), "r+") as rewrite:
             lines = rewrite.readlines()
             rewrite.seek(0)
             for line in lines:
-                if line.startswith("# iptables rules inserted from CLI"):
+                if line.startswith('resource "azurerm_network_security_group" "nsg" {'):
+                    rule_num = 100
                     for x in ips:
-                        line += (
-                            "iptables -I DOCKER-USER -d "
-                            + x
-                            + " -i docker0 -j ACCEPT"
-                            + "\n"
-                        )
+                        for table in ["Inbound","Outbound"]:
+                            source = x if table == "Inbound" else "*"
+                            dest = x if table == "Outbound" else "*"
+                            rule_num += 1
+                            line += (
+'security_rule { \n \
+    name                       = "Allow' + str(rule_num) + '"\n \
+    priority                   = ' + str(rule_num) + '\n  \
+    direction                  = "' + table + '"\n   \
+    access                     = "Allow" \n \
+    protocol                   = "*" \n \
+    source_port_range          = "*" \n \
+    destination_port_range     = "*" \n \
+    source_address_prefix      = "' + source + '" \n \
+    destination_address_prefix = "' + dest + '" \n \
+} \n '
+                            )
                 rewrite.write(line)
         return ips
 
@@ -320,7 +334,7 @@ class AzureSEVBuilder(BlindBoxBuilder):
         )
 
         info("Inserting allowed IPs...")
-        ips = self.populate_iplist(build_dir)
+        ips = self.populate_iplist(self.cwd)
         tab = table.Table(box=table.box.SIMPLE)
         tab.add_column("Allowed IPs")
         for ip in ips:
