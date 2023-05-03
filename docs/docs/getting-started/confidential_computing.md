@@ -49,7 +49,19 @@ When a user wants to establish communication with an enclave, checks will first 
 
 ✔️ If these checks are **successful**, the user is able to **communicate** with the enclave **securely using TLS**. The enclave's private key never leaves the enclave, so it is never accessible to anyone, including the cloud or service provider!
 
-***[PLACEHOLDER IMAGE ATTESTATION]***
+Let's take a look at the basic attestation workflow for BlindBox:
+
+![Attestation workflow](../../assets/attest_dark.png)
+
+1. When a user queries a BlindBox application, under-the-hood our client will attempt to create a connection between the user and the application running in the BlindBox. This will trigger the attestation process.
+
+2. The TEE will be asked to generate a report to prove its identity. This report is signed by keys derived from hardware.
+
+3. This report and a TLS certificate, which will be used for communications if attestation is successful, are sent back to the client.
+
+4. A verification process is then triggered, where the client will check the TEE is authentic and has the expected identity and settings.
+
+5. If the verification process is successful, communication via TLS is established and the query will be performed. If the verification process fails, an attestation error will be returned.
 
 ## Limitations
 __________________________
