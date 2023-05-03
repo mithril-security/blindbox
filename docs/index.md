@@ -12,9 +12,11 @@ ________________________________________________________
 
 🗝️ **Key features**:
 
-+ A **CLI tool** to deploy **application images** within **secure enclaves**. We currently support **Docker** and we are working on other formats, like Kubernetes.
++ A **CLI tool** to deploy **application images** within **BlindBox**. We currently support **Docker** and we are working on other formats, like Kubernetes.
 
-+  An additional **isolation layer** to define **custom security policies** for the application. This will include selecting who can query the service running in the BlindBox and the range of networking access allowed within.
++ **RE-ADD ENCLAVE PROTECTION PART**
+
++ An additional **isolation layer** to define **custom security policies** for the application. This will include selecting who can query the service running in the BlindBox and the range of networking access allowed within.
 
 > You can check out [the project code on our GitHub](https://github.com/mithril-security/blindbox/).
 

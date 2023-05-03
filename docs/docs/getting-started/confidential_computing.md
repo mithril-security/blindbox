@@ -4,7 +4,7 @@ _________________________________
 BlindBox protects user data with two key elements: 
 
 + By leveraging **confidential computing** technologies to deploy applications within secure hardware-based highly-isolated environment called **secure enclaves** or **Trusted Execution Environments (TEEs)**.
-+ By allowing data owners to set **custom security policies** to control what can happen and, for example, recreate a virtual air-gapped environment!
++ By allowing data owners to set **custom security policies** to control what can happen inside of their BlindBox enclave.
 
 Let's now take a look at the technologies behind our solution and how they protect user data!
 
@@ -32,7 +32,7 @@ We currently support the following TEEs: **AMD SEV-SNP confidential VM**.
 
 > You can check our guide to learn more about [AMD SEV-SNP](../concepts/amd-sev.md).
 
-> If you are very interested in learning more about secure enclaves in practice, we are making a [hands-on series](https://confidential-computing-explained.mithrilsecurity.io/en/latest/) explaining how Confidential Computing works. Developers can play with our tutorials and code their own simplified KMS with secure enclaves!
+> If you are very interested in learning more about secure enclaves in practice, we are working on a [hands-on series](https://confidential-computing-explained.mithrilsecurity.io/en/latest/) explaining how Confidential Computing works. Developers can play with our tutorials and code their own simplified KMS with secure enclaves!
 
 ## Attestation
 ___________________
@@ -49,54 +49,13 @@ When a user wants to establish communication with an enclave, checks will first 
 
 ✔️ If these checks are **successful**, the user is able to **communicate** with the enclave **securely using TLS**. The enclave's private key never leaves the enclave, so it is never accessible to anyone, including the cloud or service provider!
 
-![VPS arch](../../assets/vps-arch.png)
-
-## How to verify BlindBox's security features
-___________________________________________
-
-+ **Our code is open source.** We believe that transparency is the best way to ensure security and you can inspect the code yourself on our [GitHub page](https://github.com/mithril-security/blindbox).
-
-+ On another note, **our historical project [BlindAI](../past-projects/blindai.md) was successfully audited** by Quarkslab. Although both projects differ (BlindAI was meant for the confidential deployment of ONNX models inside Intel SGX enclaves), we want to highlight that we are serious about our security standards. 
-
-+ Here's what would happen if the enclave wasn't secure. We'll use our [Quick tour](./quick-tour.ipynb) example of LLM deployment inside an enclave to have a look under the hood.
-
-	If we talk to a server with no collateral to prove it is a secure enclave, which means that no signature from the hardware provider, then an error will be raised:
-
-	```python
-	import blindbox.requests as requests
-
-	session = requests.SecureSession()
-
-	>> NotAnEnclaveError
-	```
-
-	
-	If the first check passes, but the hash of the code is not the publicly available hash of BlindBox, another error will be raised:
-
-	```python
-	import blindbox.requests as requests
-
-	session = requests.SecureSession()
-
-	>> InvalidEnclaveCode
-	```
-
-	
-	Here, ***WHAT ARE WE DOING? hahaha***
-
-	```python
-	import blindbox.requests as requests
-
-	session = requests.SecureSession()
-
-	>> NotIsolatedEnclaveError
-	```
+***[PLACEHOLDER IMAGE ATTESTATION]***
 
 ## Limitations
 __________________________
 
-With great security features comes great responsibilities! TEEs also have limitations which are very important to know.
+With great security features comes great responsibilities! 
 
-+ The **application code running in the TEE *must* be trusted**! While the attestation process verifies the authenticity of the enclave, it does not run any checks on what the verified application code does itself. Therefore, while data is protected from external access from outside the TEE, we must trust that the application code itself is not malicious.
+TEEs also have a general limitation which is very important to know : the **application code running in the TEE *must* be trusted**! While the attestation process verifies the authenticity of the enclave, it does not run any checks on what the verified application code does. An enclave protects what's inside it from the outside, but not what's inside from what is inside.
 
-This is why we are creating an additional security layer where data owners will be able to apply custom security policies to their BlindBox. This will include who can query the service in their BlindBox and networking access allowed to the application running within the enclave. This puts the data owner in control and removes the need to blindly trust the SaaS provider and their application code.
+This is actually why we are creating an **additional security layer** to BlindBox, so developers can define **custom security policies**. For example, they could decide who can query the service in their BlindBox or restrict networking access to the application running within the enclave.

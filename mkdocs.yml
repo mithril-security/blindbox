@@ -104,6 +104,7 @@ nav:
 - 🚀 Getting Started: 
   - Quick tour: 'docs/getting-started/quick-tour.ipynb'
   - How we protect your data: 'docs/getting-started/confidential_computing.md'
+  - Use cases: 'docs/getting-started/why-blindbox.md'
 
 - 💡 Concepts:
   - Confidential Computing:
