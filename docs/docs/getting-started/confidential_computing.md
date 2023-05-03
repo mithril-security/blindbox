@@ -24,7 +24,7 @@ Let's dive into a bit more detail about these concepts.
 ## Isolation
 ____________________________________
 
-In a confidential workflow, data is sent to and analyzed within a **Trusted Execution Environment (TEE)**, otherwise known as a secure enclave. Data sent to the enclave is only decrypted inside the enclave. Even if hackers or malicious insiders gain access to the host machine an enclave is running on, they will not be able to access data inside the enclave.
+In a confidential workflow, data is sent to and analyzed within a **Trusted Execution Environment (TEE)**, otherwise known as a secure enclave. Data sent to the enclave is only decrypted in isolated environments or when being processed. Even if hackers or malicious insiders gain access to the host machine an enclave is running on, they will not be able to access data inside the enclave.
 
 ![Trusted Execution Environment](../../assets/TEE.png)
 

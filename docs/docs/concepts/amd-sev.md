@@ -16,7 +16,13 @@ AMD SEV VMs are available with Azure or Google Cloud.
 
 One of the key advantages of confidential VMs is that we are not restricted as we can be when creating applications for enclaves. Confidential VMs offer easy-of-use and are compatible with most existing applications, even when they are large or complex applications.
 
-The code and data of the VM is secured by encryption. An attacker or malicious insider without the encryption key cannot cannot view the VM's memory. This encryption key is generated from a hardware random number generator and is stored in dedicated hardware registers where software cannot read it. The decrypted version is only available within the VM itself.
+The code and data of the VM is secured by encryption. This encryption key is generated from a hardware random number generator and is stored in dedicated hardware registers where software cannot read it. The data is only decrypted when being processed by the AMD secure processor.
+
+AMD SEV also protects against integrity attacks where encrypted memory is tampered with.
+
+As is explained in AMD's documentation:
+
+	"The basic principle of SEV-SNP integrity is that if a VM is able to read a private (encrypted) page of memory, it must always read the value it last wrote. This means that if the VM wrote a value A to memory location X, whenever it later reads X it must either see the value A or it must get an exception indicating the memory could not be read".
 
 ### Trusted Computing Base (TCB)
 
