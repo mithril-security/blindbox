@@ -99,14 +99,15 @@ markdown_extensions:
 
 # Documentation tree
 nav:
-- 🏠 Home: 'index.md' 
+- 🏠 Overview: 'index.md' 
 
 - 🚀 Getting Started: 
   - Quick tour: 'docs/getting-started/quick-tour.ipynb'
   - How we protect your data: 'docs/getting-started/confidential_computing.md'
 
 - 💡 Concepts:
-  - AMD SEV-SNP: 'docs/concepts/amd-sev.md'
+  - Confidential Computing:
+    - AMD SEV-SNP: 'docs/concepts/amd-sev.md'
 
 # - ⚙️ How to Guides:
 #  -  Deploying your own Nitro server: 'docs/how-to-guides/deploy-API-server.md'
