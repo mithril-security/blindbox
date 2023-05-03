@@ -51,7 +51,7 @@ When a user wants to establish communication with an enclave, checks will first 
 
 Let's take a look at the basic attestation workflow for BlindBox:
 
-<img src="https://github.com/mithril-security/blindbox/raw/docs/docs/assets/attest_dark.png" alt="Attestation workflow" width="50">
+<img src="https://github.com/mithril-security/blindbox/raw/docs/docs/assets/attest_dark.png" alt="Attestation workflow" width="60%" >
  
 
 1. When a user queries a BlindBox application, under-the-hood our client will attempt to create a connection between the user and the application running in the BlindBox. This will trigger the attestation process.
