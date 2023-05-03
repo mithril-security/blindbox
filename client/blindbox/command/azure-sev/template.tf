@@ -6,7 +6,7 @@ locals {
 
   # Resources
   cpu_count    = 1
-  memory_in_gb = 4
+  memory_in_gb = 15
 
   # Exposed ports to the outside world
   container_ports = [
