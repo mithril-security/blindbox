@@ -16,7 +16,7 @@ ________________________________________________________
 
 + **RE-ADD ENCLAVE PROTECTION PART**
 
-+ An additional **isolation layer** to define **custom security policies** for the application. This will include selecting who can query the service running in the BlindBox and the range of networking access allowed within.
++ An additional **isolation layer** to define **custom security policies** for the application inside the enclave. This will include selecting who can query the service running in the BlindBox and the range of networking access allowed within.
 
 > You can check out [the project code on our GitHub](https://github.com/mithril-security/blindbox/).
 
