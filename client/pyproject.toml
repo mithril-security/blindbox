@@ -2,7 +2,7 @@
 name = "blindbox"
 version = "0.1.0"
 description = ""
-authors = ["Lucas Bourtoule <lucas.bourtoule@mithrilsecurity.io>"]
+authors = ["Mithril Security <contact@mithrilsecurity.io>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
@@ -13,12 +13,10 @@ pycose = { version = "^1.0.1", optional = true }
 pydantic = { version = "^1.10.7", optional = true }
 pyOpenSSL = { version = "^23.1.1", optional = true }
 python = "^3.9"
-pyyaml = { version = "^6.0", optional = true }
 requests = { version = "^2.28.2", optional = true }
 rich = { version = "^13.3.5", optional = true }
 
 [tool.poetry.extras]
-ai = ["cbor2", "cryptography", "pycose", "pydantic", "pyOpenSSL", "requests"]
 cli = ["inquirer", "pydantic", "pyyaml", "rich"]
 
 [build-system]
