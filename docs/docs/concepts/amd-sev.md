@@ -52,7 +52,7 @@ For BlindBox, the attestation process is implemented using [Azure's attestation 
 
 ### Limitations
 
-+ **AMD-SEV SNP** has historically been vulnerable to side channel attacks, where attackers try to get information about a TEE indirectly, by examining things like memory consumption or power usage.
+**AMD-SEV SNP** has historically been vulnerable to side channel attacks, where attackers try to get information about a TEE indirectly, by examining things like memory consumption or power usage.
 
 ## Further reading
 

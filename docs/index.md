@@ -14,9 +14,9 @@ ________________________________________________________
 
 + A **CLI tool** to deploy **application images** within **BlindBox**. We currently support **Docker** and we are working on other formats, like Kubernetes.
 
-+ **RE-ADD ENCLAVE PROTECTION PART**
++ Applications are deployed within a an enclave, or **Trusted Execution Environment** (TEE), which supports additional security verifications.
 
-+ An additional **isolation layer** to define **custom security policies** for the application inside the enclave. This will include selecting who can query the service running in the BlindBox and the range of networking access allowed within.
++ An **isolation layer** to define **custom security policies** for the application inside the enclave. This will include selecting who can query the service running in the BlindBox and the range of networking access allowed within.
 
 > You can check out [the project code on our GitHub](https://github.com/mithril-security/blindbox/).
 
@@ -25,7 +25,6 @@ ________________________________________________________
 
 - Try our [“Quick tour”](./docs/getting-started/quick-tour.ipynb) API demo
 - [Discover](./docs/getting-started/confidential_computing.md) the technologies we use to ensure privacy
-- [Dive into](./docs/getting-started/why-blindbox.md) why we are developing BlindBox and its possible use cases
 
 ## 🙋 Getting help
 ________________________________________________________
