@@ -171,6 +171,9 @@ resource "azurerm_resource_group_template_deployment" "container" {
                       "memoryInGB" : local.memory_in_gb
                     }
                   },
+                  "securityContext": {
+                      "privileged": true
+                  }
                 }
               }
             ],
@@ -204,13 +207,7 @@ resource "azurerm_resource_group_template_deployment" "container" {
     null_resource.docker_push
   ]
 
-  lifecycle {
-     replace_triggered_by = [
-       azurerm_container_registry.acr,
-     ]
-   }
-
-  deployment_mode = "Complete"
+  deployment_mode = "Incremental"
 }
 
 # Get the resulting azure portal url

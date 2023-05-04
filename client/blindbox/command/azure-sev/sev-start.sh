@@ -14,4 +14,4 @@ DOCKER_TAG=$(docker load -qi $HOME/container.tar |
 echo Loaded docker image tagged: $DOCKER_TAG
 
 # Guest
-docker run -i -t -p 0.0.0.0:80:80/tcp $DOCKER_TAG
+docker run -p 0.0.0.0:80:80/tcp $DOCKER_TAG
