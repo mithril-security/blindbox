@@ -291,6 +291,9 @@ class AzureSEVBuilder(BlindBoxBuilder):
             lines = rewrite.readlines()
             rewrite.seek(0)
             for line in lines:
+                if line.startswith('     name                       = "Allow101"'):
+                    info("IP whitelist already exists in terraform file. Skipping.. \n If you've altered the whitelist between builds please blindbox init and rebuild.")
+                    return ips
                 if line.startswith('resource "azurerm_network_security_group" "nsg" {'):
                     rule_num = 100
                     for x in ips:
