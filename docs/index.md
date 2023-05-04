@@ -26,6 +26,10 @@ ________________________________________________________
 - Try our [“Quick tour”](./docs/getting-started/quick-tour.ipynb) API demo
 - [Discover](./docs/getting-started/confidential_computing.md) the technologies we use to ensure privacy
 
+!!! warning
+	
+	BlindBox is still under development. **Do not use in production!**
+
 ## 🙋 Getting help
 ________________________________________________________
 
