@@ -55,15 +55,15 @@ Let's take a look at the basic attestation workflow for BlindBox:
 ![attest_dark](../../assets/attest_dark.jpg#only-dark)
  
 
-1. When a user queries a BlindBox application, under-the-hood our client will attempt to create a connection between the user and the application running in the BlindBox. This will trigger the attestation process. 
+1. When a user queries a BlindBox application, our client will attempt to **create a connection** between the user and the application running in the BlindBox. This will **trigger the attestation process**. 
 
-2. The TEE will be asked to generate a report to prove its identity. This report is signed by keys derived from hardware.
+2. The TEE will be asked to **generate a report to prove its identity**. This report is signed by keys derived from hardware.
 
-3. This report and a TLS certificate, which will be used for communications if attestation is successful, are sent back to the client.
+3. This **report and a TLS certificate**, which will be used for communications if attestation is successful, are **sent** back to the client.
 
-4. A verification process is then triggered, where the client will check the TEE is authentic and has the expected identity and settings.
+4. A **verification process** is **triggered**, where the client will check the **TEE is authentic** and has the expected identity and settings.
 
-5. If the verification process is successful, communication via TLS is established and the query will be performed. If the verification process fails, an attestation error will be returned.
+5. **If** the verification process is **successful**, **communication via TLS is established** and the query will be performed. **If** the verification process **fails**, an attestation **error** will be returned.
 
 ## Limitations
 __________________________
@@ -72,4 +72,4 @@ With great security features comes great responsibilities!
 
 TEEs also have a general limitation which is very important to know : the **application code running in the TEE *must* be trusted**! While the attestation process verifies the authenticity of the enclave, it does not run any checks on what the verified application code does. An enclave protects what's inside it from the outside, but not what's inside from what is inside.
 
-This is actually why we wrap application images in an  an **additional security layer** to BlindBox, so developers can define **custom security policies** for additional protection. For example, they could decide who can query the service in their BlindBox or restrict networking access to the application running within the enclave.
+This is why we wrap application images in an  an **additional security layer** to BlindBox, so developers can define **custom security policies** for protection. For example, they could decide who can query the service in their BlindBox or restrict networking access to the application running within the enclave.
