@@ -8,7 +8,7 @@ Deploy and isolate software to preserve your users' data privacy!
 ## ⬛ What is BlindBox?
 ________________________________________________________
 
-**BlindBox** is a **privacy deployment** solution for **SaaS applications** which preserves the **data confidentiality** of end users, even from the software provider. To guarantee that privacy, we deploy those applications with **hardware based, highly-isolated** environments. This technology is often referred to as **confidential computing** - hence our name BlindBox!
+**BlindBox** is a **privacy deployment** solution for **SaaS applications** which preserves the **data confidentiality** of end users, even from the software provider. To guarantee that privacy, we deploy those applications with **hardware based, highly-isolated** environments, a technology often referred to as **confidential computing**.
 
 🗝️ **Key features**:
 
@@ -20,15 +20,15 @@ ________________________________________________________
 
 > You can check out [the project code on our GitHub](https://github.com/mithril-security/blindbox/).
 
+!!! warning
+	
+	BlindBox is still under development. **Do not use in production!**
+
 ## 🚀 Getting started
 ________________________________________________________
 
 - Try our [“Quick tour”](./docs/getting-started/quick-tour.ipynb) API demo
 - [Discover](./docs/getting-started/confidential_computing.md) the technologies we use to ensure privacy
-
-!!! warning
-	
-	BlindBox is still under development. **Do not use in production!**
 
 ## 🙋 Getting help
 ________________________________________________________
