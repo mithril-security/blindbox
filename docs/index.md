@@ -8,13 +8,13 @@ Deploy and isolate software to preserve your users' data privacy!
 ## ⬛ What is BlindBox?
 ________________________________________________________
 
-**BlindBox** is a **privacy deployment** solution for **SaaS applications** which preserves the **data confidentiality** of end users, even from the software provider. To guarantee that privacy, we deploy those applications in **hardware based, highly-isolated** environments called **enclaves** - hence our name BlindBox!
+**BlindBox** is a **privacy deployment** solution for **SaaS applications** which preserves the **data confidentiality** of end users, even from the software provider. To guarantee that privacy, we deploy those applications with Confidential Computing, **hardware based, highly-isolated** environments. This technology is often referred to as **secure enclaves** - hence our name BlindBox!
 
 🗝️ **Key features**:
 
 + A **CLI tool** to deploy **application images** within **BlindBox**. We currently support **Docker** and we are working on other formats, like Kubernetes.
 
-+ Applications are deployed within a an enclave, or **Trusted Execution Environment** (TEE), which supports additional security verifications.
++ Applications are deployed using Confidential Computing technology, within **Confidential VMs** which support additional security verifications.
 
 + An **isolation layer** to define **custom security policies** for the application inside the enclave. This will include selecting who can query the service running in the BlindBox and the range of networking access allowed within.
 

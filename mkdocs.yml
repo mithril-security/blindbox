@@ -99,7 +99,7 @@ markdown_extensions:
 
 # Documentation tree
 nav:
-- 🏠 Overview: 'index.md' 
+- 🏠 Overview: 'index.md'
 
 - 🚀 Getting Started: 
   - Quick tour: 'docs/getting-started/quick-tour.ipynb'
