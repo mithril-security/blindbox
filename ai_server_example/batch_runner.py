@@ -11,13 +11,21 @@ U = TypeVar("U")
 
 
 class BatchRunner(Generic[T, U]):
-    def __init__(self, run_fn: Callable[[T], U], max_batch_size: int, max_latency_ms: int, collator: Collator[T]) -> None:
-        self.queue: Queue[Tuple[T, Future[U], float]] = Queue(maxsize = 2 * max_batch_size)
+    def __init__(
+        self,
+        run_fn: Callable[[T], U],
+        max_batch_size: int,
+        max_latency_ms: int,
+        collator: Collator[T],
+    ) -> None:
+        self.queue: Queue[Tuple[T, Future[U], float]] = Queue(
+            maxsize=2 * max_batch_size
+        )
         self.run_fn = run_fn
         self.max_batch_size = max_batch_size
         self.max_latency_ms = max_latency_ms
         self.collator = collator
-    
+
     async def submit(self, input: T) -> U:
         loop = asyncio.get_running_loop()
         fut = loop.create_future()
@@ -31,7 +39,10 @@ class BatchRunner(Generic[T, U]):
             if not self.queue.empty():
                 _, _, first_task_time = self.queue._queue[0]
                 latency_ms = int((loop.time() - first_task_time) * 1000)
-                if self.queue.qsize() >= self.max_batch_size or latency_ms > self.max_latency_ms:
+                if (
+                    self.queue.qsize() >= self.max_batch_size
+                    or latency_ms > self.max_latency_ms
+                ):
                     batch_size = min(self.queue.qsize(), self.max_batch_size)
                     inputs_list: List[T] = []
                     futures: List[Future[U]] = []
@@ -59,7 +70,7 @@ class BatchRunner(Generic[T, U]):
             else:
                 # Relinquish control to the event loop
                 await asyncio.sleep(0.01)
-    
+
     def run(self):
         loop = asyncio.get_running_loop()
         loop.create_task(self.main_loop())
