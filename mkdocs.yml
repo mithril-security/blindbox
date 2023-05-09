@@ -111,7 +111,7 @@ nav:
     - AMD SEV-SNP: 'docs/concepts/amd-sev.md'
 
 - ⚙️ How to Guides:
-  -  Preparing and deploying an application: 'docs/how-to-guides/prep-app.ipynb'
+  -  Preparing and deploying an application: 'docs/how-to-guides/prepare-app.ipynb'
 
 # - 🛠️ Client demo API reference: 'client/blindbox/blindbox/ai/client.html'
 
