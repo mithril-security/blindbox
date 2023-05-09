@@ -123,3 +123,7 @@
 	margin-bottom: 0.67em;
 	margin-right: 0;
 }
+
+/******* max width for large images *******/
+img[alt=attest_dark] { max-width: 600px; }
+img[alt=attest_light] { max-width: 600px; }

@@ -53,7 +53,6 @@ Let's take a look at the basic attestation workflow for BlindBox:
 
 ![attest_light](../../assets/light_attestation.jpg#only-light)
 ![attest_dark](../../assets/attest_dark.jpg#only-dark)
- 
 
 1. When a user queries a BlindBox application, our client will attempt to **create a connection** between the user and the application running in the BlindBox. This will **trigger the attestation process**. 
 
