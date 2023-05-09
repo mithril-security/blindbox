@@ -110,8 +110,8 @@ nav:
   - Confidential Computing:
     - AMD SEV-SNP: 'docs/concepts/amd-sev.md'
 
-# - ⚙️ How to Guides:
-#  -  Deploying your own Nitro server: 'docs/how-to-guides/deploy-API-server.md'
+- ⚙️ How to Guides:
+  -  Preparing and deploying an application: 'docs/how-to-guides/prep-app.ipynb'
 
 # - 🛠️ Client demo API reference: 'client/blindbox/blindbox/ai/client.html'
 
