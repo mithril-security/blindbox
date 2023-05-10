@@ -171,8 +171,8 @@ resource "azurerm_resource_group_template_deployment" "container" {
                       "memoryInGB" : local.memory_in_gb
                     }
                   },
-                  "securityContext": {
-                      "privileged": true
+                  "securityContext" : {
+                    "privileged" : true
                   }
                 }
               }
@@ -206,6 +206,12 @@ resource "azurerm_resource_group_template_deployment" "container" {
   depends_on = [
     null_resource.docker_push
   ]
+
+  lifecycle {
+    # Updating the deployment in-place does not work when the ACR
+    # is redeployed, apparently.
+    replace_triggered_by = [azurerm_container_registry.acr]
+  }
 
   deployment_mode = "Incremental"
 }

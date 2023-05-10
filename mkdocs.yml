@@ -111,8 +111,9 @@ nav:
 
 - 💡 Concepts:
   - Confidential Computing:
-    - Ecosystem: 'docs/concepts/ecosystem.md'
     - AMD SEV-SNP: 'docs/concepts/amd-sev.md'
+    - Ecosystem: 'docs/concepts/ecosystem.md'
+
 
 #- 🛠️ API reference: 'client/blindbox/blindbox/ai/client.html'
 
