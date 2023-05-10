@@ -21,7 +21,7 @@ This concept guide presents a brief overview of the Confidential Computing lands
 | `AWS Nitro Enclave`       | :material-close: NA[^1]  | :material-close:  NA | :material-check: Supported | 
 | `Nvidia Confidential GPU`     | :material-timer-sand: Under test | :material-close: NA  | :material-close:  NA |
 | `Intel SGX`     | :material-check: Supported (with [BlindAI](../past-projects/blindai.md)) | :material-close: NA  | :material-close:  NA |
-| `Intel SGX`     | :grey_question: Not tested yet | :grey_question: Not tested yet | :material-close:  NA |
+| `Intel TGX`     | :grey_question: Not tested yet | :grey_question: Not tested yet | :material-close:  NA |
 
 [^1]: NA: Not available.
 
