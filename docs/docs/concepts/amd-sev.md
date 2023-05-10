@@ -18,7 +18,7 @@ AMD SEV VMs are available with Azure or Google Cloud.
 
 ### Trusted Execution Environment (TEE)
 
-One of the key advantages of confidential VMs is that we are not restricted as we can be when creating applications for enclaves. Confidential VMs offer easy-of-use and are compatible with most existing applications, even when they are large or complex applications.
+One of the key advantages of confidential VMs is that we are not restricted as we can be when creating applications for enclaves. Confidential VMs offer ease-of-use and are compatible with most existing applications, even when they are large or complex applications.
 
 The code and data of the VM is secured by encryption. This encryption key is generated from a hardware random number generator and is stored in dedicated hardware registers where software cannot read it. The data is only decrypted when being processed by the AMD secure processor.
 
