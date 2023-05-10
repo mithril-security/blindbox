@@ -7,7 +7,13 @@ _______________________________
 	+ [A guide to AMD-SEV](./amd-sev.md)
 	+ [Confidential Computing Explained](https://confidential-computing-explained.mithrilsecurity.io/en/latest/), a hands-on course to learn how enclaves work and how to create your own mini-KMS
 
+## Introduction
+_______________
+
 This section presents a brief overview of the Confidential Computing landscape and covers how BlindBox fits in that space. 
+
+> Check [our intro to Confidential Computing](../getting-started/confidential_computing.md) if you are not familiar with Confidential Computing.
+
 
 | BlindBox Compatibility | Azure | GCP | AWS |
 | :--------------------- | :---- | :-- | :-- |
@@ -22,37 +28,48 @@ This section presents a brief overview of the Confidential Computing landscape a
 ## Hardware
 _________________
 
-> Check [our intro to Confidential Computing](../getting-started/confidential_computing.md) if you are not familiar with Confidential Computing.
+Currently, most hardware providers offer server-side CPUs with confidential computing abilities: 
 
-Currently, most hardware providers provide server-side CPUs with confidential computing abilities. Intel has Intel SGX/TDX available on Xeon. AMD offers AMD SEV on AMD EPYC. 
++ **Intel** was the first with [**SGX/TDX**](https://blindai.mithrilsecurity.io/en/latest/docs/concepts/SGX_vs_Nitro/#intel-sgx) enclaves, available on Xeon. 
++ **AMD** came up with [**SEV**](./amd-sev.md) on EPYC, a solution they call Confidential VMs. 
++ **AWS** provides [**Nitro Enclaves**](./nitro-enclaves.md), a solution at the Hypervisor level which isolate sensitive workloads.
++ **Nvidia** is coming with yet another tech: **Confidential GPUs**. They announced the **H100**, but the software libraries are not stable at the moment[^2].
 
-Currently, most CPU providers, such as Intel and AMD, provide server-side CPUs with secure enclave ability, called Intel SGX/TDX, available on Xeon, or AMD SEV on AMD EPYC.
+[^2]: 10 May 2023.
 
-Confidential GPUs from Nvidia are coming with the H100, but the software libraries are not stable at the moment of this writing (May 2023).
+??? question "A Confidential Computing terminology guide 📚"
 
-AWS provides Nitro Enclaves, a hardware-based solution at the Hypervisor level to isolate sensitive workloads.
+	<font size="3"> 
+	All the technical terms surrounding confidential computing can be confusing. You'll see people referring to **secure enclaves**, preaching **TEEs** and suddenly switching to **Confidential Containers**. 
+
+	+ **Enclaves**: Intel SGX was the first in the space so their *enclave* terminology stuck. But not all everything that calls itself an enclave is actually an enclave (for example, AWS Nitro 'Enclaves' work very differently from Intel SGX). This is why we think *enclave* might end up being the winner terminology to popularize those technologies at a higher level.
+
+	+ **Confidential VMs**:
+
+	+ **Confidential Containers**: it's just another name for Confidential VMs when they specifically are containers. 
+
+	+ **Trusted Execution Environment** (TEE):
+	</font>
 
 ## Cloud
 _____________________
 
-Each major Cloud provider provides its own flavor of Confidential Computing for SaaS vendors to access a machine with the right hardware easily.
+Most major Cloud providers also created their own flavor of Confidential Computing solutions. They allow SaaS vendors to access a machine with the right hardware easily (the 'right' hardware being one of the biggest barrier of entry to use confidential computing).
 
-- Azure Confidential Computing
-- GCP Confidential Computing
-- AWS Nitro Enclave
+- **Azure** went with **Azure Confidential Computing**
+- **GCP** offers **GCP Confidential Computing**
+- **AWS** proposes **AWS Nitro Enclave**
 
-While those offers exist on the main Cloud providers, they are mostly at the infrastructure level, with for instance, Confidential VMs, but developers have to implement complex security features such as attestation or sealing.
+It's important to note that those offers mostly cover the infrastructure level of confidential computing abilities. Developers using them **have to implement** complex security features such as attestation or sealing.
 
 
-## BlindBox compatibility
+## BlindBox position
 _________________
 
-BlindBox is a secure enclave tooling providing an abstraction layer for software vendors to provide an on-prem level of security and control to users of their SaaS.
+It can be complicated for inexperienced developers to properly implement key confidential computing functions, like isolation, attested TLS with remote attestation and sealing because Confidential Computing uses low-level hardware primitives. 
 
-As Confidential Computing uses low-level hardware primitives, it can be complicated for inexperienced developers to properly implement key functions, like proper isolation, attested TLS with remote attestation, sealing, and so on.
+This is where BlindBox comes in. It provides an easy-to-use secure enclave tooling solution to leverage the confidential infrastructure of Cloud providers. Its abstraction layer allows SaaS vendors to deliver an on-premise level of security and control to users of their software.
 
-That is why BlindBox provides an easy-to-use solution to easily harden SaaS workloads for SaaS vendors. BlindBox aims to be hardware and Cloud agnostic. It is made to leverage the Confidential infrastructure of those Cloud vendors, for instance, with a solution able to deploy workloads on Azure Confidential Containers.
+![blindbox_position_in_ecosystem](../../assets/BlindBox_ecosystem_place.png)
 
-
-
-Mithril Security provides the tooling for SaaS vendors to provide a Virtual Private SaaS that provides an on-prem level of security. Our objective is not to be a trusted third party in the usual sense where we see data, but rather to provide the security layer for SaaS vendors to address directly demanding organizations with our software.
+At the moment, BlindBox is still under development so it's not usable in production and only compatible with Azure Confidential VMs. But we aim for it to be hardware and Cloud agnostic. 

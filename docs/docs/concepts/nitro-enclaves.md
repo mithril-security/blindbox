@@ -1,9 +1,14 @@
 # Nitro Enclaves
 ________________________________________
 
-BlindBox protects user data using by deploying SaaS solutions within **Trusted Execution Environments (TEEs)**. One of the TEEs we currently support is Nitro Enclaves. In this guide, we will take a look at how this technology works and how it is implemented in BlindBox.
+??? abstract "Learn more about Confidential Computing 📖" 
 
-> If you want some more contextual information about TEEs, check out our introductory guide to confidential computing [here](../getting-started/confidential_computing.md).
+	+ [Our intro to Confidential Computing](../getting-started/confidential_computing.md)
+	+ [Discover the Confidential Computing ecosystem](../concepts/ecosystem.md)
+	+ [A guide to AMD SEV](./amd-sev.md)
+	+ [Confidential Computing Explained](https://confidential-computing-explained.mithrilsecurity.io/en/latest/), a hands-on course to learn how enclaves work and how to create your own mini-KMS
+
+BlindBox protects user data using by deploying SaaS solutions within **Trusted Execution Environments (TEEs)**. One of the TEEs we'll soon develop support for is **AWS Nitro Enclave**. In this guide, we will take a look at how this technology works.
 
 ## Nitro Enclaves
 ________________________
@@ -64,4 +69,4 @@ You can compare this process to using a checksum to verify the authenticity of a
 
 + **AWS as the cloud provider, their hardware and the enclave’s OS** must be **trusted**. That is because Nitro enclaves are designed to separate and isolate the host from the enclave and vice versa, but they do not protect against the cloud operator (AWS) or infrastructure.
 
-+ While Nitro enclaves limit operations within enclaves by default (such as no durable storage, no network/interactive access), **any of these features can be added back** into an enclave application **by the application provider**, so we cannot assume a Nitro enclave will never have any of these features.
++ While Nitro enclaves limit operations within enclaves by default (such as no durable storage, no network/interactive access), **any of these features can be added back** into an enclave application **by the application provider**, so it's impossible to assume a Nitro enclave will never have any of these features.
