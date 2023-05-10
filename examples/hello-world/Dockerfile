@@ -5,6 +5,7 @@ RUN pip install \
         python-multipart==0.0.6 \
         uvicorn==0.21.1 \
         pydantic==1.10.7 \
+        requests==2.28.2 \
     --extra-index-url https://download.pytorch.org/whl/cpu
 
 COPY server.py /
