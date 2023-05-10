@@ -10,7 +10,7 @@ _______________________________
 ## Introduction
 _______________
 
-This section presents a brief overview of the Confidential Computing landscape and covers how BlindBox fits in that space. 
+This concept guide presents a brief overview of the Confidential Computing landscape and covers how BlindBox fits in that space. 
 
 > Check [our intro to Confidential Computing](../getting-started/confidential_computing.md) if you are not familiar with Confidential Computing.
 
