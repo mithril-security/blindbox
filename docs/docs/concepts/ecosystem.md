@@ -42,7 +42,7 @@ Currently, most hardware providers offer server-side CPUs with confidential comp
 	<font size="3"> 
 	All the technical terms surrounding confidential computing can be confusing. You'll see people referring to **secure enclaves**, preaching **TEEs** and suddenly switching to **Confidential Containers**. 
 
-	+ **Enclaves**: Intel SGX was the first in the space so their *enclave* terminology stuck. But not all everything that calls itself an enclave is actually an enclave (for example, AWS Nitro 'Enclaves' work very differently from Intel SGX). This is why we think *enclave* might end up being the winner terminology to popularize those technologies at a higher level.
+	+ **Enclaves**: Intel SGX was the first in the space so their terminology, **secure enclaves** stuck. But not all everything that calls itself an enclave is *actually* an enclave the way Intel meant them. For example, AWS Nitro 'Enclaves' function very differently from Intel SGX. This trend is however why we think 'enclave' might end up being the winner terminology to popularize those technologies at a higher level.
 
 	+ **Confidential VMs**:
 
