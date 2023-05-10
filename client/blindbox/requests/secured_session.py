@@ -40,8 +40,90 @@ class SecuredSession(Session):
 
         super(SecuredSession, self).__init__()
 
-    def request(self, method, url, *args, **kwargs):
-        joined_url = urljoin(self.base_url, url)
+    def get(self, endpoint: str = "", **kwargs):
+        r"""Sends a GET request. Returns :class:`Response` object.
+
+        :param endpoint: URL endpoint for the new :class:`Request` object.
+        :param \*\*kwargs: Optional arguments that ``request`` takes.
+        :rtype: requests.Response
+        """
+
+        kwargs.setdefault("allow_redirects", True)
+        return self.request("GET", endpoint, **kwargs)
+
+    def options(self, endpoint: str = None, **kwargs):
+        r"""Sends a OPTIONS request. Returns :class:`Response` object.
+
+        :param url: URL endpoint for the new :class:`Request` object.
+        :param \*\*kwargs: Optional arguments that ``request`` takes.
+        :rtype: requests.Response
+        """
+
+        kwargs.setdefault("allow_redirects", True)
+        return self.request("OPTIONS", endpoint, **kwargs)
+
+    def head(self, endpoint: str = "", **kwargs):
+        r"""Sends a HEAD request. Returns :class:`Response` object.
+
+        :param url endpoint: URL for the new :class:`Request` object.
+        :param \*\*kwargs: Optional arguments that ``request`` takes.
+        :rtype: requests.Response
+        """
+
+        kwargs.setdefault("allow_redirects", False)
+        return self.request("HEAD", endpoint, **kwargs)
+
+    def post(self, endpoint: str = "", data=None, json=None, **kwargs):
+        r"""Sends a POST request. Returns :class:`Response` object.
+
+        :param url endpoint: URL for the new :class:`Request` object.
+        :param data: (optional) Dictionary, list of tuples, bytes, or file-like
+            object to send in the body of the :class:`Request`.
+        :param json: (optional) json to send in the body of the :class:`Request`.
+        :param \*\*kwargs: Optional arguments that ``request`` takes.
+        :rtype: requests.Response
+        """
+
+        return self.request(
+            "POST", endpoint, data=data, json=json, **kwargs
+        )
+
+    def put(self, endpoint: str = "", data=None, **kwargs):
+        r"""Sends a PUT request. Returns :class:`Response` object.
+
+        :param url: URL endpoint for the new :class:`Request` object.
+        :param data: (optional) Dictionary, list of tuples, bytes, or file-like
+            object to send in the body of the :class:`Request`.
+        :param \*\*kwargs: Optional arguments that ``request`` takes.
+        :rtype: requests.Response
+        """
+
+        return self.request("PUT", endpoint, data=data, **kwargs)
+
+    def patch(self, endpoint: str = "", data=None, **kwargs):
+        r"""Sends a PATCH request. Returns :class:`Response` object.
+
+        :param url: URL endpoint for the new :class:`Request` object.
+        :param data: (optional) Dictionary, list of tuples, bytes, or file-like
+            object to send in the body of the :class:`Request`.
+        :param \*\*kwargs: Optional arguments that ``request`` takes.
+        :rtype: requests.Response
+        """
+
+        return self.request("PATCH", endpoint, data=data, **kwargs)
+
+    def delete(self, endpoint: str = "", **kwargs):
+        r"""Sends a DELETE request. Returns :class:`Response` object.
+
+        :param url endpoint: URL for the new :class:`Request` object.
+        :param \*\*kwargs: Optional arguments that ``request`` takes.
+        :rtype: requests.Response
+        """
+
+        return self.request("DELETE", endpoint, **kwargs)
+
+    def request(self, method, endpoint, *args, **kwargs):
+        joined_url = urljoin(self.base_url, endpoint)
         return super().request(method, joined_url, *args, **kwargs)
 
 
