@@ -106,14 +106,14 @@ nav:
   - How we protect your data: 'docs/getting-started/confidential_computing.md'
 # add the Where we fit in the ecosystem page here?
 
+- 📚 Tutorials:
+  -  Preparing and deploying an application: 'docs/tutorials/prepare-app.ipynb'
+
 - 💡 Concepts:
   - Confidential Computing:
     - AMD SEV-SNP: 'docs/concepts/amd-sev.md'
 
-- ⚙️ How to Guides:
-  -  Preparing and deploying an application: 'docs/how-to-guides/prepare-app.ipynb'
-
-# - 🛠️ Client demo API reference: 'client/blindbox/blindbox/ai/client.html'
+#- 🛠️ API reference: 'client/blindbox/blindbox/ai/client.html'
 
 - 💫 Past projects: 
   - BlindAI: 'docs/past-projects/blindai.md'

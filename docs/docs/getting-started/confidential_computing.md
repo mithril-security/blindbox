@@ -69,6 +69,6 @@ __________________________
 
 With great security features comes great responsibilities! 
 
-TEEs also have a general limitation which is very important to know : the **application code running in the TEE *must* be trusted**! While the attestation process verifies the authenticity of the enclave, it does not run any checks on what the verified application code does. An enclave protects what's inside it from the outside, but not what's inside from what is inside.
+TEEs also have a general limitation which is very important to know : the **application code running in the TEE *must* be trusted**! While the attestation process verifies the authenticity of the enclave, it does not run any checks on what the verified application code does. An enclave protects what is inside from the outside, but not what is inside from the inside.
 
 This is why we wrap application images in an  an **additional security layer** to BlindBox, so developers can define **custom security policies** for protection. For example, they could decide who can query the service in their BlindBox or restrict networking access to the application running within the enclave.
