@@ -72,3 +72,9 @@ With great security features comes great responsibilities!
 TEEs also have a general limitation which is very important to know : the **application code running in the TEE *must* be trusted**! While the attestation process verifies the authenticity of the enclave, it does not run any checks on what the verified application code does. An enclave protects what is inside from the outside, but not what is inside from the inside.
 
 This is why we wrap application images in an  an **additional security layer** to BlindBox, so developers can define **custom security policies** for protection. For example, they could decide who can query the service in their BlindBox or restrict networking access to the application running within the enclave.
+
+??? abstract "Learn more about Confidential Computing 📖" 
+
+	+ [Discover the Confidential Computing ecosystem](../concepts/ecosystem.md)
+	+ [A guide to AMD-SEV](../concepts/amd-sev.md)
+	+ [Confidential Computing Explained](https://confidential-computing-explained.mithrilsecurity.io/en/latest/), a hands-on course to learn how enclaves work and how to create your own mini-KMS

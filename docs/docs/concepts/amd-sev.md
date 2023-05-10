@@ -1,9 +1,13 @@
 # AMD SEV-SNP
 ________________________________________
 
-BlindBox protects user data using by deploying SaaS solutions within **Trusted Execution Environments (TEEs)**. One of the TEEs we currently support is the AMD SEV-SNP confidential VM. In this guide, we will take a look at how this technology works and how it is implemented in BlindBox.
+??? abstract "Learn more about Confidential Computing 📖" 
 
-> If you want some more contextual information about TEEs, check out our introductory guide to confidential computing [here](../getting-started/confidential_computing.md).
+	+ [Our intro to Confidential Computing](../getting-started/confidential_computing.md)
+	+ [Discover the Confidential Computing ecosystem](../concepts/ecosystem.md)
+	+ [Confidential Computing Explained](https://confidential-computing-explained.mithrilsecurity.io/en/latest/), a hands-on course to learn how enclaves work and how to create your own mini-KMS
+
+BlindBox protects user data using by deploying SaaS solutions within **Trusted Execution Environments (TEEs)**. One of the TEEs we currently support is the AMD SEV-SNP confidential VM. In this guide, we will take a look at how this technology works and how it is implemented in BlindBox.
 
 ## AMD SEV-SNP
 ________________________
