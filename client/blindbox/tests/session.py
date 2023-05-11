@@ -18,5 +18,3 @@ print(res.text)
 res = requests.get(url="http://localhost:8080/enclave")
 print(res.status_code)
 print(res.text)
-
-
