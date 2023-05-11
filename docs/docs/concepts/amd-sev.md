@@ -58,6 +58,8 @@ For BlindBox, the attestation process is implemented using [Azure's attestation 
 
 **AMD-SEV SNP** has historically been vulnerable to side channel attacks, where attackers try to get information about a TEE indirectly, by examining things like memory consumption or power usage.
 
-## Further reading
+!!! note "Further reading"
 
-Google Project Zero & Google CLoud Security conducted a detailed security review of AMD SEV-SNP, released in May 2022 which you can view [here](https://storage.googleapis.com/gweb-uniblog-publish-prod/documents/AMD_GPZ-Technical_Report_FINAL_05_2022.pdf).
+	<font size="3">
+	Google Project Zero & Google CLoud Security conducted a detailed security review of AMD SEV-SNP, released in May 2022 which you can view [here](https://storage.googleapis.com/gweb-uniblog-publish-prod/documents/AMD_GPZ-Technical_Report_FINAL_05_2022.pdf).
+	</font>

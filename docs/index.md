@@ -56,6 +56,13 @@ ____________________________________________
 - [Past Projects](./docs/past-projects/blindai) informs you of our past audited project BlindAI, of which BlindBox is the evolution. 
 -->
 
+## ❓ Why trust us?
+___________________________
+
++ **Our core security features are open source.** We believe that transparency is the best way to ensure security and you can inspect the code yourself on our [GitHub page](https://github.com/mithril-security/blindbox).
+
++ **Our historical project [BlindAI](../past-projects/blindai.md) was successfully audited** by Quarkslab. Although both projects differ (BlindAI was meant for the confidential deployment of ONNX models inside Intel SGX enclaves), we want to highlight that we are serious about our security standards and know how to code secure remote attestation.
+
 ## 🔒 Who made BlindBox?
 
 BlindBox was developed by **Mithril Security**. **Mithril Security** is a startup focused on AI privacy solutions based on **Confidential Computing** technology. We provide several **open-source tools** for **querying** and **deploying AI solutions** while **guaranteeing data privacy**.

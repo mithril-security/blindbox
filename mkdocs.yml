@@ -104,16 +104,17 @@ nav:
 - 🚀 Getting Started: 
   - Quick tour: 'docs/getting-started/quick-tour.ipynb'
   - How we protect your data: 'docs/getting-started/confidential_computing.md'
-# add the Where we fit in the ecosystem page here?
 
 - 📚 Tutorials:
-  -  Preparing and deploying an application: 'docs/tutorials/prepare-app.ipynb'
+  -  Preparing the application image: 'docs/tutorials/prepare-app.ipynb'
 
 - 💡 Concepts:
   - Confidential Computing:
     - Ecosystem: 'docs/concepts/ecosystem.md'
     - AMD SEV-SNP: 'docs/concepts/amd-sev.md'
 
+#- 🌍 Frameworks integrations
+#  - OpenAI Whisper: 'docs/how-to-guides/openai-whisper.ipynb'
 
 #- 🛠️ API reference: 'client/blindbox/blindbox/ai/client.html'
 

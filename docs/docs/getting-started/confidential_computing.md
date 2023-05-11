@@ -28,11 +28,7 @@ In a confidential workflow, data is sent to and analyzed within a **Trusted Exec
 
 ![Trusted Execution Environment](../../assets/TEE.png)
 
-We currently support the following TEEs: **AMD SEV-SNP confidential VM**.
-
-> You can check our guide to learn more about [AMD SEV-SNP](../concepts/amd-sev.md).
-
-> If you are very interested in learning more about secure enclaves in practice, we are working on a [hands-on series](https://confidential-computing-explained.mithrilsecurity.io/en/latest/) explaining how Confidential Computing works. Developers can play with our tutorials and code their own simplified KMS with secure enclaves!
+We currently support the following TEEs: **[AMD SEV-SNP](../concepts/amd-sev.md) confidential VM**.
 
 ## Attestation
 ___________________
@@ -40,9 +36,12 @@ ___________________
 When a user wants to establish communication with an enclave, checks will first be performed to **verify the authenticity** of **the enclave identity and anything running inside the enclave** such as the **application** and **the trusted OS (where relevant)**. This process is called attestation.
 
 !!! warning "Important"
-    <font size="3">
+
+	<font size="3">
     The goal of this process is to check that the code running is indeed the code of the application we are expecting and that it has not been tampered with. The attestation doesn't **audit the application code itself**. You could compare it to using a checksum utility when you download a software.
-    </font>
+
+	This is why the **application code running in the TEE *must* be trusted**! A TEE protects what is inside from the outside, but *not* what is inside from the inside.
+	</font>
 
 
 ❌ If any of these **checks fail**, an error is produced and the **user will not be able to communicate with the enclave**. For BlindBox, this means that a user will only be able to connect to a genuine, verified TEE.
@@ -64,6 +63,38 @@ Let's take a look at the basic attestation workflow for BlindBox:
 
 5. **If** the verification process is **successful**, **communication via TLS is established** and the query will be performed. **If** the verification process **fails**, an attestation **error** will be returned.
 
+Here, we were able to transcribe our audio file while keeping the audio file confidential, even from the SaaS vendor!
+
+## Error handling
+___________________________________________ 
+
+BlindBox is under development, so this code is still being implemented, but we wanted to give you a clear illustration of **what will happen when the Confidential VM is not secure**. 
+
++ If we talk to a server without signature from the hardware provider (meaning it has no collateral to prove it is secure), then an error will be raised:
+
+	```python
+	import blindbox.requests as requests
+
+	CONFIDENTIAL_VM_IP = "127.0.0.1:8080" # replace with your VM IP address + port
+
+	session = requests.SecureSession(addr=CONFIDENTIAL_VM_IP)
+
+	>> NotAnEnclaveError
+	```
+
++ If the first check passes, but the hash of the code is not the publicly available hash of BlindBox, another error will be raised:
+
+	```python
+	import blindbox.requests as requests
+
+	CONFIDENTIAL_VM_IP = "127.0.0.1:8080" # replace with your VM IP address + port
+
+	session = requests.SecureSession(addr=CONFIDENTIAL_VM_IP)
+
+	>> InvalidEnclaveCode
+	```
+
+<!--
 ## Limitations
 __________________________
 
@@ -72,6 +103,7 @@ With great security features comes great responsibilities!
 TEEs also have a general limitation which is very important to know : the **application code running in the TEE *must* be trusted**! While the attestation process verifies the authenticity of the enclave, it does not run any checks on what the verified application code does. An enclave protects what is inside from the outside, but not what is inside from the inside.
 
 This is why we wrap application images in an  an **additional security layer** to BlindBox, so developers can define **custom security policies** for protection. For example, they could decide who can query the service in their BlindBox or restrict networking access to the application running within the enclave.
+-->
 
 ??? abstract "Learn more about Confidential Computing 📖" 
 

@@ -12,7 +12,7 @@ _______________
 
 This concept guide presents a brief overview of the Confidential Computing landscape and covers how BlindBox fits into that space. 
 
-> Check [our intro to Confidential Computing](../getting-started/confidential_computing.md) if you are not familiar with Confidential Computing.
+> We recommend reading [our intro to Confidential Computing](../getting-started/confidential_computing.md) first, if you are not familiar with the technology.
 
 
 | BlindBox Compatibility | Azure | GCP | AWS |
@@ -44,9 +44,9 @@ Currently, most hardware providers offer server-side CPUs with confidential comp
 
 	+ **Trusted Execution Environment** (TEE): Trusted execution environments (TEEs) are secure environments for data processing created by the processor of a system. Enclaves and Confidential VMs are examples of TEEs.
 	
-	+ **Enclaves**: Enclaves are secure TEEs which exist within a larger system. They are isolated from other users and processors on a given host. Intel SGX enclaves are the most well-known example of enclaves, but other CC technologies use this terminology too, even where their technology differs greatly to Intel SGX! It may be that the term enclave goes on to be used quite broadly for various confidential computing TEEs, despite varying implementations.
+	+ **Enclaves**: Enclaves are secure TEEs which exist within a larger system. They are isolated from other users and processors on a given host. Intel SGX enclaves are the most well-known example of enclaves, but other Confidential Computing technologies use this terminology too, even where their technology differs greatly to Intel SGX! It may be that the term enclave goes on to be used quite broadly for various confidential computing TEEs, despite varying implementations.
 
-	+ **Confidential VMs**: Confidential VMs take the key principals of Confidential Computing and apply them to a whole VM, meaning, unlike enclaves, they can run almost any workload without any modifications!
+	+ **Confidential VMs**: Confidential VMs take the key principals of Confidential Computing and apply them to a whole VM, meaning, unlike enclaves, they can run almost any workload without modifying anything!
 
 	+ **Confidential Containers**: These are containers that are run inside a Confidential TEE.
 	</font>
