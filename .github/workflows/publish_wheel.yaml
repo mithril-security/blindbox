@@ -1,0 +1,33 @@
+name: Publish Wheel on tag
+
+on:
+  push:
+    tags:
+      - '*'
+
+jobs:
+  pypi-publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Install dependencies
+        run: |
+          apt update && apt -y install lsb-release
+
+      - uses: actions/setup-python@v4
+        with:
+          python-version: 'pypy3.9'
+          cache: 'pip'
+
+      - name: Client build
+        run: |
+          cd client
+          python -m pip install --upgrade build && python -m build --wheel
+
+      #- name: Publishing
+        #uses: pypa/gh-action-pypi-publish@release/v1
+        #with:
+          #password: ${{ secrets.PYPI_API_TOKEN }}
+          #packages_dir: client/dist
