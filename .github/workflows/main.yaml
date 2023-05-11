@@ -11,15 +11,40 @@ jobs:
 
       - name: Install dependencies
         run: |
-          apt update && apt -y install lsb-release curl
-
+          apt update && apt -y install lsb-release
       - uses: actions/setup-python@v4
         with:
           python-version: 'pypy3.9'
-          cache: 'pip'
+
+      - name: Install pypi dependencies
+        run: |
+          python -m pip install --upgrade pip && python -m pip install aiohttp requests
 
       - name: Testing requests API
         run: |
-          python -m pip install --upgrade pip && python -m pip install aiohttp requests
           python ./client/blindbox/tests/demo_server.py & sleep 1
           export PYTHONPATH=$PWD/client:$PYTHONPATH && cd ./client/blindbox/tests/ && python session.py
+
+  cli-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Install dependencies
+        run: |
+          apt update && apt -y install lsb-release
+      - uses: actions/setup-python@v4
+        with:
+          python-version: 'pypy3.9'
+
+      - name: Install pypi dependencies
+        run: |
+          python -m pip install --upgrade pip && python -m pip install pydantic inquirer rich pyyaml
+
+      - name: Client build
+        run: |
+          cd client
+          python -m pip install --upgrade build && python -m build --wheel
+          python -m pip install dist/$(ls dist)
+          blindbox -h
