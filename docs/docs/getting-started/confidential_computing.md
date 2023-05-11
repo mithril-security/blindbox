@@ -39,8 +39,6 @@ When a user wants to establish communication with an enclave, checks will first 
 
 	<font size="3">
     The goal of this process is to check that the code running is indeed the code of the application we are expecting and that it has not been tampered with. The attestation doesn't **audit the application code itself**. You could compare it to using a checksum utility when you download a software.
-
-	This is why the **application code running in the TEE *must* be trusted**! A TEE protects what is inside from the outside, but *not* what is inside from the inside.
 	</font>
 
 
