@@ -96,7 +96,7 @@ BlindBox is under development, so this code is still being implemented, but we w
 
 We wrap application images in an **additional security layer**, so data owners can define their own **custom security policies**. This allows them to have greater control over what the SaaS application can do. For example, they could decide who can query the service in their BlindBox or restrict external networking access for the application running in the confidential VM.
 
-![Trusted Execution Environment](../../assets/blindbox_arch.png)
+![blindbox_architecture](../../assets/blindbox_arch.png)
 
 <!--
 ## Limitations
