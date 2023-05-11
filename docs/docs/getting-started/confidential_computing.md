@@ -26,19 +26,19 @@ ____________________________________
 
 In a confidential workflow, data is sent to and analyzed within a **Trusted Execution Environment (TEE)**, otherwise known as a secure enclave. Data sent to the enclave is only decrypted in isolated environments or when being processed. Even if hackers or malicious insiders gain access to the host machine an enclave is running on, they will not be able to access data inside the enclave.
 
-![Trusted Execution Environment](../../assets/TEE.png)
+![Trusted Execution Environment](../../assets/TEE_updated.png)
 
 We currently support the following TEEs: **[AMD SEV-SNP](../concepts/amd-sev.md) confidential VM**.
 
 ## Attestation
 ___________________
 
-When a user wants to establish communication with an enclave, checks will first be performed to **verify the authenticity** of **the enclave identity and anything running inside the enclave** such as the **application** and **the trusted OS (where relevant)**. This process is called attestation.
+When a user wants to establish communication with an enclave, checks can be performed to **verify the authenticity of the TEE**, **its configuration** and elements such as the  **application** running in the TEE and **the OS (where relevant)**. This process is called attestation.
 
 !!! warning "Important"
 
 	<font size="3">
-    The goal of this process is to check that the code running is indeed the code of the application we are expecting and that it has not been tampered with. The attestation doesn't **audit the application code itself**. You could compare it to using a checksum utility when you download a software.
+    Where attestation verifies the application code, the goal is to check that the code running is indeed the expected application code and that it has not been tampered with. The attestation doesn't **audit the application code itself**. You could compare it to using a checksum utility when you download a software.
 	</font>
 
 
@@ -92,13 +92,17 @@ BlindBox is under development, so this code is still being implemented, but we w
 	>> InvalidEnclaveCode
 	```
 
+## Additional security features
+
+We wrap application images in an **additional security layer**, so data owners can define their own **custom security policies**. This allows them to have greater control over what the SaaS application can do. For example, they could decide who can query the service in their BlindBox or restrict external networking access for the application running in the confidential VM.
+
+![Trusted Execution Environment](../../assets/blindbox_arch.png)
+
 <!--
 ## Limitations
 __________________________
 
-With great security features comes great responsibilities! 
-
-TEEs also have a general limitation which is very important to know : the **application code running in the TEE *must* be trusted**! While the attestation process verifies the authenticity of the enclave, it does not run any checks on what the verified application code does. An enclave protects what is inside from the outside, but not what is inside from the inside.
+As discussed previously, the attestation process verifies the authenticity of the enclave, it does not run any checks on what the verified application code does. An enclave protects what is inside from the outside, but not what is inside from the inside.
 
 This is why we wrap application images in an  an **additional security layer** to BlindBox, so developers can define **custom security policies** for protection. For example, they could decide who can query the service in their BlindBox or restrict networking access to the application running within the enclave.
 -->
