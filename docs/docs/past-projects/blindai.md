@@ -7,4 +7,4 @@ BlindAI 🔒 is our **open-source** and **audited privacy solution** designed fo
 
 BlindBox ⬛ aims to **improve on what we created with BlindAI**, allowing users to deploy not just AI models, but whole SaaS solutions within secure enclaves!
 
-[[*COMING SOON*] BlindAI's Audit Report :fontawesome-solid-book:](#){ .md-button .md-button--primary }
+[Download BlindAI's Audit Report :fontawesome-solid-book:](https://github.com/mithril-security/blindai/raw/50c7ace53006a304e6ba908749da1e1df4e3868f/docs/assets/23-03-1142-LIV_v1.1.pdf?ref=blog.mithrilsecurity.io){ .md-button .md-button--primary }
