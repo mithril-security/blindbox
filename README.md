@@ -21,7 +21,7 @@
 [![LinkedIn][linkedin-shield]][linkedin-url]
 
   <p align="center">
-    <b>Quickly deploy your SaaS solutions while preserving your user's data privacy.
+    <b>Quickly deploy your SaaS solutions while preserving your users' data privacy.
 	<br /><br />
     <a href="https://blindbox.mithrilsecurity.io/en/latest"><strong>Explore the docs »</strong></a>
     <br />
@@ -56,7 +56,7 @@
 <!-- ABOUT THE PROJECT -->
 ## 🔒 About The Project
 
-**BlindBox** is a **privacy deployment** solution for **SaaS applications** which preserves the **data confidentiality** of end users, even from the software provider. To guarantee that privacy, we deploy those applications with **hardware based, highly-isolated** environments, a technology often referred to as **confidential computing**.
+**BlindBox** is a **privacy deployment** solution for **SaaS applications** which preserves the **data confidentiality** of end users, even from the software provider. To guarantee that privacy, we deploy those applications within **hardware based, highly-isolated** environments, a technology often referred to as **confidential computing**.
 
 | ⚠️ **WARNING:** BlindBox is still under development. **Do not use in production!** |
 | --- |
