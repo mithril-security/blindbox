@@ -106,8 +106,8 @@ nav:
   - How we protect your data: 'docs/getting-started/confidential_computing.md'
 
 - 📚 Tutorials:
-  -  Preparing the application image: 'docs/tutorials/prepare-app.ipynb'
   -  Integration: 'docs/tutorials/integration.ipynb'
+  -  Preparing the application image: 'docs/tutorials/prepare-app.ipynb'
 - 💡 Concepts:
   - Confidential Computing:
     - Ecosystem: 'docs/concepts/ecosystem.md'
