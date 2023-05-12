@@ -107,7 +107,7 @@ nav:
 
 - 📚 Tutorials:
   -  Preparing the application image: 'docs/tutorials/prepare-app.ipynb'
-
+  -  Integration: 'docs/tutorials/integration.ipynb'
 - 💡 Concepts:
   - Confidential Computing:
     - Ecosystem: 'docs/concepts/ecosystem.md'
