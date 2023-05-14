@@ -63,7 +63,7 @@ Let's take a look at the basic attestation workflow for BlindBox:
 
 Here, we were able to transcribe our audio file while keeping the audio file confidential, even from the SaaS vendor!
 
-## Error handling
+## Verifiying security
 ___________________________________________ 
 
 BlindBox is under development, so this code is still being implemented, but we wanted to give you a clear illustration of **what will happen when the Confidential VM is not secure**. 
