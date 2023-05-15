@@ -26,7 +26,8 @@ ____________________________________
 
 In a confidential workflow, data is sent to and analyzed within a **Trusted Execution Environment (TEE)**, otherwise known as a secure enclave. Data sent to the enclave is only decrypted in isolated environments or when being processed. Even if hackers or malicious insiders gain access to the host machine an enclave is running on, they will not be able to access data inside the enclave.
 
-![Trusted Execution Environment](../../assets/TEE_updated.png)
+![TEE_dark](../../assets/TEE_dark.png#only-dark)
+![TEE_light](../../assets/TEE_light.png#only-light)
 
 We currently support the following TEEs: **[AMD SEV-SNP](../concepts/amd-sev.md) confidential VM**.
 
@@ -96,7 +97,8 @@ BlindBox is under development, so this code is still being implemented, but we w
 
 We wrap application images in an **additional security layer**, so data owners can define their own **custom security policies**. This allows them to have greater control over what the SaaS application can do. For example, they could decide who can query the service in their BlindBox or restrict external networking access for the application running in the confidential VM.
 
-![blindbox_architecture](../../assets/blindbox_arch.png)
+![blindbox_architecture_light](../../assets/blindbox_arch_light.png#only-light)
+![blindbox_architecture_dark](../../assets/blindbox_arch_dark.png#only-dark)
 
 <!--
 ## Limitations
