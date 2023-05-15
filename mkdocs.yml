@@ -106,8 +106,9 @@ nav:
   - How we protect your data: 'docs/getting-started/confidential_computing.md'
 
 - 📚 Tutorials:
-  -  Integration: 'docs/tutorials/integration.ipynb'
   -  Preparing the application image: 'docs/tutorials/prepare-app.ipynb'
+- ✅ Integration:
+  - OpenAI Whisper deployment: 'docs/tutorials/integration.ipynb'
 - 💡 Concepts:
   - Confidential Computing:
     - Ecosystem: 'docs/concepts/ecosystem.md'
