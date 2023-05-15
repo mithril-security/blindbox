@@ -26,8 +26,8 @@ jobs:
           cd client
           python -m pip install --upgrade build && python -m build --wheel
 
-      #- name: Publishing
-        #uses: pypa/gh-action-pypi-publish@release/v1
-        #with:
-          #password: ${{ secrets.PYPI_API_TOKEN }}
-          #packages_dir: client/dist
+      - name: Publishing
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          password: ${{ secrets.PYPI_TOKEN }}
+          packages_dir: client/dist
