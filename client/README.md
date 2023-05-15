@@ -90,7 +90,7 @@ We recommend for you to get started with our [Quick tour](https://blindbox.mithr
 
 * **Our core security features are open source.** We believe that transparency is the best way to ensure security and you can inspect the code yourself on our [GitHub page](https://github.com/mithril-security/blindbox).
 
-* **Our historical project [BlindAI](./docs/docs/past-projects/blindai.md) was successfully audited** by Quarkslab. Although both projects differ (BlindAI was meant for the confidential deployment of ONNX models inside Intel SGX enclaves), we want to highlight that we are serious about our security standards and know how to code secure remote attestation.
+* **Our historical project [BlindAI](https://blindbox.mithrilsecurity.io/en/latest/docs/past-projects/blindai/) was successfully audited** by Quarkslab. Although both projects differ (BlindAI was meant for the confidential deployment of ONNX models inside Intel SGX enclaves), we want to highlight that we are serious about our security standards and know how to code secure remote attestation.
 
 
 <!-- LICENSE -->
