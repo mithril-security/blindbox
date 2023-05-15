@@ -33,7 +33,10 @@ jobs:
 
       - name: Install dependencies
         run: |
-          apt update && apt -y install lsb-release
+          wget -O- https://apt.releases.hashicorp.com/gpg | sudo gpg --dearmor -o /usr/share
+          echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/hashicorp.list
+
+          apt update && apt -y install lsb-release terraform
       - uses: actions/setup-python@v4
         with:
           python-version: 'pypy3.9'
