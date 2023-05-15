@@ -93,12 +93,25 @@ BlindBox is under development, so this code is still being implemented, but we w
 	>> InvalidEnclaveCode
 	```
 
-## Additional security features
+## BlindBox security features
 
-We wrap application images in an **additional security layer**, so data owners can define their own **custom security policies**. This allows them to have greater control over what the SaaS application can do. For example, they could decide who can query the service in their BlindBox or restrict external networking access for the application running in the confidential VM.
+With BlindBox, we harness the power of confidential computing to protect your data with applications are deployed in isolated TEEs.
+
+**[ coming soon ⌛]** BlindBox with remote attestation is on its way! Attestation will be performed when users connect to a BlindBox to verify the authenticity of their BlindBox and TEE environment.
+
+We will also be implementing the follow additional security features to protect user data:
+
++ **[ coming soon ⌛]** **Attested network isolation**: We will add an additional layer to our attestation process where we will verify that the BlindBox we are connecting to has the expected security policies in place.
+
++ **[ coming soon ⌛]** Data owner security policies:
+We wrap application images in an **additional security layer** which enforces custom security policies. These custom policies allow the data owner to set up:
+	- **Authentication**: Data owners can specify who should be able to query their BlindBox.
+	- **Outward-bound network isolation**: Data owners can whitelist external domains that the SaaS application may contact if necessary- any calls to external domains not on this whitelist will be blocked.
 
 ![blindbox_architecture_light](../../assets/blindbox_arch_light.png#only-light)
 ![blindbox_architecture_dark](../../assets/blindbox_arch_dark.png#only-dark)
+
+These security features allow us to offer a solution which is able to rival the security provided by on-premise SaaS deployment whilst retaining all the advantages of SaaS Cloud deployment!
 
 <!--
 ## Limitations
