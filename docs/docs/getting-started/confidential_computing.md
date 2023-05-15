@@ -49,8 +49,8 @@ When a user wants to establish communication with an enclave, checks can be perf
 
 Let's take a look at the basic attestation workflow for BlindBox:
 
-![attest_light](../../assets/light_attestation.jpg#only-light)
-![attest_dark](../../assets/attest_dark.jpg#only-dark)
+![attest_light](../../assets/attest_light.png#only-light)
+![attest_dark](../../assets/attest_dark.png#only-dark)
 
 1. When a user queries a BlindBox application, our client will attempt to **create a connection** between the user and the application running in the BlindBox. This will **trigger the attestation process**. 
 
@@ -64,7 +64,7 @@ Let's take a look at the basic attestation workflow for BlindBox:
 
 Here, we were able to transcribe our audio file while keeping the audio file confidential, even from the SaaS vendor!
 
-## Verifiying security
+## Verifying security
 ___________________________________________ 
 
 BlindBox is under development, so this code is still being implemented, but we wanted to give you a clear illustration of **what will happen when the Confidential VM is not secure**. 
