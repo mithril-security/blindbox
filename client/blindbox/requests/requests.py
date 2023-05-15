@@ -1,4 +1,4 @@
-from .secured_session import SecuredSession
+from .secure_session import SecureSession
 from urllib.parse import urlparse
 
 def _parse_url(url):
@@ -18,7 +18,7 @@ def post(url, data=None, json=None, **kwargs):
     """
 
     root, endpoint = _parse_url(url)
-    with SecuredSession(root) as secure_session:
+    with SecureSession(root) as secure_session:
         return secure_session.post(endpoint, data, json, **kwargs)
 
 
@@ -30,7 +30,7 @@ def get(url, **kwargs):
     """
     
     root, endpoint = _parse_url(url)
-    with SecuredSession(root) as secure_session:
+    with SecureSession(root) as secure_session:
         return secure_session.get(endpoint, **kwargs)
     
 
@@ -42,7 +42,7 @@ def options(url, **kwargs):
     """
 
     root, endpoint = _parse_url(url)
-    with SecuredSession(root) as secure_session:
+    with SecureSession(root) as secure_session:
         return secure_session.options(endpoint, **kwargs)
 
 
@@ -54,7 +54,7 @@ def head(url, **kwargs):
     """
 
     root, endpoint = _parse_url(url)
-    with SecuredSession(root) as secure_session:
+    with SecureSession(root) as secure_session:
         return secure_session.head(endpoint, **kwargs)
     
 def put(url, data=None, **kwargs):
@@ -67,7 +67,7 @@ def put(url, data=None, **kwargs):
     """
 
     root, endpoint = _parse_url(url)
-    with SecuredSession(root) as secure_session:
+    with SecureSession(root) as secure_session:
         return secure_session.put(endpoint, data=data, **kwargs)
     
 def patch(url, data=None, **kwargs):
@@ -80,7 +80,7 @@ def patch(url, data=None, **kwargs):
     """
 
     root, endpoint = _parse_url(url)
-    with SecuredSession(root) as secure_session:
+    with SecureSession(root) as secure_session:
         return secure_session.patch(endpoint, data=data, **kwargs)
     
 def delete(url, **kwargs):
@@ -91,5 +91,5 @@ def delete(url, **kwargs):
     """
 
     root, endpoint = _parse_url(url)
-    with SecuredSession(root) as secure_session:
+    with SecureSession(root) as secure_session:
         return secure_session.delete(endpoint, **kwargs)
