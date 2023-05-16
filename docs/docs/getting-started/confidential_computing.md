@@ -93,25 +93,20 @@ BlindBox is under development, so this code is still being implemented, but we w
 	>> InvalidEnclaveCode
 	```
 
-## BlindBox security features
+## [Coming Soon ⌛] BlindBox security features
 
-With BlindBox, we harness the power of confidential computing to protect your data with applications are deployed in isolated TEEs.
++ BlindBox with **remote attestation** is on its way! Attestation will be performed when users connect to a BlindBox to verify the authenticity of their BlindBox and TEE environment.
 
-**[ coming soon ⌛]** BlindBox with remote attestation is on its way! Attestation will be performed when users connect to a BlindBox to verify the authenticity of their BlindBox and TEE environment.
++ **Attested network isolation**: We will add an additional layer to our attestation process where we will verify that the BlindBox we are connecting to has the expected security policies in place.
 
-We will also be implementing the follow additional security features to protect user data:
-
-+ **[ coming soon ⌛]** **Attested network isolation**: We will add an additional layer to our attestation process where we will verify that the BlindBox we are connecting to has the expected security policies in place.
-
-+ **[ coming soon ⌛]** Data owner security policies:
-We wrap application images in an **additional security layer** which enforces custom security policies. These custom policies allow the data owner to set up:
-	+ **[ coming soon ⌛] Authentication**: Data owners can specify who should be able to query their BlindBox.
-	+ **[ coming soon ⌛] Outward-bound network isolation**: Data owners can whitelist external domains that the SaaS application may contact if necessary- any calls to external domains not on this whitelist will be blocked.
++ **Data owner security policies**: We'll wrap application images in an **additional security layer** which enforces custom security policies. These custom policies will allow the data owner to set up:
+	+ **Authentication**: Data owners will be able to specify who should be able to query their BlindBox.
+	+ **Outward-bound network isolation**: Data owners will be able to whitelist external domains that the SaaS application may contact if necessary. Any calls to external domains not on this whitelist will be blocked.
 
 ![blindbox_architecture_light](../../assets/blindbox_arch_light.png#only-light)
 ![blindbox_architecture_dark](../../assets/blindbox_arch_dark.png#only-dark)
 
-These security features allow us to offer a solution which is able to rival the security provided by on-premise SaaS deployment whilst retaining all the advantages of SaaS Cloud deployment!
+These security features allow us to offer a solution which is able to rival the security provided by on-premise SaaS deployment while retaining all the advantages of SaaS Cloud deployment!
 
 <!--
 ## Limitations

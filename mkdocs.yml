@@ -107,15 +107,14 @@ nav:
 
 - 📚 Tutorials:
   -  Preparing the application image: 'docs/tutorials/prepare-app.ipynb'
+
 - ✅ Integration:
-  - OpenAI Whisper deployment: 'docs/tutorials/integration.ipynb'
+  - OpenAI Whisper deployment: 'docs/how-to-guides/openai-whisper.ipynb'
+
 - 💡 Concepts:
   - Confidential Computing:
     - Ecosystem: 'docs/concepts/ecosystem.md'
     - AMD SEV-SNP: 'docs/concepts/amd-sev.md'
-
-#- 🌍 Frameworks integrations
-#  - OpenAI Whisper: 'docs/how-to-guides/openai-whisper.ipynb'
 
 #- 🛠️ API reference: 'client/blindbox/blindbox/ai/client.html'
 
