@@ -5,7 +5,7 @@ ________________
 
 Despite the explosion of **Software-as-a-Service (SaaS) applications** over the last few years, **some organizations** still **cannot use them** because the **data** they deal with is **too sensitive** to risk **leakage**. 
 
-This is why we have created BlindBox, so developers can **deploy their SaaS solutions** in highly-protected isolated environment. We ensure users's data is kept confidential by running services within a hardware-based Trusted Execution Environment (TEE). We aim to provide the same level of security, isolation and control as on-premise deployment.
+This is why we have created BlindBox, so developers can **deploy their SaaS solutions** in highly-protected isolated environment. We ensure users' data is kept confidential by running services within a hardware-based Trusted Execution Environment (TEE). We aim to provide the same level of security, isolation and control as on-premise deployment.
 
 > To find out more about the Confidential technologies behind BlindBox, check out our [guide to Confidential Computing](./confidential_computing.md).
 ___________________________________________

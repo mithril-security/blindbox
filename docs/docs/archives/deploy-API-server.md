@@ -104,7 +104,7 @@ client = blindbox.ai.connection.connect(
 )
 ```
 
-We can now instruct the API to connect with our server instance, ratjer than creating a connection with Mithril Security's API Server, by providing our `BlindBoxConnection` object to the `connection` option when using our querying method.
+We can now instruct the API to connect with our server instance, rather than creating a connection with Mithril Security's API Server, by providing our `BlindBoxConnection` object to the `connection` option when using our querying method.
 
 ```python
 # Whisper query with connection to our server instance
