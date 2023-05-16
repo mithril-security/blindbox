@@ -125,6 +125,7 @@
 }
 
 /******* max width for large images *******/
-img[alt=attest_dark] { max-width: 600px; }
-img[alt=attest_light] { max-width: 600px; }
-img[alt=blindbox_architecture] { max-width: 400px; }
+img[alt=attest_dark] { max-width: 450px; }
+img[alt=attest_light] { max-width: 450px; }
+img[alt=blindbox_architecture_dark] { max-width: 400px; }
+img[alt=blindbox_architecture_light] { max-width: 400px; }

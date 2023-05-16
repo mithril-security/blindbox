@@ -5,7 +5,7 @@ from urllib.parse import urljoin
 class BlindBoxDebugModeWarning(Warning):
     pass
 
-class SecuredSession(Session):
+class SecureSession(Session):
     """A class to represent a connection to a BlindBox server."""
 
     def __init__(
@@ -23,7 +23,7 @@ class SecuredSession(Session):
 
         if addr == None or addr == "":
             raise exceptions.MissingSchema(
-                "Missing URL for the Secured Session instance"
+                "Missing URL for the Secure Session instance"
             )
 
         self.base_url = addr
@@ -38,7 +38,7 @@ class SecuredSession(Session):
                 BlindBoxDebugModeWarning,
             )
 
-        super(SecuredSession, self).__init__()
+        super(SecureSession, self).__init__()
 
     def get(self, endpoint: str = "", **kwargs):
         r"""Sends a GET request. Returns :class:`Response` object.
@@ -127,13 +127,13 @@ class SecuredSession(Session):
         return super().request(method, joined_url, *args, **kwargs)
 
 
-def connect(addr: str, debug_mode: bool = False) -> SecuredSession:
+def connect(addr: str, debug_mode: bool = False) -> SecureSession:
     """Connect to a BlindBox service.
     Args:
         addr (str): The address of the BlindBox service (such as "enclave.com:8443" or "localhost:8443").
         debug_mode (bool): Whether to run in debug mode. This mode is provided
             solely for testing purposes. It MUST NOT be used in production. Defaults to False.
     Returns:
-        SecuredSession: A connection to the BlindBox service.
+        SecureSession: A connection to the BlindBox service.
     """
-    return SecuredSession(addr, debug_mode)
+    return SecureSession(addr, debug_mode)

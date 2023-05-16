@@ -26,7 +26,8 @@ ____________________________________
 
 In a confidential workflow, data is sent to and analyzed within a **Trusted Execution Environment (TEE)**, otherwise known as a secure enclave. Data sent to the enclave is only decrypted in isolated environments or when being processed. Even if hackers or malicious insiders gain access to the host machine an enclave is running on, they will not be able to access data inside the enclave.
 
-![Trusted Execution Environment](../../assets/TEE_updated.png)
+![TEE_dark](../../assets/TEE_dark.png#only-dark)
+![TEE_light](../../assets/TEE_light.png#only-light)
 
 We currently support the following TEEs: **[AMD SEV-SNP](../concepts/amd-sev.md) confidential VM**.
 
@@ -48,8 +49,8 @@ When a user wants to establish communication with an enclave, checks can be perf
 
 Let's take a look at the basic attestation workflow for BlindBox:
 
-![attest_light](../../assets/light_attestation.jpg#only-light)
-![attest_dark](../../assets/attest_dark.jpg#only-dark)
+![attest_light](../../assets/attest_light.png#only-light)
+![attest_dark](../../assets/attest_dark.png#only-dark)
 
 1. When a user queries a BlindBox application, our client will attempt to **create a connection** between the user and the application running in the BlindBox. This will **trigger the attestation process**. 
 
@@ -63,7 +64,7 @@ Let's take a look at the basic attestation workflow for BlindBox:
 
 Here, we were able to transcribe our audio file while keeping the audio file confidential, even from the SaaS vendor!
 
-## Error handling
+## Verifying security
 ___________________________________________ 
 
 BlindBox is under development, so this code is still being implemented, but we wanted to give you a clear illustration of **what will happen when the Confidential VM is not secure**. 
@@ -92,12 +93,25 @@ BlindBox is under development, so this code is still being implemented, but we w
 	>> InvalidEnclaveCode
 	```
 
-## Additional security features
-________________________________
+## BlindBox security features
 
-To better protect your data, we also wrap application images in an **additional security layer**. It allows data owners to define their own **custom security policies** and have greater control over what the SaaS application can do. For example, they could decide who can query the service in their BlindBox or restrict external networking access for the application running in the confidential VM.
+With BlindBox, we harness the power of confidential computing to protect your data with applications are deployed in isolated TEEs.
 
-![blindbox_architecture](../../assets/blindbox_arch.png)
+**[ coming soon ⌛]** BlindBox with remote attestation is on its way! Attestation will be performed when users connect to a BlindBox to verify the authenticity of their BlindBox and TEE environment.
+
+We will also be implementing the follow additional security features to protect user data:
+
++ **[ coming soon ⌛]** **Attested network isolation**: We will add an additional layer to our attestation process where we will verify that the BlindBox we are connecting to has the expected security policies in place.
+
++ **[ coming soon ⌛]** Data owner security policies:
+We wrap application images in an **additional security layer** which enforces custom security policies. These custom policies allow the data owner to set up:
+	+ **[ coming soon ⌛] Authentication**: Data owners can specify who should be able to query their BlindBox.
+	+ **[ coming soon ⌛] Outward-bound network isolation**: Data owners can whitelist external domains that the SaaS application may contact if necessary- any calls to external domains not on this whitelist will be blocked.
+
+![blindbox_architecture_light](../../assets/blindbox_arch_light.png#only-light)
+![blindbox_architecture_dark](../../assets/blindbox_arch_dark.png#only-dark)
+
+These security features allow us to offer a solution which is able to rival the security provided by on-premise SaaS deployment whilst retaining all the advantages of SaaS Cloud deployment!
 
 <!--
 ## Limitations
