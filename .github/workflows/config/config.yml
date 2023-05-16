@@ -1,0 +1,31 @@
+matrix:
+- name: Markdown
+  aspell:
+    lang: en
+  dictionary:
+  # list of words to be ignored by spellchecker
+    wordlists:
+    - '.github/workflows/config/wordlist.txt'
+    encoding: utf-8
+  pipeline:
+  - pyspelling.filters.context:
+      # Cribbed from pyspelling docs
+      context_visible_first: true
+      # Ignore things within these delimiters- may need finetuning
+      delimiters:
+        - open: '(?s)<`(?P<open> *-{3,})$'
+          close: '`^(?P=open)$'
+  - pyspelling.filters.url:
+  - pyspelling.filters.markdown:
+      markdown_extensions:
+        - pymdownx.superfences:
+  - pyspelling.filters.html:
+      comments: false
+      ignores:
+        - code
+        - pre
+        - tt
+  # do this for docs .md files only
+  sources:
+    - './docs/docs/*/*.md'
+  default_encoding: utf-8
