@@ -1,0 +1,32 @@
+name: Spellcheck Action
+on: 
+  push:
+    paths: ['docs/docs/*/*']
+jobs:
+  spelling:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: Set up Python 3.7
+      uses: actions/setup-python@v1
+      with:
+        python-version: 3.7
+    # jupytext to convert notebooks to .md files, pyspelling the spell checker tool
+    - name: Install dependencies
+      run: |
+        pip install --upgrade pip setuptools
+        pip install pyspelling
+        pip install pymdown-extensions 
+        pip install jupytext --upgrade
+    # aspell for the spellcheck part
+    - name: Install Aspell
+      run: |
+        sudo apt-get install aspell aspell-en
+    # 1. convert notebooks to .md files
+    # 2. run pyspelling on files using config in config/config.yml
+    # 3. print out results
+    - name: Spell check
+      continue-on-error: true
+      run: |
+        jupytext --to md --update-metadata '{"jupytext": {"notebook_metadata_filter":"code"}}' './docs/docs/getting-started/quick-tour.md'
+        pyspelling -c .github/workflows/config/config.yml
