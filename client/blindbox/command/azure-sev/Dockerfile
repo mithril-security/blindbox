@@ -7,6 +7,8 @@ ARG EMBED_IMAGE_TAR
 ENV DEBIAN_FRONTEND=noninteractive
 WORKDIR /root
 
+COPY ./attestation /root
+
 COPY ./sev-init.sh /root
 
 RUN ./sev-init.sh

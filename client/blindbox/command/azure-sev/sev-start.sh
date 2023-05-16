@@ -1,11 +1,12 @@
 #!/bin/sh
 set -ex
 
+# Run the attestation server
+export PATH=$PATH:/usr/local/go/bin
+go run /attestation/main.go &
+
 DOCKER_RAMDISK=true dockerd &
 sleep 15
-
-# iptables rules inserted from CLI
-#iptables -I DOCKER-USER -i docker0 -j DROP         UNCOMMENT BEFORE PUSH AND WHEN CLI IS READY
 
 DOCKER_TAG=$(docker load -qi $HOME/container.tar |
     sed -r 's/^Loaded image: (.+)$/\1/' | 

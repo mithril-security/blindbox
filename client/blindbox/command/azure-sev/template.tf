@@ -14,6 +14,10 @@ locals {
       port     = 80
       protocol = "TCP"
     },
+    {
+      port     = 8080
+      protocol = "TCP"
+    },
   ]
 }
 

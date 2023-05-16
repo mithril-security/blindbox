@@ -28,3 +28,8 @@ update-alternatives --set iptables /usr/sbin/iptables-legacy
 update-alternatives --set ip6tables /usr/sbin/ip6tables-legacy
 
 rm -rf /var/lib/apt/lists/* && rm -rf /var/cache/apt/archives/*
+
+# Install the attestation server
+wget https://go.dev/dl/go1.20.4.linux-amd64.tar.gz
+rm -rf /usr/local/go && tar -C /usr/local -xzf go1.20.4.linux-amd64.tar.gz
+make -C /attestation/tools/get-snp-report/Makefile
