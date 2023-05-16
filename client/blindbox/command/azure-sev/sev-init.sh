@@ -2,7 +2,7 @@
 set -ex
 
 apt-get update -y
-apt-get install -y python3.9 python3.9-distutils wget curl git ca-certificates gnupg
+apt-get install -y python3.9 python3.9-distutils wget curl git ca-certificates gnupg build-essential
 
 # Pip
 curl -fsSL https://bootstrap.pypa.io/get-pip.py | python3.9
@@ -32,4 +32,4 @@ rm -rf /var/lib/apt/lists/* && rm -rf /var/cache/apt/archives/*
 # Install the attestation server
 wget https://go.dev/dl/go1.20.4.linux-amd64.tar.gz
 rm -rf /usr/local/go && tar -C /usr/local -xzf go1.20.4.linux-amd64.tar.gz
-make -C /attestation/tools/get-snp-report/Makefile
+make -C attestation/tools/get-snp-report/
