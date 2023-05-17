@@ -1,19 +1,20 @@
 from transformers import AutoModelForCausalLM, AutoTokenizer
 from fastapi import FastAPI
 from pydantic import BaseModel
-import intel_extension_for_pytorch as ipex  # optional: optimize for cpu inference
+# import intel_extension_for_pytorch as ipex  # optional: optimize for cpu inference
 import uvicorn
 
 model_name = "bigcode/santacoder"
 # get tokenizer
-tokenizer = AutoTokenizer.from_pretrained(model_name)
-device = "cuda" # for GPU usage or cpu for CPU usage
+tokenizer = AutoTokenizer.from_pretrained(model_name, trust_remote_code=True)
+device = "CPU" # cuda for GPU usage or cpu for CPU usage
 
 # get model and call eval
-model = AutoModelForCausalLM.from_pretrained(model_name).eval()
-
+model = AutoModelForCausalLM.from_pretrained(model_name, trust_remote_code=True).eval()
+print("finished download running optimize")
 # optional: optimize for cpu inference
-model = ipex.optimize(model)
+# model = ipex.optimize(model)
+print("finished optimize")
 
 
 class GenerateRequest(BaseModel):
@@ -38,5 +39,5 @@ def generate(req: GenerateRequest):
     return {"text": text}
 
 
-if __name__ == "__main__":
+if name == "main":
     uvicorn.run(app, host="0.0.0.0", port=80)
