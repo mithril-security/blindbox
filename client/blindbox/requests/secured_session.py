@@ -151,7 +151,9 @@ class SecuredSession(Session):
         b64nonce = base64.b64encode(json.dumps(nonce).encode()).decode()
 
         # Make a request to the attestation service for an MAA token
-        res = self.request("POST","/attest/maa", json={"maa_endpoint":"blindboxattester.eus.attest.azure.net","runtime_data":b64nonce})
+        attest_url = ":".join(self.base_url.split(":")[:-1])
+        print(attest_url)
+        res = super().request("POST",f"{attest_url}:8080/attest/maa", json={"maa_endpoint":"blindboxattester.eus.attest.azure.net","runtime_data":b64nonce})
         maa_token = json.loads(res.content)["token"]
         header = maa_token.split(".")[0]
 

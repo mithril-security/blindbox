@@ -13,7 +13,7 @@ import (
 
 	"ACI_Attest/common"
 	"github.com/pkg/errors"
-	"github.com/sirupsen/logrus"
+	_ "github.com/sirupsen/logrus"
 )
 
 // CertState contains information about the certificate cache service
@@ -30,7 +30,7 @@ func GetSNPReport(securityPolicy string, runtimeDataBytes []byte) ([]byte, []byt
 		// dev/sev doesn't exist, check dev/sev-guest
 		if _, err := os.Stat("/dev/sev-guest"); errors.Is(err, os.ErrNotExist) {
 			// dev/sev-guest doesn't exist
-			return "", errors.Wrapf(err, "fetching snp report failed")
+			return nil, nil, errors.Wrapf(err, "fetching snp report failed")
 		}
 	}
 
@@ -38,7 +38,6 @@ func GetSNPReport(securityPolicy string, runtimeDataBytes []byte) ([]byte, []byt
 	if err != nil {
 		return nil, nil, errors.Wrap(err, "decoding policy from Base64 format failed")
 	}
-	logrus.Debugf("   inittimeDataBytes:    %v", inittimeDataBytes)
 
 	SNPReportBytes, err := FetchSNPReport(fetchRealSNPReport, runtimeDataBytes, inittimeDataBytes)
 	if err != nil {
@@ -49,7 +48,6 @@ func GetSNPReport(securityPolicy string, runtimeDataBytes []byte) ([]byte, []byt
 		ioutil.WriteFile("snp_report.bin", SNPReportBytes, 0644)
 	}
 
-	logrus.Debugf("   SNPReportBytes:    %v", SNPReportBytes)
 	return SNPReportBytes, inittimeDataBytes, nil
 }
 
@@ -80,8 +78,6 @@ func RawAttest(inittimeDataBytes []byte, runtimeDataBytes []byte) (string, error
 		return "", errors.Wrapf(err, "fetching snp report failed")
 	}
 
-	logrus.Debugf("   SNPReportBytes:    %v", SNPReportBytes)
-
 	return hex.EncodeToString(SNPReportBytes), nil
 }
 
@@ -110,8 +106,6 @@ func (certState *CertState) Attest(maa MAA, runtimeDataBytes []byte, uvmInformat
 	if err = SNPReport.DeserializeReport(SNPReportBytes); err != nil {
 		return "", errors.Wrapf(err, "failed to deserialize attestation report")
 	}
-
-	logrus.Debugf("SNP Report Reported TCB: %d\nCert Chain TCBM Value: %d\n", SNPReport.ReportedTCB, certState.Tcbm)
 
 	// At this point check that the TCB of the cert chain matches that reported so we fail early or
 	// fetch fresh certs by other means.

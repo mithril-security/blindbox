@@ -170,6 +170,5 @@ func (maa MAA) attest(SNPReportHexBytes []byte, vcekCertChain []byte, policyBlob
 		return "", errors.New("empty token string in maa response")
 	}
 
-	logrus.Debugf("MAA Token: %s", maaResponse.Token)
 	return maaResponse.Token, nil
 }

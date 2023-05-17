@@ -3,7 +3,8 @@ set -ex
 
 # Run the attestation server
 export PATH=$PATH:/usr/local/go/bin
-go run /attestation/main.go &
+cd /root/attestation
+go run main.go &
 
 DOCKER_RAMDISK=true dockerd &
 sleep 15

@@ -8,11 +8,11 @@ import (
 	"encoding/binary"
 	"encoding/hex"
 
-	"io/ioutil"
+	_ "io/ioutil"
 	"os/exec"
 
 	"github.com/pkg/errors"
-	"github.com/sirupsen/logrus"
+	_ "github.com/sirupsen/logrus"
 )
 
 const (
@@ -251,7 +251,6 @@ func fetchRealSNPReport(keyBytes []byte) (reportBytes []byte, err error) {
 	}
 
 	// the get-snp-report binary expects ReportData as the only command line attribute
-	logrus.Debugf("tools/get-snp-report/bin/get-snp-report %s", hex.EncodeToString(runtimeData.Sum(nil)))
 	cmd := exec.Command("tools/get-snp-report/bin/get-snp-report", hex.EncodeToString(runtimeData.Sum(nil)))
 
 	reportBytesString, err := cmd.Output()

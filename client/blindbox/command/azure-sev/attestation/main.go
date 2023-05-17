@@ -206,7 +206,7 @@ func main() {
 	logrus.Debugf("   Log Level:     %s", *logLevel)
 	logrus.Debugf("   Log File:      %s", *logFile)
 	logrus.Debugf("   Port:          %s", *port)
-	logrus.Debugf("   Hostname:      %s", *hostname)
+	logrus.Debugf("   Hostname:      %s", hostname)
 	logrus.Debugf("   azure info:    %s", *azureInfoBase64string)
 
 	//set environment variable pointing to ACI's certs
@@ -218,7 +218,6 @@ func main() {
 	}
 
 	EncodedUvmInformation, err = common.GetUvmInformation() // from the env.
-	logrus.Debugf("Encoded uvm info: %s\n", EncodedUvmInformation)
 	if err != nil {
 		logrus.Fatalf("Failed to extract UVM_* environment variables: %s", err.Error())
 	}
@@ -239,10 +238,9 @@ func main() {
 	}
 
 	// See above comment about hostname and risk of breaking confidentiality
-	url := *hostname + ":" + *port
+	url := hostname + ":" + *port
 
 	var tcbm string
-	logrus.Debugf("setting tcbm to EncodedUvmInformation.InitialCerts.Tcbm value: %s\n", EncodedUvmInformation.InitialCerts.Tcbm)
 	tcbm = EncodedUvmInformation.InitialCerts.Tcbm
 
 	thimTcbm, err := strconv.ParseUint(tcbm, 16, 64)
