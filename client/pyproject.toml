@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "blindbox"
-version = "0.1.0"
-description = ""
+version = "0.1.0.post1"
+description = "BlindBox is a tool to isolate and deploy applications inside Trusted Execution Environments for privacy-by-design apps"
 authors = ["Mithril Security <contact@mithrilsecurity.io>"]
 readme = "README.md"
 

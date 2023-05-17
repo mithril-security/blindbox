@@ -1,6 +1,6 @@
-from blindbox.requests  import SecuredSession, requests
+from blindbox.requests  import SecureSession, requests
 
-with SecuredSession("http://20.223.63.77:80", "./cce_policy.txt",True) as secure_session:
+with SecureSession("http://20.223.63.77:80", "./cce_policy.txt",True) as secure_session:
 
     res = secure_session.post(endpoint="/whisper/predict", files={"audio": open("test.wav", "rb")})
     print(res.status_code)

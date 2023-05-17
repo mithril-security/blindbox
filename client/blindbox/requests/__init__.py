@@ -1,4 +1,4 @@
-__all__ = ["SecuredSession", "post", "get", "patch", "put", "delete", "options", "head"]
+__all__ = ["SecureSession", "post", "get", "patch", "put", "delete", "options", "head"]
 
-from .secured_session import SecuredSession
+from .secure_session import SecureSession
 from .requests import post, get, patch, put, delete, options, head
