@@ -141,6 +141,7 @@ class SecureSession(Session):
         import json
         import jwt
         import secrets
+        from .errors import AttestationException
 
         decoded_policy = base64.b64decode(policy)
         h = hashlib.new('sha256')
@@ -184,19 +185,24 @@ class SecureSession(Session):
 
         # Add further checks for issued at time (iat) and issuer (iss) 
         if payload["x-ms-attestation-type"] != "sevsnpvm":
-            print("Attestation validation failed (not sev-snp report). Exiting.")
+            raise AttestationException("IncorrectAttestation","Attestation validation failed (not sev-snp report). Exiting.")
+            #print("Attestation validation failed (not sev-snp report). Exiting.")
             exit()
         if payload["x-ms-compliance-status"] != "azure-compliant-uvm":
-            print("Attestation validation failed (non-compliant uvm). Exiting.")
+            raise AttestationException("NonCompliantUvm","Attestation validation failed (non-compliant uvm). Exiting.")
+            #print("Attestation validation failed (non-compliant uvm). Exiting.")
             exit()
         if payload["x-ms-sevsnpvm-hostdata"] != cce_policy:
-            print("Attestation validation failed (cce policy mismatch). Exiting.")
+            raise AttestationException("IncorrectPolicy","Attestation validation failed (cce policy mismatch). Exiting.")
+            #print("Attestation validation failed (cce policy mismatch). Exiting.")
             exit()
         if payload["x-ms-runtime"] != nonce:
-            print("Attestation validation failed (nonce mismatch). Exiting.")
+            raise AttestationException("IncorrectNonce","Attestation validation failed (nonce mismatch). Exiting.")
+            #print("Attestation validation failed (nonce mismatch). Exiting.")
             exit()
         if payload["x-ms-sevsnpvm-is-debuggable"] == "false":
-            print("Attestation validation failed (VM is in debug mode). Exiting.")
+            raise AttestationException("DebugMode","Attestation validation failed (VM is in debug mode). Exiting.")
+            #print("Attestation validation failed (VM is in debug mode). Exiting.")
             exit()
         
         print("Attestation validated")
