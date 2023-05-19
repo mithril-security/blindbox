@@ -14,7 +14,6 @@ import torch
 from fastapi import File, HTTPException
 from fastapi.responses import Response
 from io import BytesIO
-import librosa
 import soundfile as sf
 
 
@@ -111,7 +110,7 @@ class AudioSerializer(Serializer[T]):
         buff.seek(0)
 
         try:
-            x, _ = librosa.load(buff, sr=self.sample_rate)
+            x, sample_rate = sf.read(buff)
         except:
             raise HTTPException(
                 status_code=400, detail="Could not deserialize data: not an audio file"
