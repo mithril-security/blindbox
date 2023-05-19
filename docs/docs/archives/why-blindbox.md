@@ -7,7 +7,7 @@ Despite the explosion of **Software-as-a-Service (SaaS) applications** over the 
 
 This is why we have created BlindBox, so developers can **deploy their SaaS solutions** in highly-protected isolated environment. We ensure users's data is kept confidential by running services within a hardware-based Trusted Execution Environment (TEE). We aim to provide the same level of security, isolation and control as on-premise deployment.
 
-> To find out more about the Confidential technologies behind BlindBox, check out our [guide to Confidential Computing](./confidential_computing.md).
+> To find out more about the Confidential technologies behind BlindBox, check out our [guide to Confidential Computing](../getting-started/confidential_computing.md).
 ___________________________________________
 
 ### Example: Large Language Models (LLMs)
@@ -16,4 +16,4 @@ In the current gold rush towards **Large Language Models (LLMs)** applications, 
 
 This is where BlindBox comes in. Deploying a model using our privacy tools can facilitate and increase the adoption of LLMs, because users wouldn't have to worry about their data being exposed to the service provider. 
 
-> To see a hands-on demo of BlindBox in action, check out our [Quick Tour](./quick-tour.ipynb)!
+> To see a hands-on demo of BlindBox in action, check out our [Quick Tour](../getting-started/quick-tour.ipynb)!
