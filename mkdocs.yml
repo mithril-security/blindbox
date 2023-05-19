@@ -110,6 +110,7 @@ nav:
 
 - ✅ Integration:
   - OpenAI Whisper deployment: 'docs/how-to-guides/openai-whisper.ipynb'
+  - Santacoder deployment: 'docs/how-to-guides/santacoder.ipynb'
 
 - 💡 Concepts:
   - Confidential Computing:
