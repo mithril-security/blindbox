@@ -15,7 +15,7 @@ Nitro Enclaves are an **AWS technology** and can be deployed on **Amazon EC2 ins
 
 The advantage of this is that it allows **you to test** our APIs **for free** and **without spending any time on deployment**. 
 
-> But if you want to deploy your own BlindBox API server for Nitro enclaves, we made a guide explaining how to do it [here](../how-to-guides/deploy-API-server.md).
+> But if you want to deploy your own BlindBox API server for Nitro enclaves, we made a guide explaining how to do it [here](./deploy-API-server.md).
 
 ### Configuration
 
@@ -33,7 +33,7 @@ ________________________
 
 The attestation process is where we verifies the enclave application's code, settings and OS, before allowing any communication between the client and the enclave. 
 
-> For more details about attestation, check out the attestation section in our [how we protect your data guide](./confidential_computing.md).
+> For more details about attestation, check out the attestation section in our [how we protect your data guide](../getting-started/confidential_computing.md).
 
 With BlindBox, the attestation process takes place as soon as a client tries to connect to a service running in a enclave with BlindBox.
 
