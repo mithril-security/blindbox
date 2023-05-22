@@ -167,7 +167,6 @@ class SecureSession(Session):
 
         # Make a request to the attestation service for an MAA token
         attest_url = ":".join(self.base_url.split(":")[:-1])
-        print(attest_url)
         res = super().request("POST",f"{attest_url}:8080/attest/maa", json={"maa_endpoint":attestation_endpoint,"runtime_data":b64nonce})
         maa_token = json.loads(res.content)["token"]
         header = maa_token.split(".")[0]
@@ -211,7 +210,7 @@ class SecureSession(Session):
         print("Attestation validated")
 
 
-def connect(addr: str, cce_file: str, attestation_endpoint: str, debug_mode: bool = False) -> SecureSession:
+def connect(addr: str, cce_file: str, attestation_endpoint: str = "sharedeus2.eus2.test.attest.azure.net", debug_mode: bool = False) -> SecureSession:
     """Connect to a BlindBox service.
     Args:
         addr (str): The address of the BlindBox service (such as "enclave.com:8443" or "localhost:8443").
