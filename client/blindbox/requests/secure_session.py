@@ -12,7 +12,7 @@ class SecureSession(Session):
     def __init__(
         self,
         addr: str,
-        cce_file: str,
+        cce_file: str = None,
         attestation_endpoint: str = "sharedeus2.eus2.test.attest.azure.net",
         debug_mode: bool = False,
     ):
@@ -47,6 +47,8 @@ class SecureSession(Session):
         super(SecureSession, self).__init__()
         
         if not debug_mode:
+            if not cce_file:
+                raise exceptions.ContentDecodingError("A cce policy needs to be provided when you are not using the debug mode")
             try:
                 policy = open(cce_file,"rb")
                 policy = policy.read()
