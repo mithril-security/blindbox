@@ -13,7 +13,7 @@ class SecureSession(Session):
         self,
         addr: str,
         cce_file: str,
-        attestation_endpoint: str,
+        attestation_endpoint: str = "sharedeus2.eus2.test.attest.azure.net",
         debug_mode: bool = False,
     ):
         """Connect to a BlindBox service.
