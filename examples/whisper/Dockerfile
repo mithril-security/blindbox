@@ -3,9 +3,9 @@ FROM python:3.10.10-bullseye as base
 RUN pip install \
     torch==1.13.1 \
     transformers==4.26.1 \
-    fastapi==0.95.0 \
+    fastapi==0.95.1 \
     python-multipart==0.0.6 \
-    uvicorn==0.21.1 \
+    uvicorn==0.22.0 \
     soundfile==0.12.1 \
     messages \
     librosa==0.10.0 \

@@ -1,0 +1,123 @@
+# Website Info
+site_name: BlindBox
+site_url: https://www.mithrilsecurity.io/en/latest/
+site_author: Mithril Security
+site_description: >-
+  Create a simple privacy framework for data science collaboration, 
+  covering data exploration and machine learning.
+
+# Repository
+repo_name: mithril-security/blindbox
+repo_url: https://github.com/mithril-security/blindbox
+
+# Configuration
+theme:
+  name: material
+  custom_dir: docs/material_theme_customization
+  features:
+    - navigation.instant
+    - search.highlight
+    - content.tabs.link
+    - navigation.sections
+    - navigation.indexes
+    - navigation.expand
+    
+  logo: assets/logo.png
+  favicon: assets/logo.png
+  palette:
+    - scheme: slate
+      toggle:
+        icon: material/weather-sunny
+    - scheme: default
+      toggle:
+        icon: material/weather-night
+  icon:
+    admonition:
+      note: material/pencil-circle
+      abstract: material/list-box-outline
+      info: material/information-outline
+      tip: material/fire
+      success: material/check
+      question: material/help-circle
+      warning: material/alert
+      failure: material/window-close
+      danger: material/lightning-bolt-circle
+      bug: material/shield-bug
+      example: material/test-tube
+      quote: material/format-quote-close
+
+#Plugins
+plugins:
+  - search
+  - mkdocs-jupyter
+
+# Customization
+extra:
+  homepage: https://mithrilsecurity.io
+  social:
+    - icon: fontawesome/brands/discord
+      link: https://discord.com/invite/TxEHagpWd4
+    - icon: fontawesome/brands/github
+      link: https://github.com/mithril-security/
+    - icon: fontawesome/brands/linkedin
+      link: https://www.linkedin.com/company/mithril-security-company/
+    - icon: fontawesome/brands/twitter
+      link: https://twitter.com/mithrilsecurity
+
+extra_css:
+  - stylesheets/extra.css
+
+extra_javascript:
+  - "https://code.jquery.com/jquery-3.3.1.min.js"
+
+# Extensions
+markdown_extensions:
+  - abbr
+  - admonition
+  - attr_list
+  - def_list
+  - footnotes
+  - md_in_html
+  - pymdownx.details
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.betterem:
+      smart_enable: all
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.critic
+  - pymdownx.emoji:
+      emoji_index: !!python/name:materialx.emoji.twemoji 
+      emoji_generator: !!python/name:materialx.emoji.to_svg
+
+# Documentation tree
+nav:
+- 🏠 Overview: 'index.md'
+
+- 🚀 Getting Started: 
+  - Quick tour: 'docs/getting-started/quick-tour.ipynb'
+  - How we protect your data: 'docs/getting-started/confidential_computing.md'
+
+- 📚 Tutorials:
+  -  Preparing the application image: 'docs/tutorials/prepare-app.ipynb'
+
+- ✅ Integration:
+  - OpenAI Whisper deployment: 'docs/how-to-guides/openai-whisper.ipynb'
+  - Santacoder deployment: 'docs/how-to-guides/santacoder.ipynb'
+
+- 💡 Concepts:
+  - Confidential Computing:
+    - Ecosystem: 'docs/concepts/ecosystem.md'
+    - AMD SEV-SNP: 'docs/concepts/amd-sev.md'
+
+#- 🛠️ API reference: 'client/blindbox/blindbox/ai/client.html'
+
+- 💫 Past projects: 
+  - BlindAI: 'docs/past-projects/blindai.md'

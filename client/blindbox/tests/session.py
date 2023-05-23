@@ -1,6 +1,6 @@
-from blindbox.requests  import SecuredSession, requests
+from blindbox.requests  import SecureSession, requests
 
-with SecuredSession("http://localhost:8080", True) as secure_session:
+with SecureSession("http://localhost:8080", True) as secure_session:
 
     res = secure_session.post(endpoint="/enclave/predict", files={"audio": open("test.wav", "rb")})
     print(res.status_code)
