@@ -1,0 +1,3 @@
+platform: azure-amd-sev
+# Replace with your app image (must be local)
+image: "mithrilsecuritysas/hello-world-fastapi:latest"

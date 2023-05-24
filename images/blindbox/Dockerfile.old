@@ -1,0 +1,10 @@
+FROM debian:bullseye
+
+ENV DEBIAN_FRONTEND=noninteractive
+WORKDIR /root
+
+COPY blindbox-image-build.sh .
+RUN ./blindbox-image-build.sh
+
+COPY ./blindbox-image-init.sh /root
+CMD ./blindbox-image-init.sh
