@@ -213,33 +213,46 @@ class BlindBoxBuilder(abc.ABC):
         replace: bool = False,
         confirm_replace: bool = False,
         merge: bool = False,
+        is_directory: bool = False,
     ):
-        data = pkgutil.get_data(__name__, package_path)
+        import pkg_resources
+        import shutil
+
         file = path.join(folder, file)
 
-        exists = path.exists(file)
+        if is_directory:
+            print(package_path)
+            if path.exists(file):
+                shutil.rmtree(file)
+            data = pkg_resources.resource_filename(__name__, package_path)
+            shutil.copytree(data, file)
+        else:
+            print(file)
+            data = pkgutil.get_data(__name__, package_path)
 
-        if exists:
-            if confirm_replace:
-                replace = self.yes_no_question(f"Replace file {file}")
-
-            if not replace and not merge:
-                return
-
-            if merge:
-                with open(file, "rb") as f:
-                    existing_data = f.read()
-
-                if data not in existing_data:
-                    existing_data += bytes("\n", "utf-8")
-                    existing_data += data
-                data = existing_data
-
-        with open(file, "wb") as f:
-            f.write(data)
-
-        if executable:
-            os.chmod(file, 0o775)
+            exists = path.exists(file)
+    
+            if exists:
+                if confirm_replace:
+                    replace = self.yes_no_question(f"Replace file {file}")
+    
+                if not replace and not merge:
+                    return
+    
+                if merge:
+                    with open(file, "rb") as f:
+                        existing_data = f.read()
+    
+                    if data not in existing_data:
+                        existing_data += bytes("\n", "utf-8")
+                        existing_data += data
+                    data = existing_data
+    
+            with open(file, "wb") as f:
+                f.write(data)
+    
+            if executable:
+                os.chmod(file, 0o775)
 
     def init_new_project(self, folder: t.Optional[str], **_kw):
         raise NotImplementedError()
@@ -279,7 +292,6 @@ class AzureSEVBuilder(BlindBoxBuilder):
         self.copy_template(
             folder, "blindbox.tf", "azure-sev/template.tf", confirm_replace=True
         )
-
         info("[green bold]Blindbox project has been initialized!")
 
     def populate_iplist(self, build_dir):
@@ -318,6 +330,10 @@ class AzureSEVBuilder(BlindBoxBuilder):
         self.copy_template(
             build_dir, "sev-start.sh", "azure-sev/sev-start.sh", executable=True, replace=True
         )
+        self.copy_template(
+            build_dir, "attestation/", "azure-sev/attestation/", replace=True, is_directory=True
+        )
+
 
         info("Inserting allowed IPs...")
         ips = self.populate_iplist(build_dir)
