@@ -1,8 +1,8 @@
 [tool.poetry]
 name = "blindbox"
-version = "0.1.0"
-description = ""
-authors = ["Lucas Bourtoule <lucas.bourtoule@mithrilsecurity.io>"]
+version = "0.2.0"
+description = "BlindBox is a tool to isolate and deploy applications inside Trusted Execution Environments for privacy-by-design apps"
+authors = ["Mithril Security <contact@mithrilsecurity.io>"]
 readme = "README.md"
 packages = [{include = "blindbox", from = "src"}]
 
