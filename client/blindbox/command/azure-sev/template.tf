@@ -3,6 +3,7 @@ locals {
   resource_group_name     = "blindbox-test${random_integer.group_suffix.result}"
   location                = "North Europe"
   container_registry_name = "blindbox${random_integer.group_suffix.result}"
+  attester_name           = "blindboxattester${random_integer.group_suffix.result}"
 
   # Resources
   cpu_count    = 1
@@ -12,6 +13,10 @@ locals {
   container_ports = [
     {
       port     = 80
+      protocol = "TCP"
+    },
+    {
+      port     = 8080
       protocol = "TCP"
     },
   ]
@@ -55,6 +60,12 @@ provider "docker" {}
 resource "azurerm_resource_group" "rg" {
   name     = local.resource_group_name
   location = local.location
+}
+
+resource "azurerm_attestation_provider" "blindbox_attestation" {
+  location                        = azurerm_resource_group.rg.location
+  name                            = local.attester_name
+  resource_group_name             = azurerm_resource_group.rg.name
 }
 
 resource "azurerm_container_registry" "acr" {
@@ -243,3 +254,6 @@ output "azure_portal_url" {
   value = "${local.portal_url}/#@${local.tenant_id}/resource${local.resource_id}"
 }
 
+output "attester_url" {
+  value = azurerm_attestation_provider.blindbox_attestation.attestation_uri
+}
