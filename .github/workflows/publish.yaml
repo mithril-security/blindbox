@@ -14,20 +14,21 @@ jobs:
 
       - name: Install dependencies
         run: |
-          apt update && apt -y install lsb-release
+          sudo apt update && sudo apt -y install lsb-release
 
-      - uses: actions/setup-python@v4
+      - name: Setup Python
+        uses: actions/setup-python@v4
         with:
-          python-version: 'pypy3.9'
-          cache: 'pip'
+          python-version: '3.9'
 
       - name: Client build
         run: |
           cd client
-          python -m pip install --upgrade build && python -m build --wheel
+          python -m pip install --upgrade build
+          python -m build --wheel
 
       - name: Publishing
         uses: pypa/gh-action-pypi-publish@release/v1
         with:
-          password: ${{ secrets.PYPI_TOKEN }}
-          packages_dir: client/dist
+          password: ${{ secrets.PYPI }}
+          packages-dir: client/dist
