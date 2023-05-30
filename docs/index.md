@@ -7,8 +7,7 @@ Deploy and isolate software to preserve your users' data privacy!
 
 ## ⬛ What is BlindBox?
 ________________________________________________________
-
-**BlindBox** is a **privacy deployment** solution for **SaaS applications** which preserves the **data confidentiality** of end users, even from the software provider. To guarantee that privacy, we deploy those applications with **hardware based, highly-isolated** environments, a technology often referred to as **confidential computing**.
+**BlindBox** is a **SaaS deployment solution** which boosts compliance and improves the security posture of SaaS solutions by shielding SaaS end users' data at all times- even from the SaaS provider themself!
 
 🗝️ **Key features**:
 
@@ -23,6 +22,16 @@ ________________________________________________________
 !!! warning
 	
 	BlindBox is still under development. **Do not use in production!**
+
+### How does it work?
+
+BlindBox faciliates the deployment of SaaS applications within **hardware based, highly-isolated** environments with stringent code and environment verification checks by using **confidential computing technologies**. This environment acts as a shield, protecting user data from any outside access, even during computation! We also implement customizable network isolation within this environment so data owners can control what applications can do within the environment.
+
+### Why BlindBox?
+
++ BlindBox allows SaaS providers to offer their solutions to clients with strict compliance requirements, who previously were unable to benefit from Cloud-based solutions due to the risk of data leakage.
++ Significantly improves cybersecurity posture of SaaS solutions by reducing risk of data exposure.
++ BlindBox makes deployment in a confidential environment simple- we handle the deployment, isolation and attestation processes! All the SaaS provider needs to provide is their application image.
 
 ## 🚀 Getting started
 ________________________________________________________
