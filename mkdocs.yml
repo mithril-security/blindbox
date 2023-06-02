@@ -117,6 +117,9 @@ nav:
     - Ecosystem: 'docs/concepts/ecosystem.md'
     - AMD SEV-SNP: 'docs/concepts/amd-sev.md'
 
+- 🔒 Security:
+  - Attestation: 'docs/security/attestation.md'
+
 #- 🛠️ API reference: 'client/blindbox/blindbox/ai/client.html'
 
 - 💫 Past projects: 

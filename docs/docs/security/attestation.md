@@ -39,23 +39,28 @@ Let's take a look at what happens if the attestation process is not successful.
 
 For an interactive demo of the attestation process, check out our [Gradio demo](https://huggingface.co/spaces/mithril-security/BlindBox).
 
-### Example 1: User tries to query BlindBox application running on a non-compliant Azure VM
+### Example 1: User queries BlindBox application running on a non-compliant Azure VM
 
+Query:
 ```python
 res = requests.post(url=f"http://{CONFIDENTIAL_VM_IP_ADDRESS}/generate", json={"input_text": "def print_hello_world():"})
-
-$ raise NonCompliantUvm("Attestation validation failed (non-compliant uvm). Exiting.")
-__main__.NonCompliantUvm: Attestation validation failed (non-compliant uvm). Exiting.
 ```
 
-### Example 2: User tries to query BlindBox application running in a confidential VM running in debug mode
+Response:
+```bash
+$ __main__.NonCompliantUvm: Attestation validation failed (non-compliant uvm). Exiting.
+```
 
+### Example 2: User queries BlindBox application running in a confidential VM running in debug mode
+
+Query:
 ```python
-
 res = requests.post(url=f"http://{CONFIDENTIAL_VM_IP_ADDRESS}/generate", json={"input_text": "def print_hello_world():"})
+```
 
-$ raise DebugMode("Attestation validation failed (enclave is in debug mode). Exiting.")
-__main__.DebugMode: Attestation validation failed (enclave is in debug mode). Exiting.
+Response:
+```bash
+$ __main__.DebugMode: Attestation validation failed (enclave is in debug mode). Exiting.
 ```
 
 ## Attestation reports
@@ -177,13 +182,61 @@ Here is a key to help you understand the fields we see in this token:
 
 ### initial fields
 
++ **exp (Expiration):**      Time after which the JWT must not be accepted for processing
++ **iat (Issued at):**       The time at which the JWT was issued at
++ **iss (Issuer):**          The principal that issued the JWT
++ **jti (JWT ID):**          Unique identifier for the JWT
++ **nbf (Not Before):**      Time before which the JWT must not be accepted for processing
++ **secureboot:**            Boolean value showing if VM is running in secure boot mode
++ **x-ms-attestation-type:** Attestation type
+
 ### x-ms-azurevm fields
+
+Details relating to the configuration of the Azure VM.
 
 ## x-ms-isolation-tee fields
 
+Details relating to the TEE running on the Azure VM, including:
+
++ **x-ms-attestation-type**:  TEE type/provider
++ **x-ms-compliance-status**: Azure compliance status
+
 ## x-ms-sevsnpvm fields
+
+These are the fields relating to the AMD SEV-SNP attestation report. MAA parses this report and returns the following fields:
+
++ **x-ms-sevsnpvm-authorkeydigest:** SHA384 hash of the author signing key
++ **x-ms-sevsnpvm-bootloader-svn:** AMD boot loader security version number (SVN)
++ **x-ms-sevsnpvm-familyId:** Host Compatibility Layer (HCL) family identification string
++ **x-ms-sevsnpvm-guestsvn:** HCL security version number (SVN)
++ **x-ms-sevsnpvm-hostdata:** Arbitrary data defined by the host at VM launch time
++ **x-ms-sevsnpvm-idkeydigest:** SHA384 hash of the identification signing key
++ **x-ms-sevsnpvm-imageId:** HCL image identification
++ **x-ms-sevsnpvm-is-debuggable:** Boolean value indicating whether AMD SEV-SNP debugging is enabled
++ **x-ms-sevsnpvm-launchmeasurement:** Measurement of the launched guest image
++ **x-ms-sevsnpvm-microcode-svn:** AMD microcode security version number (SVN)
++ **x-ms-sevsnpvm-migration-allowed:** Boolean value indicating whether AMD SEV-SNP migration support is enabled
++ **x-ms-sevsnpvm-reportdata:** Data passed by HCL to include with report, to verify that transfer key and VM configuration are correct
++ **x-ms-sevsnpvm-reportid:** Report ID of the guest
++ **x-ms-sevsnpvm-smt-allowed:** Boolean value indicating whether SMT is enabled on the host
++ **x-ms-sevsnpvm-snpfw-svn:** AMD firmware security version number (SVN)
++ **x-ms-sevsnpvm-tee-svn**: AMD trusted execution environment (TEE) security version number (SVN)
++ **x-ms-sevsnpvm-vmpl:** Virtual Machine Privilege Levels (VMPL) that generated this report
 
 ## final fields
 
++ **x-ms-policy-hash:** Hash of Azure Attestation evaluation policy computed as BASE64URL(SHA256(UTF8(BASE64URL(UTF8(policy text)))))
++ **x-ms-runtime:** JSON object containing "claims" that are defined and generated within the attested environment
++ **x-ms-ver:** JWT schema version (expected to be "1.0")
+
 ## Conclusions
 
+This concludes our guide into how attestation is implemented in BlindBox.
+
+We have seen:
++ The role of each concerned party in attestation
++ What details are verified during the attestation process
++ The life cycle of the attestation process
++ What to expect if attestation fails
+
+If you have any further questions, please get in touch! 
