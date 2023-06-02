@@ -7,7 +7,7 @@ Deploy and isolate software to preserve your users' data privacy!
 
 ## ⬛ What is BlindBox?
 ________________________________________________________
-**BlindBox** is a **SaaS deployment solution** which boosts compliance and improves the security posture of SaaS solutions by shielding SaaS end users' data at all times- even from the SaaS provider themself!
+**BlindBox** is a **SaaS deployment solution** which boosts compliance and improves the security posture of SaaS solutions by shielding SaaS end users' data at all times- even from the SaaS provider itself!
 
 🗝️ **Key features**:
 
