@@ -1,19 +1,3 @@
-# Some constants
-locals {
-  container_ports = [
-    {
-      port     = 80
-      protocol = "TCP"
-    },
-    {
-      port     = 8080
-      protocol = "TCP"
-    },
-  ]
-  blindbox_image = "mithrilsecuritysas/blindbox:sev"
-}
-
-# All resources are part of a new resource group
 resource "random_pet" "rg_name" {
   prefix = var.resource_group_name_prefix
 }
@@ -23,12 +7,12 @@ resource "azurerm_resource_group" "rg" {
   name     = random_pet.rg_name.id
 }
 
+# Create container registry
 resource "random_integer" "container_registery_suffix" {
   min = 0
   max = 1000000
 }
 
-# Create a dedicated container registry
 resource "azurerm_container_registry" "cr" {
   name                = "${var.container_registry_name_prefix}${random_integer.container_registery_suffix.result}"
   resource_group_name = azurerm_resource_group.rg.name
@@ -77,87 +61,105 @@ resource "null_resource" "docker_push" {
   }
 }
 
-# Container group
-# We use a template deployment (ARM file) since confidential-computing is not
-# supported by the azurerm terraform provider.
-resource "azurerm_resource_group_template_deployment" "container" {
-  name                = "blindbox"
+# Create virtual network
+resource "azurerm_virtual_network" "vnet" {
+  name                = "vnet"
+  address_space       = ["10.0.0.0/16"]
+  location            = azurerm_resource_group.rg.location
+  resource_group_name = azurerm_resource_group.rg.name
+}
+
+# Create subnet
+resource "azurerm_subnet" "subnet" {
+  name                 = "subnet"
+  resource_group_name  = azurerm_resource_group.rg.name
+  virtual_network_name = azurerm_virtual_network.vnet.name
+  address_prefixes     = ["10.0.1.0/24"]
+}
+
+# Create public IPs
+resource "azurerm_public_ip" "public_ip" {
+  name                = "public_ip"
+  location            = azurerm_resource_group.rg.location
+  resource_group_name = azurerm_resource_group.rg.name
+  allocation_method   = "Dynamic"
+}
+
+# Create Network Security Group and rule
+resource "azurerm_network_security_group" "nsg" {
+  name                = "nsg"
+  location            = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
 
-  template_content = jsonencode(
-    {
-      "$schema" : "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
-      "contentVersion" : "1.0.0.1",
-      "parameters" : {},
-      "resources" : [
-        {
-          "type" : "Microsoft.ContainerInstance/containerGroups",
-          "apiVersion" : "2022-10-01-preview",
-          "name" : "blindbox",
-          "location" : azurerm_resource_group.rg.location
-          "properties" : {
-#            "confidentialComputeProperties" : {
-#              "ccePolicy" : data.local_file.cce_policy.content
-#            },
-            "containers" : [
-              {
-                "name" : "blindbox",
-                "properties" : {
-                  "image" : local.blindbox_image,
-                  "ports" : local.container_ports,
-                  "resources" : {
-                    "requests" : {
-                      "cpu" : var.cpu_count,
-                      "memoryInGB" : var.memory_in_gb
-                    }
-                  },
-                  "securityContext" : {
-                    "privileged" : true
-                  },
-                  "environmentVariables": [
-                    {
-                      "name": "INNER_IMAGE",
-                      "value": var.image,
-                    }
-                  ]
-                }
-              }
-            ],
-            "sku" : "Confidential",
-            "osType" : "Linux",
-            "restartPolicy" : "Always",
-            "ipAddress" : {
-              "type" : "Public",
-              "ports" : local.container_ports
-            },
-            "imageRegistryCredentials" : [
-              {
-                "server" : azurerm_container_registry.cr.login_server,
-                "username" : azurerm_container_registry.cr.admin_username,
-                "password" : azurerm_container_registry.cr.admin_password
-              }
-            ]
-          }
-        }
-      ],
-      "outputs" : {
-        "containerIPv4Address" : {
-          "type" : "string",
-          "value" : "[reference(resourceId('Microsoft.ContainerInstance/containerGroups', 'blindbox')).ipAddress.ip]"
-        }
-      }
-    }
-  )
+  security_rule {
+    name                       = "SSH"
+    priority                   = 1001
+    direction                  = "Inbound"
+    access                     = "Allow"
+    protocol                   = "Tcp"
+    source_port_range          = "*"
+    destination_port_range     = "22"
+    source_address_prefix      = "*"
+    destination_address_prefix = "*"
+  }
+}
 
-  depends_on = [
-    null_resource.docker_push
-  ]
+# Create network interface
+resource "azurerm_network_interface" "nic" {
+  name                = "nic"
+  location            = azurerm_resource_group.rg.location
+  resource_group_name = azurerm_resource_group.rg.name
 
-  lifecycle {
-    # Updating the deployment in-place does not work when the ACR
-    # is redeployed, apparently.
-    replace_triggered_by = [azurerm_container_registry.cr]
+  ip_configuration {
+    name                          = "nic_config"
+    subnet_id                     = azurerm_subnet.subnet.id
+    private_ip_address_allocation = "Dynamic"
+    public_ip_address_id          = azurerm_public_ip.public_ip.id
+  }
+}
+
+# Connect the security group to the network interface
+resource "azurerm_network_interface_security_group_association" "gassoc" {
+  network_interface_id      = azurerm_network_interface.nic.id
+  network_security_group_id = azurerm_network_security_group.nsg.id
+}
+
+# Create (and display) an SSH key
+resource "tls_private_key" "ssh_key" {
+  algorithm = "RSA"
+  rsa_bits  = 4096
+}
+
+# Create virtual machine
+resource "azurerm_linux_virtual_machine" "cvm" {
+  name                  = "cvm"
+  location              = azurerm_resource_group.rg.location
+  resource_group_name   = azurerm_resource_group.rg.name
+  network_interface_ids = [azurerm_network_interface.nic.id]
+  size                  = var.vm_size
+  secure_boot_enabled   = true
+  vtpm_enabled          = true
+
+  os_disk {
+    name                     = "main_disk"
+    caching                  = "ReadWrite"
+    storage_account_type     = "Standard_LRS"
+    security_encryption_type = "DiskWithVMGuestState"
   }
 
-  deployment_mode = "Incremental"
+  source_image_reference {
+    publisher = "Canonical"
+    offer     = "0001-com-ubuntu-confidential-vm-focal"
+    sku       = "20_04-lts-cvm"
+    version   = "latest"
+  }
+
+  computer_name                   = "cvm"
+  admin_username                  = "azureuser"
+  disable_password_authentication = true
+
+  admin_ssh_key {
+    username   = "azureuser"
+    public_key = tls_private_key.ssh_key.public_key_openssh
+  }
 }
