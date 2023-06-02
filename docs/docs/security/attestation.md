@@ -205,23 +205,25 @@ Details relating to the TEE running on the Azure VM, including:
 
 These are the fields relating to the AMD SEV-SNP attestation report. MAA parses this report and returns the following fields:
 
-+ **x-ms-sevsnpvm-authorkeydigest:** SHA384 hash of the author signing key
-+ **x-ms-sevsnpvm-bootloader-svn:** AMD boot loader security version number (SVN)
-+ **x-ms-sevsnpvm-familyId:** Host Compatibility Layer (HCL) family identification string
-+ **x-ms-sevsnpvm-guestsvn:** HCL security version number (SVN)
-+ **x-ms-sevsnpvm-hostdata:** Arbitrary data defined by the host at VM launch time
-+ **x-ms-sevsnpvm-idkeydigest:** SHA384 hash of the identification signing key
-+ **x-ms-sevsnpvm-imageId:** HCL image identification
-+ **x-ms-sevsnpvm-is-debuggable:** Boolean value indicating whether AMD SEV-SNP debugging is enabled
-+ **x-ms-sevsnpvm-launchmeasurement:** Measurement of the launched guest image
-+ **x-ms-sevsnpvm-microcode-svn:** AMD microcode security version number (SVN)
-+ **x-ms-sevsnpvm-migration-allowed:** Boolean value indicating whether AMD SEV-SNP migration support is enabled
-+ **x-ms-sevsnpvm-reportdata:** Data passed by HCL to include with report, to verify that transfer key and VM configuration are correct
-+ **x-ms-sevsnpvm-reportid:** Report ID of the guest
-+ **x-ms-sevsnpvm-smt-allowed:** Boolean value indicating whether SMT is enabled on the host
-+ **x-ms-sevsnpvm-snpfw-svn:** AMD firmware security version number (SVN)
-+ **x-ms-sevsnpvm-tee-svn**: AMD trusted execution environment (TEE) security version number (SVN)
-+ **x-ms-sevsnpvm-vmpl:** Virtual Machine Privilege Levels (VMPL) that generated this report
+| Field | Description |
+| --------- |---|
+| **x-ms-sevsnpvm-authorkeydigest** | SHA384 hash of the author signing key |
+| **x-ms-sevsnpvm-bootloader-svn** | AMD boot loader security version number (SVN) |
+| **x-ms-sevsnpvm-familyId Host** | Compatibility Layer (HCL) family identification string |
+| **x-ms-sevsnpvm-guestsvn** | HCL security version number (SVN) |
+| **x-ms-sevsnpvm-hostdata** | Arbitrary data defined by the host at VM launch time |
+| **x-ms-sevsnpvm-idkeydigest** | SHA384 hash of the identification signing key |
+| **x-ms-sevsnpvm-imageId** | HCL image identification |
+| **x-ms-sevsnpvm-is-debuggable** | Boolean value indicating whether AMD SEV-SNP debugging is enabled |
+| **x-ms-sevsnpvm-launchmeasurement** | Measurement of the launched guest image |
+| **x-ms-sevsnpvm-microcode-svn** | AMD microcode security version number (SVN) |
+| **x-ms-sevsnpvm-migration-allowed** | Boolean value indicating whether AMD SEV-SNP migration support is enabled |
+| **x-ms-sevsnpvm-reportdata** | Data passed by HCL to include with report, to verify that transfer key and VM configuration are correct |
+| **x-ms-sevsnpvm-reportid** | Report ID of the guest |
+| **x-ms-sevsnpvm-smt-allowed** | Boolean value indicating whether SMT is enabled on the host |
+| **x-ms-sevsnpvm-snpfw-svn** | AMD firmware security version number (SVN) |
+| **x-ms-sevsnpvm-tee-svn** | AMD trusted execution environment (TEE) security version number (SVN) |
+|  **x-ms-sevsnpvm-vmpl** | Virtual Machine Privilege Levels (VMPL) that generated this report |
 
 ## final fields
 
