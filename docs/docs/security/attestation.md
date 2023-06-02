@@ -1,4 +1,4 @@
-# Attestation with BlindBox: advanced guide
+# Attestation with BlindBox: Advanced Guide
 
 We provide a quick-fire description of what attestation is in our [confidential computing guide](https://blindbox.mithrilsecurity.io/en/latest/docs/getting-started/confidential_computing/) , but the aim of this article is to cover attestation in more depth and discuss how it has been implemented with BlindBox.
 
@@ -9,6 +9,9 @@ We currently only support the deployment of BlindBoxes on AMD SEV-SNP confidenti
 The attestation process is an automated process managed by BlindBox. Attestation is set-up to be performed by default whenever an end user starts a new connection to a BlindBox- from a customer perspective, no additional actions are required. If any of our attestation checks fail, the end user will be unable to connect to the BlindBox.
 
 The BlindBox attestation process makes use of the Microsoft Azure Attestation service and Microsoft client-side attestation application, which in turn requests and leverages a attestation report produced by AMD SEV-SNP.
+
+![att_architecture_light](../../assets/att_architecture_light.png#only-light)
+![att_architecture_dark](../../assets/att_architecture_dark.png#only-dark)
 
 ## What do we attest?
 
@@ -237,7 +240,7 @@ These are the fields relating to the AMD SEV-SNP attestation report. MAA parses 
 
 ## Conclusions
 
-This concludes our guide into how attestation is implemented in BlindBox.
+This concludes our advanced guide into how attestation is implemented in BlindBox.
 
 We have seen:
 + The role of each concerned party in attestation
