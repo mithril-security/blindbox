@@ -183,7 +183,7 @@ Here is an example of a MAA attestation token:
 
 Here is a key to help you understand the fields we see in this token:
 
-### initial fields
+### Initial fields
 
 | Field | Description |
 | --------- |---|
@@ -230,7 +230,7 @@ These are the fields relating to the AMD SEV-SNP attestation report. MAA parses 
 | **x-ms-sevsnpvm-tee-svn** | AMD trusted execution environment (TEE) security version number (SVN) |
 |  **x-ms-sevsnpvm-vmpl** | Virtual Machine Privilege Levels (VMPL) that generated this report |
 
-## final fields
+## Final fields
 
 | Field | Description |
 | --------- |---|
