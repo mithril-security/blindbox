@@ -19,6 +19,7 @@ The BlindBox attestation process makes use of the Microsoft Azure Attestation se
 + BlindBox attests checks that the JWT attestation token response we get back from the Microsoft Azure Attestation service has not been tampered with by verifying the token’s signature, validity and some runtime information.
 
 BlindBox then uses the information provided in JWT attestation response to verify that:
+
 + Verify that we are communicating with a genuine AMD SEV-SNP confidential VM.
 + Verify that we are communicating with a genuine Azure-compliant VM.
 + Verify that the VM is running in production mode and not debug mode.
