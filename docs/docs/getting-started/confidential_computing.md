@@ -64,6 +64,8 @@ Let's take a look at the basic attestation workflow for BlindBox:
 
 Here, we were able to transcribe our audio file while keeping the audio file confidential, even from the SaaS vendor!
 
+For more detailed information about how attestation is implemented in BlindBox, see our [advanced attestation guide](../security/attestation.md).
+
 ## Verifying security
 ___________________________________________ 
 
