@@ -139,6 +139,7 @@ resource "azurerm_linux_virtual_machine" "cvm" {
   size                  = var.vm_size
   secure_boot_enabled   = true
   vtpm_enabled          = true
+  custom_data           = base64encode(file("./init.sh"))
 
   os_disk {
     name                     = "main_disk"

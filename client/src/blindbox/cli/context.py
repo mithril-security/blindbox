@@ -11,17 +11,17 @@ from typing import List, Literal, Optional
 from .logging import log
 
 
-class BlindBoxYml(BaseModel):
+class BlindBoxYaml(BaseModel):
     platform: Literal["azure-amd-sev", "aws-nitro"]
     image: str
 
 
 class Context(ABC):
-    def __init__(self, cfg: Optional[BlindBoxYml] = None, interactive: bool = True, auto_approve: bool = False) -> None:
+    def __init__(self, cfg: Optional[BlindBoxYaml] = None, interactive: bool = True, auto_approve: bool = False) -> None:
         super().__init__()
         self._tf_available: Optional[bool] = None
         self._docker_available: Optional[bool] = None
-        self._cfg: Optional[BlindBoxYml] = cfg
+        self._cfg: Optional[BlindBoxYaml] = cfg
         self._interactive: bool = interactive
         self._auto_approve: bool = auto_approve
 
@@ -170,7 +170,7 @@ class Context(ABC):
     def _load_config(self, dir: str):
         with open(os.path.join(dir, "blindbox.yml"), "rb") as file:
             dict = yaml.safe_load(file)
-        self._cfg = BlindBoxYml(**dict)
+        self._cfg = BlindBoxYaml(**dict)
     
     def _save_config(self, dir: str):
         with open(os.path.join(dir, "blindbox.yml"), "wb") as file:
@@ -201,7 +201,7 @@ class Context(ABC):
 
 
 class AzureAmdSevContext(Context):
-    def __init__(self, cfg: Optional[BlindBoxYml] = None, interactive: bool = True, auto_approve: bool = False) -> None:
+    def __init__(self, cfg: Optional[BlindBoxYaml] = None, interactive: bool = True, auto_approve: bool = False) -> None:
         super().__init__(cfg, interactive, auto_approve)
 
     def init_cmd(self, dir: str):

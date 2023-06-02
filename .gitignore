@@ -223,8 +223,19 @@ terraform.rc
 /tmp
 **/model_store
 **/local_model_store
+**/Attest
+**/AttestationClient
 
 #############
 #   docs    #
 #############
-/docs/docs/getting-started/taunt.wav    
+/docs/docs/getting-started/taunt.wav
+
+#############
+# Terraform #
+#############
+**/.terraform
+**/.terraform.lock.hcl
+**/*.tfvars
+**/*.tfstate*
+**/key.pem
