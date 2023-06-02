@@ -182,13 +182,15 @@ Here is a key to help you understand the fields we see in this token:
 
 ### initial fields
 
-+ **exp (Expiration):**      Time after which the JWT must not be accepted for processing
-+ **iat (Issued at):**       The time at which the JWT was issued at
-+ **iss (Issuer):**          The principal that issued the JWT
-+ **jti (JWT ID):**          Unique identifier for the JWT
-+ **nbf (Not Before):**      Time before which the JWT must not be accepted for processing
-+ **secureboot:**            Boolean value showing if VM is running in secure boot mode
-+ **x-ms-attestation-type:** Attestation type
+| Field | Description |
+| --------- |---|
+| **exp (Expiration)** | Time after which the JWT must not be accepted for processing |
+| **iat (Issued at)** | The time at which the JWT was issued at |
+| **iss (Issuer)** | The principal that issued the JWT |
+| **jti (JWT ID)** | Unique identifier for the JWT |
+| **nbf (Not Before)** | Time before which the JWT must not be accepted for processing |
+| **secureboot** | Boolean value showing if VM is running in secure boot mode |
+| **x-ms-attestation-type** | Attestation type |
 
 ### x-ms-azurevm fields
 
@@ -227,9 +229,11 @@ These are the fields relating to the AMD SEV-SNP attestation report. MAA parses 
 
 ## final fields
 
-+ **x-ms-policy-hash:** Hash of Azure Attestation evaluation policy computed as BASE64URL(SHA256(UTF8(BASE64URL(UTF8(policy text)))))
-+ **x-ms-runtime:** JSON object containing "claims" that are defined and generated within the attested environment
-+ **x-ms-ver:** JWT schema version (expected to be "1.0")
+| Field | Description |
+| --------- |---|
+| **x-ms-policy-hash** | Hash of Azure Attestation evaluation policy computed as BASE64URL(SHA256(UTF8(BASE64URL(UTF8(policy text))))) |
+| **x-ms-runtime** | JSON object containing "claims" that are defined and generated within the attested environment |
+| **x-ms-ver** | JWT schema version (expected to be "1.0") |
 
 ## Conclusions
 
