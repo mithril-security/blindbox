@@ -21,5 +21,3 @@ print(res.text)
 res = requests.get(url=f"http://{SERVER_URL}:{SERVER_PORT}/enclave")
 print(res.status_code)
 print(res.text)
-
-
