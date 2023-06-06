@@ -34,7 +34,7 @@ We currently support the following TEEs: **[AMD SEV-SNP](../concepts/amd-sev.md)
 ## Attestation
 ___________________
 
-When a user wants to establish communication with an enclave, checks can be performed to **verify the authenticity of the TEE**, **its configuration** and elements such as the  **application** running in the TEE and **the OS (where relevant)**. This process is called attestation.
+When a user wants to establish communication with an enclave, a process called attestation can be performed to **verify the authenticity of the TEE**, **its configuration** and elements such as the  **application** running in the TEE. This means users can be sure the application they are querying is deployed within a genuine TEE before sending any data.
 
 !!! warning "Important"
 
