@@ -194,7 +194,7 @@ Here is an example of a MAA attestation token:
 
 Here is a key to help you understand the fields we see in this token:
 
-### Initial fields
+#### Initial fields
 
 | Field | Description |
 | --------- |---|
@@ -206,18 +206,18 @@ Here is a key to help you understand the fields we see in this token:
 | **secureboot** | Boolean value showing if VM is running in secure boot mode |
 | **x-ms-attestation-type** | Attestation type |
 
-### x-ms-azurevm fields
+#### x-ms-azurevm fields
 
 Details relating to the configuration of the Azure VM.
 
-### x-ms-isolation-tee fields
+#### x-ms-isolation-tee fields
 
 Details relating to the TEE running on the Azure VM, including:
 
 + **x-ms-attestation-type**:  TEE type/provider
 + **x-ms-compliance-status**: Azure compliance status
 
-### x-ms-sevsnpvm fields
+#### x-ms-sevsnpvm fields
 
 These are the fields relating to the AMD SEV-SNP attestation report. MAA parses this report and returns the following fields:
 
@@ -241,7 +241,7 @@ These are the fields relating to the AMD SEV-SNP attestation report. MAA parses 
 | **x-ms-sevsnpvm-tee-svn** | AMD trusted execution environment (TEE) security version number (SVN) |
 |  **x-ms-sevsnpvm-vmpl** | Virtual Machine Privilege Levels (VMPL) that generated this report |
 
-### Final fields
+#### Final fields
 
 | Field | Description |
 | --------- |---|
