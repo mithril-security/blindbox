@@ -1,12 +1,21 @@
-# Attestation with BlindBox: Advanced Guide
+# Attestation
 
-We provide a quick-fire description of what attestation is in our [confidential computing guide](https://blindbox.mithrilsecurity.io/en/latest/docs/getting-started/confidential_computing/) , but the aim of this article is to cover attestation in more depth and discuss how it has been implemented with BlindBox.
+??? abstract "Learn more about Confidential Computing 📖" 
 
-We currently only support the deployment of BlindBoxes on AMD SEV-SNP confidential VMs with Azure, so this guide will focus on attestation for these machines. We will update this guide as and when new platforms are supported.
+	+ [Our intro to Confidential Computing](../getting-started/confidential_computing.md)
+	+ [Discover the Confidential Computing ecosystem](../concepts/ecosystem.md)
+	+ [A guide to AMD SEV](./amd-sev.md)
+	+ [Confidential Computing Explained](https://confidential-computing-explained.mithrilsecurity.io/en/latest/), a hands-on course to learn how enclaves work and how to create your own mini-KMS
+
+The aim of this advanced guide is to cover [attestation](https://blindbox.mithrilsecurity.io/en/latest/docs/getting-started/confidential_computing/) and discuss how we implement it in BlindBox. 
+
+!!! warning "Disclaimer"
+
+	We currently only support the deployment of BlindBoxes on AMD SEV-SNP confidential VMs with Azure, so this guide will focus on attestation for these machines. We will update this guide as and when new platforms are supported.
 
 ## Who is responsible for attestation?
 
-The attestation process is an automated process managed by BlindBox. Attestation is set-up to be performed by default whenever an end user starts a new connection to a BlindBox- from a customer perspective, no additional actions are required. If any of our attestation checks fail, the end user will be unable to connect to the BlindBox.
+The attestation process is an **automated** process managed by BlindBox. Attestation is set-up to be performed by default whenever an end user starts a new connection to a BlindBox- from a customer perspective, no additional actions are required. If any of our attestation checks fail, the end user will be unable to connect to the BlindBox.
 
 The BlindBox attestation process makes use of the Microsoft Azure Attestation service and Microsoft client-side attestation application, which in turn requests and leverages a attestation report produced by AMD SEV-SNP.
 
@@ -15,14 +24,15 @@ The BlindBox attestation process makes use of the Microsoft Azure Attestation se
 
 ## What do we attest?
 
-+ The Microsoft Azure Attestation service attests the validity of the AMD SEV-SNP report by verifying the reports hardware-derived signature.
-+ BlindBox attests checks that the JWT attestation token response we get back from the Microsoft Azure Attestation service has not been tampered with by verifying the token’s signature, validity and some runtime information.
+The **Microsoft Azure Attestation service** attests the **validity of the AMD SEV-SNP report** by verifying the reports hardware-derived signature.
+
+**BlindBox** attests that the **JWT attestation token response** we get back from the Microsoft Azure Attestation service has **not been tampered with** by verifying the token’s signature, validity and some runtime information.
 
 BlindBox then uses the information provided in JWT attestation response to verify that:
 
-+ Verify that we are communicating with a genuine AMD SEV-SNP confidential VM.
-+ Verify that we are communicating with a genuine Azure-compliant VM.
-+ Verify that the VM is running in production mode and not debug mode.
++ We are **communicating** with a genuine **AMD SEV-SNP confidential VM**.
++ We are **communicating** with a **genuine Azure-compliant VM**.
++ The VM is **running** in **production mode** and *not* debug mode.
 
 ## The attestation workflow
 
@@ -37,32 +47,32 @@ Let’s walk through the whole life cycle of the attestation process from the mo
 7. BlindBox verifies the validity of this token before using the report to perform the checks detailed above.
 8. BlindBox returns an error if any of these checks are unsuccessful. If not, the end user will successfully connect to the BlindBox application and their query will be processed.
 
-## Examples
+## What happens when attestation fails?
 
 Let's take a look at what happens if the attestation process is not successful.
 
-For an interactive demo of the attestation process, check out our [Gradio demo](https://huggingface.co/spaces/mithril-security/BlindBox).
+For an **interactive demo of the attestation process**, check out our [**Gradio demo**](https://huggingface.co/spaces/mithril-security/BlindBox).
 
-### Example 1: User queries BlindBox application running on a non-compliant Azure VM
+### Non-compliant Azure VM
 
-Query:
+*Query:*
 ```python
 res = requests.post(url=f"http://{CONFIDENTIAL_VM_IP_ADDRESS}/generate", json={"input_text": "def print_hello_world():"})
 ```
 
-Response:
+*Response:*
 ```bash
 $ __main__.NonCompliantUvm: Attestation validation failed (non-compliant uvm). Exiting.
 ```
 
-### Example 2: User queries BlindBox application running in a confidential VM running in debug mode
+### Debug mode
 
-Query:
+*Query:*
 ```python
 res = requests.post(url=f"http://{CONFIDENTIAL_VM_IP_ADDRESS}/generate", json={"input_text": "def print_hello_world():"})
 ```
 
-Response:
+*Response:*
 ```bash
 $ __main__.DebugMode: Attestation validation failed (enclave is in debug mode). Exiting.
 ```
@@ -71,9 +81,9 @@ $ __main__.DebugMode: Attestation validation failed (enclave is in debug mode). 
 
 ### AMD SEV-SNP Attestation Report
 
-The AMD SEV-SNP attestation report contains information relating to the confidential environment our application is running within. For full details of all of the information provided in the report is provided in [AMD SEV-SNP’s technical documentation](https://www.amd.com/system/files/TechDocs/56860.pdf)- see page 44 for an outline of all of the report’s fields.
+The AMD SEV-SNP attestation report contains information relating to the confidential environment our application is running within. It is signed by a Versioned Chip Endorsement Key (VCEK), which is derived from chip- unique secrets and a TCB_VERSION. 
 
-The report is signed by a Versioned Chip Endorsement Key (VCEK), which is derived from chip- unique secrets and a TCB_VERSION. For more details, please refer to AMD’s technical documentation.
+To get all an outline of all the fields provided in the report, see page 44 of [AMD SEV-SNP’s technical documentation](https://www.amd.com/system/files/TechDocs/56860.pdf). The documentation also contains more information on the signature. 
 
 ### MAA Attestation Token
 
@@ -200,14 +210,14 @@ Here is a key to help you understand the fields we see in this token:
 
 Details relating to the configuration of the Azure VM.
 
-## x-ms-isolation-tee fields
+### x-ms-isolation-tee fields
 
 Details relating to the TEE running on the Azure VM, including:
 
 + **x-ms-attestation-type**:  TEE type/provider
 + **x-ms-compliance-status**: Azure compliance status
 
-## x-ms-sevsnpvm fields
+### x-ms-sevsnpvm fields
 
 These are the fields relating to the AMD SEV-SNP attestation report. MAA parses this report and returns the following fields:
 
@@ -231,7 +241,7 @@ These are the fields relating to the AMD SEV-SNP attestation report. MAA parses 
 | **x-ms-sevsnpvm-tee-svn** | AMD trusted execution environment (TEE) security version number (SVN) |
 |  **x-ms-sevsnpvm-vmpl** | Virtual Machine Privilege Levels (VMPL) that generated this report |
 
-## Final fields
+### Final fields
 
 | Field | Description |
 | --------- |---|
