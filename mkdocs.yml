@@ -111,7 +111,7 @@ nav:
 - ✅ Integration:
   - OpenAI Whisper deployment: 'docs/how-to-guides/openai-whisper.ipynb'
   - Santacoder deployment: 'docs/how-to-guides/santacoder.ipynb'
-  - Falcon-40b deployment: 'docs/how-to-guides/falcon40b.ipynb'
+  - Falcon-40B deployment: 'docs/how-to-guides/falcon40b.ipynb'
 
 - 💡 Concepts:
   - Confidential Computing:
