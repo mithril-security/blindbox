@@ -1,6 +1,10 @@
 name: Main Tests
 
-on: push
+on:
+  push:
+    paths:
+      - 'client/**'
+      - 'examples/**'
 
 jobs:
   coverage-tests:
@@ -33,13 +37,13 @@ jobs:
           python ./tests/demo_server.py & sleep 1
           python -m coverage run --source . --omit="*test*,*__*" -m unittest tests/test*.py
           python -m coverage report
-          python -m coverage xml
+          python -m coverage xml -o ./tests/coverage.xml
 
       - name: Coverage report
-        uses: orgoro/coverage@v3
+        uses: devops-infra/action-commit-push@master
         with:
-          coverageFile: client/coverage.xml
-          token: ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          commit_message: Auto-sync coverage report
 
   cli-tests:
     runs-on: ubuntu-latest
