@@ -1,6 +1,8 @@
 FROM python:3.10.10-bullseye as base
 
 RUN pip install \
+    datasets \
+    trl \
     einops \
     torch==2.0.1  \
     transformers==4.26.1 \
