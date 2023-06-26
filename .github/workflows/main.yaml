@@ -5,7 +5,9 @@ on:
     paths:
       - 'client/**'
       - 'examples/**'
-
+  workflow_dispatch:
+permissions:
+  contents: write
 jobs:
   coverage-tests:
     runs-on: ubuntu-latest
@@ -40,9 +42,10 @@ jobs:
           python -m coverage xml -o ./tests/coverage.xml
 
       - name: Coverage report
+        if: matrix.python-version == '3.9'
         uses: devops-infra/action-commit-push@master
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${{ secrets.TOKEN }}
           commit_message: Auto-sync coverage report
 
   cli-tests:
