@@ -39,7 +39,7 @@ jobs:
           python ./tests/demo_server.py & sleep 1
           python -m coverage run --source . --omit="*test*,*__*" -m unittest tests/test*.py
           python -m coverage report
-          python -m coverage xml -o ./tests/coverage.xml
+          python -m coverage xml -o ./tests/blindbox_coverage.xml
 
       - name: Coverage report
         if: matrix.python-version == '3.9'
