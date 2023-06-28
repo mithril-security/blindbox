@@ -32,6 +32,7 @@ class SecureSession(Session):
             )
 
         self.base_url = addr
+        self.jwt = ""
 
         if debug_mode:
             warnings.warn(
@@ -211,6 +212,7 @@ class SecureSession(Session):
         if payload["x-ms-sevsnpvm-is-debuggable"] == "false":
             raise DebugMode("Attestation validation failed (enclave is in debug mode). Exiting.")
 
+        self.jwt = maa_token
         print("Attestation validated")
 
 
