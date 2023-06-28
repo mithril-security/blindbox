@@ -176,8 +176,8 @@ func main() {
 	// witin the container group/pod)and so expose the attestation outside of the secure uvm
 
 	// Leaving this line here, as a comment, to aid debugging.
-	// hostname := flag.String("hostname", "localhost", "address on which to listen (dangerous)")
-	hostname := "0.0.0.0"
+	hostname := flag.String("hostname", "localhost", "address on which to listen (dangerous)")
+	// hostname := "0.0.0.0"
 
 	flag.Usage = usage
 

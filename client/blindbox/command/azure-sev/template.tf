@@ -12,11 +12,7 @@ locals {
   # Exposed ports to the outside world
   container_ports = [
     {
-      port     = 80
-      protocol = "TCP"
-    },
-    {
-      port     = 8080
+      port     = 443
       protocol = "TCP"
     },
   ]
