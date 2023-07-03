@@ -13,7 +13,7 @@ The aim of this guide is to go over [attestation](https://blindbox.mithrilsecuri
 
 	We currently only support the deployment of BlindBoxes on AMD SEV-SNP confidential VMs with Azure, but we plan to support other platforms in future releases.
 
-## What do we attest?
+## TODO What do we attest? 
 
 The **Microsoft Azure Attestation service** attests the **validity of the AMD SEV-SNP report** by verifying the reports hardware-derived signature.
 
@@ -25,7 +25,7 @@ BlindBox then uses the information provided in JWT attestation response to verif
 + We are **communicating** with a **genuine Azure-compliant VM**.
 + The VM is **running** in **production mode** and *not* debug mode.
 
-## The attestation workflow
+## TODO The attestation workflow
 
 Let’s walk through the whole life cycle of the attestation process from the moment an end user starts a new connection with a SaaS application deployed with BlindBox.
 
@@ -41,8 +41,6 @@ Let’s walk through the whole life cycle of the attestation process from the mo
 ## What happens when attestation fails?
 
 Let's take a look at what happens if the attestation process is not successful.
-
-For an **interactive demo of the attestation process**, check out our [**Gradio demo**](https://huggingface.co/spaces/mithril-security/BlindBox).
 
 ### Non-compliant Azure VM
 
