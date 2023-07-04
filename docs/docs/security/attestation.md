@@ -104,4 +104,4 @@ We have seen:
 
 If you have any further questions or want to know more detailed platform-specific information, please get in touch!
 
-<a href="https://www.mithrilsecurity.io/contact" style="display: inline-block; background-color: black; color: white; padding: 10px 20px; text-decoration: none;">Contact us</a>
+<a href="https://www.mithrilsecurity.io/contact" style="display: inline-block; background-color: #e5b22b; color: #030e1a; padding: 10px 20px; text-decoration: none;">Contact us</a>
