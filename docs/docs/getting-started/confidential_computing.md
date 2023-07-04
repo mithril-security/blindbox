@@ -95,9 +95,7 @@ BlindBox is under development, so this code is still being implemented, but we w
 	>> InvalidEnclaveCode
 	```
 
-## [Coming Soon ⌛] BlindBox security features
-
-+ BlindBox with **remote attestation** is on its way! Attestation will be performed when users connect to a BlindBox to verify the authenticity of their BlindBox and TEE environment.
+## ⌛ BlindBox security features (coming soon)
 
 + **Attested network isolation**: We will add an additional layer to our attestation process where we will verify that the BlindBox we are connecting to has the expected security policies in place.
 
