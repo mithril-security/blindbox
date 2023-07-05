@@ -66,7 +66,7 @@ Let’s walk through the whole life cycle of the attestation process from the mo
 
 Let's take a look at some examples of what happens if the attestation process is not successful.
 
-### Non-compliant Azure VM
+### Non-compliant Confidential VM
 
 *Query:*
 ```python
