@@ -120,7 +120,8 @@ Project Link: [https://github.com/mithril-security/blindbox](https://github.com/
 [issues-url]: https://github.com/mithril-security/blindbox/issues
 [license-shield]: https://img.shields.io/github/license/mithril-security/blindbox.svg?style=for-the-badge
 [license-url]: https://github.com/mithril-security/blindbox/blob/master/LICENSE.txt
-[linkedin-shield]: https://img.shields.io/badge/-Jobs-black.svg?style=for-the-badge&logo=linkedin&colorB=555
+[linkedin-shield]: https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white&colorB=555
+
 [linkedin-url]: https://www.linkedin.com/company/mithril-security-company/
 [website-url]: https://www.mithrilsecurity.io
 [website-shield]: https://img.shields.io/badge/website-000000?style=for-the-badge&colorB=555
