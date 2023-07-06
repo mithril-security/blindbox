@@ -21,7 +21,7 @@ We will cover the following topics:
 
 ## What is attestation?
 
-Attestation is a key concept in Confidential Computing. It is the process which allows us to have hardware-derived proof that we are communicating with an application running in a Trusted Execution Environment (TEE). It can be viewed a bit like a checksum for applications running in secure Confidential environments.
+Attestation is a key concept in Confidential Computing. It is the process which allows us to have hardware-derived proof that we are communicating with an application running in a Trusted Execution Environment (TEE). It can be viewed a bit like a checksum for secure Confidential environments.
 
 This process can provide us with additional information about the configuration of the TEE and the code running inside of it, allowing BlindBox to perform additional security checks to enhance the application's security posture.
 
