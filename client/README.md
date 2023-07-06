@@ -21,7 +21,7 @@
 [![LinkedIn][linkedin-shield]][linkedin-url]
 
   <p align="center">
-    <b>Quickly deploy your SaaS solutions while preserving your users' data privacy.
+    <b>Quickly deploy your SaaS solutions while preserving your users' data privacy.</b>
 	<br /><br />
     <a href="https://blindbox.mithrilsecurity.io/en/latest"><strong>Explore the docs »</strong></a>
     <br />
