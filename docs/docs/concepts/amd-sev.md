@@ -9,14 +9,15 @@ ________________________________________
 
 BlindBox protects user data using by deploying SaaS solutions within **Trusted Execution Environments (TEEs)**. One of the TEEs we currently support is the AMD SEV-SNP confidential VM. In this guide, we will take a look at how this technology works and how it is implemented in BlindBox.
 
-## AMD SEV-SNP
-________________________
+## A Confidential VM
+_________________________
 
 AMD SEV-SNP is an example of a confidential VM. Confidential VMs take the key concepts of confidential computing, runtime encryption, isolation and remote attestation, and apply them to whole VMs.
 
 AMD SEV VMs are available with Azure or Google Cloud.
 
-### Trusted Execution Environment (TEE)
+## Trusted Execution Environment (TEE)
+__________________________________________
 
 One of the key advantages of confidential VMs is that we are not restricted as we can be when creating applications for enclaves. Confidential VMs offer ease-of-use and are compatible with most existing applications, even when they are large or complex applications.
 
@@ -28,7 +29,8 @@ As is explained in AMD's documentation:
 
 	"The basic principle of SEV-SNP integrity is that if a VM is able to read a private (encrypted) page of memory, it must always read the value it last wrote. This means that if the VM wrote a value A to memory location X, whenever it later reads X it must either see the value A or it must get an exception indicating the memory could not be read".
 
-### Trusted Computing Base (TCB)
+## Trusted Computing Base (TCB)
+__________________________________
 
 ??? question "What is the TCB?"
 
@@ -46,7 +48,8 @@ The hypervisor and host system are NOT trusted.
 
 > Note that [memory DIMMs](https://en.wikipedia.org/wiki/DIMM), otherwise known as RAM sticks, are also implicitly trusted.
 
-### Attestation
+## Attestation
+________________________
 
 With the release of AMD SEV-SNP, attestation is now supported for all workloads.
 
@@ -54,7 +57,8 @@ During the attestation process, an attestation report is created allowing the cl
 
 For BlindBox, the attestation process is implemented using [Azure's attestation tools](https://azure.microsoft.com/en-us/products/azure-attestation).
 
-### Limitations
+## Limitations
+___________________________
 
 **AMD-SEV SNP** has historically been vulnerable to side channel attacks, where attackers try to get information about a TEE indirectly, by examining things like memory consumption or power usage.
 

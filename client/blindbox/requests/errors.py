@@ -7,7 +7,7 @@ class AttestationException(Exception):
         self.code = code
 
     def __str__(self):
-        return f"{self.code}" 
+        return f"{self.code}"
 
 class NotAnEnclaveError(AttestationException):
     """
@@ -26,7 +26,7 @@ class InvalidEnclaveCode(AttestationException):
 class NonCompliantUvm(AttestationException):
     """
     This exception is raised when the underlying virtual
-    machine is not Azure compliant. 
+    machine is not Azure compliant.
     """
     pass
 
@@ -47,5 +47,12 @@ class WrongAttester(AttestationException):
     """
     This exception is raised if the attestation token is generated
     by a different attestation endpoint than the one expected.
+    """
+    pass
+
+class MAATokenNotFound(AttestationException):
+    """
+    This exception is raised if the attestation service
+    is unable to find an MAA token.
     """
     pass

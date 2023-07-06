@@ -129,3 +129,7 @@ img[alt=attest_dark] { max-width: 450px; }
 img[alt=attest_light] { max-width: 450px; }
 img[alt=blindbox_architecture_dark] { max-width: 400px; }
 img[alt=blindbox_architecture_light] { max-width: 400px; }
+img[alt=att_workflow_dark] { max-width: 400px; }
+img[alt=att_workflow_light] { max-width: 400px; }
+img[alt=att_architecture_dark] { max-width: 700px; }
+img[alt=att_architecture_light] { max-width: 700px; }

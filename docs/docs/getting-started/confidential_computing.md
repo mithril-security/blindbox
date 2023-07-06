@@ -34,7 +34,7 @@ We currently support the following TEEs: **[AMD SEV-SNP](../concepts/amd-sev.md)
 ## Attestation
 ___________________
 
-When a user wants to establish communication with an enclave, checks can be performed to **verify the authenticity of the TEE**, **its configuration** and elements such as the  **application** running in the TEE and **the OS (where relevant)**. This process is called attestation.
+When a user wants to establish communication with an enclave, a process called attestation can be performed to **verify the authenticity of the TEE**, **its configuration** and elements such as the  **application** running in the TEE. This means users can be sure the application they are querying is deployed within a genuine TEE before sending any data.
 
 !!! warning "Important"
 
@@ -63,6 +63,8 @@ Let's take a look at the basic attestation workflow for BlindBox:
 5. **If** the verification process is **successful**, **communication via TLS is established** and the query will be performed. **If** the verification process **fails**, an attestation **error** will be returned.
 
 Here, we were able to transcribe our audio file while keeping the audio file confidential, even from the SaaS vendor!
+
+For more detailed information about how attestation is implemented in BlindBox, see our [advanced attestation guide](../security/attestation.md).
 
 ## Verifying security
 ___________________________________________ 
@@ -93,9 +95,7 @@ BlindBox is under development, so this code is still being implemented, but we w
 	>> InvalidEnclaveCode
 	```
 
-## [Coming Soon ⌛] BlindBox security features
-
-+ BlindBox with **remote attestation** is on its way! Attestation will be performed when users connect to a BlindBox to verify the authenticity of their BlindBox and TEE environment.
+## ⌛ BlindBox security features (coming soon)
 
 + **Attested network isolation**: We will add an additional layer to our attestation process where we will verify that the BlindBox we are connecting to has the expected security policies in place.
 
