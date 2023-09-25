@@ -121,4 +121,4 @@ This is why we wrap application images in an  an **additional security layer** t
 
 	+ [Discover the Confidential Computing ecosystem](../concepts/ecosystem.md)
 	+ [A guide to AMD-SEV](../concepts/amd-sev.md)
-	+ [Confidential Computing Explained](https://confidential-computing-explained.mithrilsecurity.io/en/latest/), a hands-on course to learn how enclaves work and how to create your own mini-KMS
+	+ [Confidential Computing Explained](https://www.mithrilsecurity.io/confidential-computing-explained/overview), a hands-on course to learn how enclaves work and how to create your own mini-KMS
