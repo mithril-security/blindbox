@@ -5,7 +5,7 @@
 	+ [Our intro to Confidential Computing](../getting-started/confidential_computing.md)
 	+ [Discover the Confidential Computing ecosystem](../concepts/ecosystem.md)
 	+ [A guide to AMD SEV](../concepts/amd-sev.md)
-	+ [Confidential Computing Explained](https://confidential-computing-explained.mithrilsecurity.io/en/latest/), a hands-on course to learn how enclaves work and how to create your own mini-KMS
+	+ [Confidential Computing Explained](https://www.mithrilsecurity.io/confidential-computing-explained/overview), a hands-on course to learn how enclaves work and how to create your own mini-KMS
 
 The aim of this guide is to discuss [attestation](https://blindbox.mithrilsecurity.io/en/latest/docs/getting-started/confidential_computing/) in more detail. 
 
