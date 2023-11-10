@@ -1,3 +1,7 @@
+---
+description: "Attestation in Confidential Computing: Details, parties, lifecycle, and consequences. BlindBox ensures security."
+---
+
 # Attestation
 
 ??? abstract "Learn more about Confidential Computing 📖" 

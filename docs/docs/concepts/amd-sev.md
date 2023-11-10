@@ -1,3 +1,7 @@
+---
+description: "AMD SEV-SNP and Confidential Computing with BlindBox: Learn TEEs, encryption, and attestation for enhanced security."
+---
+
 # AMD SEV-SNP
 ________________________________________
 

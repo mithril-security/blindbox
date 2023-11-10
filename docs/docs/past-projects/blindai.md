@@ -1,3 +1,7 @@
+---
+description: "Introducing BlindAI: BlindBox creators' open-source privacy solution with Intel SGX technology for secure AI deployment."
+---
+
 # BlindAI
 _________________________________________
 

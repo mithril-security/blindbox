@@ -1,3 +1,7 @@
+---
+description: "BlindBox: Secure SaaS deployment for data privacy. Features confidential environments and user data protection."
+---
+
 # 👋 Welcome to BlindBox!
 ________________________________________________________
 

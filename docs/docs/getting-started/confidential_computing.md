@@ -1,3 +1,7 @@
+---
+description: "BlindBox's user data protection: Confidential computing technologies, attestation processes, and secure enclave isolation."
+---
+
 # How we protect your data
 _________________________________
 
