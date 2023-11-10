@@ -1,3 +1,7 @@
+---
+description: "Nitro Enclaves by AWS: Secure compute environments on EC2 VM instances. Learn about TEE advantages and limitations."
+---
+
 # Nitro Enclaves
 ________________________________________
 

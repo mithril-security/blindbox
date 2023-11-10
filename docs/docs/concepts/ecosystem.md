@@ -1,3 +1,7 @@
+---
+description: "Confidential Computing ecosystem and BlindBox: Secure enclave tooling for Cloud providers with hardware and cloud solutions."
+---
+
 # The Confidential Computing ecosystem
 _______________________________
 
